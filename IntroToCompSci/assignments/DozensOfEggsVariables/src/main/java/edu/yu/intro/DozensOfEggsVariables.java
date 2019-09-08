@@ -12,7 +12,7 @@ public class DozensOfEggsVariables {
 		double CostPerBox = 0.72;
 		double TotalCost = EggBoxes * CostPerBox;
 
-		System.out.println("Your number of eggs (" + EggsToPack + ") gets packed into " + EggBoxes + "  boxes and " + RemaindingEggs + " extra eggs");	
+		System.out.println("Your number of eggs (" + EggsToPack + ") gets packed into " + EggBoxes + " boxes and " + RemaindingEggs + " extras");	
 		System.out.println("Total packaging cost: $" + TotalCost);	
 	
 	}
