@@ -1,4 +1,4 @@
-package edu.yu.intro ;
+package edu.yu.intro;
 
 /** " Dozens Of Eggs Variables " for Intro To Comp Sci
 *
