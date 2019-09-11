@@ -12,7 +12,7 @@ public class GrossesAndDozensWithIO {
 
 		Scanner input = new Scanner(System.in); // Allows computer to read input
 
-		System.out.println("Nu? Enter number of eggs to be converted: ");
+		System.out.printf("Nu? Enter number of eggs to be converted: ");
 
 
 

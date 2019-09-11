@@ -32,6 +32,10 @@ public class ConditionalEmployeePay {
 		double netPay = grossPay - taxes - deductions - pension;
 		double averagePay = netPay / hoursWorked;
 
+			if (netPay < 0) {
+			System.out.println("Your net pay is negative. Please advise.");
+			System.exit (0);
+		}	
 		if (hoursWorked < 1) {
 			System.out.println("You have not worked enough hours. Come back when you have worked at least one hour.");
 			System.exit (0);
@@ -48,6 +52,7 @@ public class ConditionalEmployeePay {
 			System.out.println("Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.");
 			System.exit (0);
 		}
+
 
 		System.out.println("*************************************************");
 		System.out.println("");
