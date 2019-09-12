@@ -16,21 +16,23 @@ public class GrossesAndDozensWithIO {
 
 
 
-		int EggsToPack = input.nextInt ();
-		int EggBoxes = EggsToPack / 12;
-		int RemaindingEggs = EggsToPack % 12;
-		int grossEggs = EggsToPack / 144;
+		int eggsToPack = input.nextInt ();                                 // equal to number of input
+		int grossEggs = eggsToPack / 144;                                  // Total amount of gross eggs
+		int remaindingGrossEggs = grossEggs % 12;                          // Remainder of gross eggs
+		int remaindingDozensOfEggs = eggsToPack - (grossEggs * 144);        // How many eggs are left after the gross eggs
+		int dozenOfEggs = remaindingDozensOfEggs / 12;                     // Remainding eggs post gross divided into dozens
+		int remaindingEggs = remaindingGrossEggs %12;                      // Total remainding eggs
 
 		System.out.println("*************************************************");
 
 		
 		System.out.println("INPUT ...");
-		System.out.printf("%-20s %10d %n" , "Number of eggs:" , EggsToPack);
+		System.out.printf("%-20s %10d %n" , "Number of eggs:" , eggsToPack);
 
 		System.out.println("OUTPUT ..."); 
 		System.out.printf("%-20s %10d %n" , "# of gross:     " , grossEggs);
-		System.out.printf("%-20s %10d %n" , "# of dozens:    " , EggBoxes);
-		System.out.printf("%-20s %10d %n" , "# of extras:    " , RemaindingEggs);	
+		System.out.printf("%-20s %10d %n" , "# of dozens:    " , dozenOfEggs);
+		System.out.printf("%-20s %10d %n" , "# of extras:    " , remaindingEggs);	
 
 
 		System.out.println("*************************************************");
