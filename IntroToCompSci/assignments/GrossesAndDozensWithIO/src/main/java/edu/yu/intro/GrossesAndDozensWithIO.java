@@ -21,7 +21,7 @@ public class GrossesAndDozensWithIO {
 		int remaindingGrossEggs = grossEggs % 12;                          // Remainder of gross eggs
 		int remaindingDozensOfEggs = eggsToPack - (grossEggs * 144);        // How many eggs are left after the gross eggs
 		int dozenOfEggs = remaindingDozensOfEggs / 12;                     // Remainding eggs post gross divided into dozens
-		int remaindingEggs = remaindingGrossEggs %12;                      // Total remainding eggs
+		int remaindingEggs = remaindingDozensOfEggs %12;                      // Total remainding eggs
 
 		System.out.println("*************************************************");
 
