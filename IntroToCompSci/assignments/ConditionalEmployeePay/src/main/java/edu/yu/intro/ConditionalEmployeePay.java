@@ -12,10 +12,10 @@ public class ConditionalEmployeePay {
 
 		Scanner input = new Scanner(System.in);
 
-		System.out.println("What is your employee id? ");
-		System.out.println("How many hours have you worked? ");
-		System.out.println("What is your wage rate? Please enter as a number without the $ sign. Ex. 15.25");
-		System.out.println("How many deductions do you have? ");
+		System.out.print("Enter employeeId, hrsWorked, wageRate, deductions: ");
+		// System.out.println("How many hours have you worked? ");
+		// System.out.println("What is your wage rate? Please enter as a number without the $ sign. Ex. 15.25");
+		// System.out.println("How many deductions do you have? ");
 
 		String empId = input.next ();
 		double hoursWorked = input.nextDouble ();
@@ -43,27 +43,27 @@ public class ConditionalEmployeePay {
 
 
 		
-		if (netPay < 0) {
-			System.out.println("Your net pay is negative. Please advise.");
-			System.exit (0);
-		}	
 		if (hoursWorked < 1) {
-			System.out.println("You have not worked enough hours. Come back when you have worked at least one hour.");
+			System.out.println("\nERROR: You have not worked enough hours. Come back when you have worked at least one hour.");
 			System.exit (0);
 		}
+		
 		if (wageRate < 15.00) {
-			System.out.println("You must make at least $15.00 per hour. You must input without a dollar sign ($), and please use two decimal places (ex. 15.00).");
+			System.out.println("\nERROR: Your wage rate must be at least $15.00 per hour. You must input without a dollar sign ($), and please use two decimal places (ex. 15.00).");
 			System.exit (0);
 		}
 		if (deductions <= 0) {
-			System.out.println("Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.");
+			System.out.println("\nERROR: Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.");
 			System.exit (0);
 		}
-		if (deductions > 35) {
-			System.out.println("Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.");
+		if (deductions >= 35) {
+			System.out.println("\nERROR: Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.");
 			System.exit (0);
 		}
-
+		if (netPay < 0) {
+			System.out.println("\nERROR: Your net pay is negative. Please advise.");
+			System.exit (0);
+		}	
 
 		
 
