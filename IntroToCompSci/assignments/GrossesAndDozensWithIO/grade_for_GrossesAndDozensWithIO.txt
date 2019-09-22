@@ -1,0 +1,19 @@
+Grade for assignment [BohbotTom]: 10/10
+Pulled files on Wed Sep 18 09:56:19 EDT 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/GrossesAndDozensWithIO.java was on: Thu Sep 12 14:18:18 2019
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Grade for assignment [BohbotTom]: /10
+Pulled files on Wed Sep 18 10:25:52 EDT 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/GrossesAndDozensWithIO.java was on: Thu Sep 12 14:18:18 2019
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Nu? Enter number of eggs to be converted: *************************************************
+INPUT ...
+Number of eggs:            1342 
+OUTPUT ...
+# of gross:                   9 
+# of dozens:                  3 
+# of extras:                 10 
+*************************************************
