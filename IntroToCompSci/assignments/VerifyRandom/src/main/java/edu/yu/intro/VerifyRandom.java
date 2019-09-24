@@ -20,7 +20,7 @@ public class VerifyRandom {
 		double totalCombinedRolls = 0;
 
 
-		for (i =1; i <=10000; i++){
+		//for (i =1; i <=10000; i++){
 
 			while (snakeEyes < 10000) {
 		
@@ -34,7 +34,7 @@ public class VerifyRandom {
 				
 			}	
 
-	}
+	//}
 
 		int totalLoops = 10000;
 		double averageSimProb = 10000 / rollsUntilSnakeEyes;
