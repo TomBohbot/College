@@ -18,42 +18,25 @@ public class ShareSameBirthday {
 		int [] bdayRangeTwenty = new int [23];
 		int [] bdayRangeSeventy = new int [70];
 
-		int i = 0;
-		int iTwenty	= 0;
-		int iSeventy = 0;
-
-		int testForMatch = 0;
-		int matchingBirthdayTen = 0;
-		int matchingBirthdayTwenty = 0;
-		int matchingBirthdaySeventy = 0;
-
 		Double matchTen = 0.0;
 		Double matchTwenty = 0.0;
 		Double matchSeventy = 0.0;
-
-		int birthdayTen  = 0;	
-		int birthdayTwenty  = 0;	
-		int birthdaySeventy  = 0;
-
-		int tenCase = 0;
-		int twentyCase = 0;
-		int seventyCase = 0;
 
 		String breakLoopTen = "Don't break.";
 		String breakLoopTwenty = "Don't break.";
 		String breakLoopSeventy = "Don't break.";
 
-		for (birthdayTen = 0; birthdayTen <= 10000; birthdayTen ++)	{
+		for (int birthdayTen = 0; birthdayTen <= 10000; birthdayTen ++)	{
 
 // 10 PEOPLE:
 
-			for (tenCase = 0; tenCase <= 9; tenCase ++) {
+			for (int tenCase = 0; tenCase <= 9; tenCase ++) {
 				bdayRangeTen[tenCase] = random.nextInt (365) + 1;
 
 			}
-				for (i = 0; i <= 9; i++) {
+				for (int i = 0; i <= 9; i++) {
 
-					for (matchingBirthdayTen = i + 1; matchingBirthdayTen <= 9; matchingBirthdayTen++) {
+					for (int matchingBirthdayTen = i + 1; matchingBirthdayTen <= 9; matchingBirthdayTen++) {
 						if (bdayRangeTen[i]==(bdayRangeTen[matchingBirthdayTen])){
 							matchTen = matchTen +1;
 							breakLoopTen = "BREAK";
@@ -61,8 +44,8 @@ public class ShareSameBirthday {
 						}
 
 					}
-					if (breakLoopTen == "BREAk") {
-						breakLoopTwenty = "Don't break.";
+					if (breakLoopTen == "BREAK") {
+						breakLoopTen = "Don't break.";
 						break;
 					}
 						
@@ -71,13 +54,13 @@ public class ShareSameBirthday {
 			
 // 23 PEOPLE:
 
-			for (twentyCase = 0; twentyCase <= 22; twentyCase ++) {
+			for (int twentyCase = 0; twentyCase <= 22; twentyCase ++) {
 				bdayRangeTwenty[twentyCase] = random.nextInt (365) + 1;
 
 			}
-				for (iTwenty = 0; iTwenty <= 22; iTwenty++){
+				for (int iTwenty = 0; iTwenty <= 22; iTwenty++){
 
-					for (matchingBirthdayTwenty = iTwenty + 1; matchingBirthdayTwenty <= 22; matchingBirthdayTwenty++){
+					for (int matchingBirthdayTwenty = iTwenty + 1; matchingBirthdayTwenty <= 22; matchingBirthdayTwenty++){
 						if (bdayRangeTwenty[iTwenty]==(bdayRangeTwenty[matchingBirthdayTwenty])){
 							matchTwenty = matchTwenty +1;
 							breakLoopTwenty = "BREAK";
@@ -96,13 +79,13 @@ public class ShareSameBirthday {
 
 // 70 PEOPLE:
 
-			for (seventyCase = 0; seventyCase <= 69; seventyCase ++) {
+			for (int seventyCase = 0; seventyCase <= 69; seventyCase ++) {
 				bdayRangeSeventy[seventyCase] = random.nextInt (365) + 1;
 
 			}
-				for (iSeventy = 0; iSeventy <= 69; iSeventy++){
+				for (int iSeventy = 0; iSeventy <= 69; iSeventy++){
 
-					for (matchingBirthdaySeventy = iSeventy + 1; matchingBirthdaySeventy <= 69; matchingBirthdaySeventy++){
+					for (int matchingBirthdaySeventy = iSeventy + 1; matchingBirthdaySeventy <= 69; matchingBirthdaySeventy++){
 						if (bdayRangeSeventy[iSeventy] == bdayRangeSeventy[matchingBirthdaySeventy]){
 							matchSeventy = matchSeventy +1;
 							breakLoopSeventy = "BREAK";
@@ -120,12 +103,14 @@ public class ShareSameBirthday {
 				}
 		}
 		
+		
 
-//	Test Output		System.out.println("Matching Birthdays For 10 People: " + matchTen);
-//	Test Output		System.out.println("Matching Birthdays For 23 People: " + matchTwenty);
-//	Test Output		System.out.println("Matching Birthdays For 70 People: " + matchSeventy);
 
-		int expirementsRun = 10000;
+		// System.out.println("Matching Birthdays For 10 People: " + matchTen);
+		// System.out.println("Matching Birthdays For 23 People: " + matchTwenty);
+		// System.out.println("Matching Birthdays For 70 People: " + matchSeventy);
+
+		double expirementsRun = 10000.0;
 		double tenBdayStat = (matchTen / expirementsRun);
 		double twentyBdayStat = (matchTwenty / expirementsRun);
 		double seventyBdayStat = (matchSeventy/expirementsRun);
