@@ -35,9 +35,9 @@ public class ExceptionalEmployeePay {
 		double wageRate = 0;
 		int deductions = 0;	
 
-		String hoursWorkedstring = "Sample";
- 		String wageRatestring = "Sample";
- 		String deductionsstring = "Sample";
+		String hoursWorkedString = "Sample";
+ 		String wageRateString = "Sample";
+ 		String deductionsString = "Sample";
 
 		String lineFromNextLine = "Sample";	
 // END: Variables needed for Scanner   														*********************************************************
@@ -68,71 +68,36 @@ public class ExceptionalEmployeePay {
 
 			int lineNumber = 1;
 
-			while (scanner.hasNext() ){										
+			while (scanner.hasNextLine() ){										
 				lineFromNextLine = scanner.nextLine ();
 				lineCounter = lineCounter + 1;
 // END: Attempt I made to make scanning files work and variables for scanner:				xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 // BEGINNING: String Tokenizer into seperate strings and converting to appropiate type		*********************************************************
 				StringTokenizer tokenizer = new StringTokenizer(lineFromNextLine);
-		 	// 	while (tokenizer.hasMoreTokens()) {
-		 	// 		try {
-			 // 			empId = tokenizer.nextToken();
-			 // 			hoursWorkedstring = tokenizer.nextToken();
-			 // 			wageRatestring = tokenizer.nextToken();
-			 // 			deductionsstring = tokenizer.nextToken();
-		 	// 		} catch (NoSuchElementException e){
-				// 		System.out.println("Problem at line # " + lineCounter + ": Expected 4 tokens per line, found (token counter).  Discarding input & advancing.");
-				// 		grossPayConditional = "Break";
-				// 		taxConditional = "Break";
-				// 	}
-		 	// 	}
-		 	// 	try {
-				// 	hoursWorked = Double.parseDouble(hoursWorkedstring);
-				// } catch (NumberFormatException e) {
-				// System.out.println("Problem at line # " + lineCounter + ": Could not parse Hours Worked [" + hoursWorkedstring + "] into valid input");
-				// } try {
-				// 	wageRate = Double.parseDouble(wageRatestring);
-				// } catch (NumberFormatException e) {
-				// System.out.println("Problem at line # " + lineCounter + ": Could not parse Wage Rate [" + wageRatestring + "] into valid input");
-				// } try {
-				// 	deductions = Integer.parseInt(deductionsstring);
-				// } catch (NumberFormatException e) {
-				// System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsstring + "] into valid input");
-				// }
-
+				int allTokens = tokenizer.countTokens();
 
 				try {
-//**********************//**********************//**********************//**********************//**********************//**********************//**********************//**********************					
-					while (tokenizer.hasMoreTokens()) {
-				 			empId = tokenizer.nextToken();
-				 				totalTokenPerLine = totalTokenPerLine + 1;
-				 			hoursWorkedstring = tokenizer.nextToken();
-				 				totalTokenPerLine = totalTokenPerLine + 1;
-				 			wageRatestring = tokenizer.nextToken();
-				 				totalTokenPerLine = totalTokenPerLine + 1;
-				 			deductionsstring = tokenizer.nextToken();
-				 				totalTokenPerLine = totalTokenPerLine + 1;
-		 			}
+					if (allTokens != 4) {
+						throw new IllegalArgumentException();
+					}
 
+				 	empId = tokenizer.nextToken();
 
 			 		try {
-						hoursWorked = Double.parseDouble(hoursWorkedstring);
+						hoursWorked = Double.parseDouble(tokenizer.nextToken());
+						totalTokenPerLine = 0;
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Hours Worked [" + hoursWorkedstring + "] into valid input");
+					System.out.println("Problem at line # " + lineCounter + ": Could not parse Hours Worked [" + hoursWorkedString + "] into valid input");
 					} try {
-						wageRate = Double.parseDouble(wageRatestring);
+						wageRate = Double.parseDouble(tokenizer.nextToken());
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Wage Rate [" + wageRatestring + "] into valid input");
+					System.out.println("Problem at line # " + lineCounter + ": Could not parse Wage Rate [" + wageRateString + "] into valid input");
 					} try {
-						deductions = Integer.parseInt(deductionsstring);
+						deductions = Integer.parseInt(tokenizer.nextToken());
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsstring + "] into valid input");
+					System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsString + "] into valid input");
 					}
-//**********************//**********************//**********************//**********************//**********************//**********************//**********************//**********************//**********************
-					hoursWorked = Double.parseDouble(hoursWorkedstring);
-					wageRate = Double.parseDouble(wageRatestring);
-					deductions = Integer.parseInt(deductionsstring);
 
 					grossPay = hoursWorked * wageRate;
 					taxes = grossPay * taxRate;
@@ -162,12 +127,11 @@ public class ExceptionalEmployeePay {
 // END: Conditionals That Test For Errors That Java Will Still Run							*********************************************************		
 
 				} catch (NumberFormatException e) {
-					// System.out.println("Problem at line # " + lineCounter + ": Could not parse (Variable) [XXX] into valid input");
 					totalTokenPerLine = 0;
 					grossPayConditional = "Break";
 					taxConditional = "Break";
-				 } catch (NoSuchElementException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Expected 4 tokens per line, found " + totalTokenPerLine + ").  Discarding input & advancing.");
+				 } catch (IllegalArgumentException e) {
+					System.out.println("Problem at line # " + lineCounter + ": Expected 4 tokens per line, found " + allTokens + ".  Discarding input & advancing.");
 					totalTokenPerLine = 0;
 					grossPayConditional = "Break";
 					taxConditional = "Break";
