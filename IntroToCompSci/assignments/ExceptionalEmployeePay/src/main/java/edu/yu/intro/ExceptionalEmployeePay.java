@@ -1,6 +1,6 @@
 package edu.yu.intro;
 
-/** " ExceptionalEmployeePay " Assignment #3b
+/** " ExceptionalEmployeePay " Assignment #6
 *
 * @author Tom Bohbot
 */
@@ -40,6 +40,7 @@ public class ExceptionalEmployeePay {
  		String deductionsString = "Sample";
 
 		String lineFromNextLine = "Sample";	
+		String numbFormExcept = "Valid";
 // END: Variables needed for Scanner   														*********************************************************
 
 //BEGINNING: Variables needed for Output 													*********************************************************
@@ -83,20 +84,26 @@ public class ExceptionalEmployeePay {
 					}
 
 				 	empId = tokenizer.nextToken();
+				 	hoursWorkedString = tokenizer.nextToken();
+		 			wageRateString = tokenizer.nextToken();
+		 			deductionsString = tokenizer.nextToken();
 
 			 		try {
-						hoursWorked = Double.parseDouble(tokenizer.nextToken());
+						hoursWorked = Double.parseDouble(hoursWorkedString);
 						totalTokenPerLine = 0;
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Hours Worked [" + hoursWorkedString + "] into valid input");
+						System.out.println("Problem at line # " + lineCounter + ": Could not parse Hours Worked [" + hoursWorkedString + "] into valid input");
+						numbFormExcept = "Not Valid";
 					} try {
-						wageRate = Double.parseDouble(tokenizer.nextToken());
+						wageRate = Double.parseDouble(wageRateString);
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Wage Rate [" + wageRateString + "] into valid input");
+						System.out.println("Problem at line # " + lineCounter + ": Could not parse Wage Rate [" + wageRateString + "] into valid input");
+						numbFormExcept = "Not Valid";
 					} try {
-						deductions = Integer.parseInt(tokenizer.nextToken());
+						deductions = Integer.parseInt(deductionsString);
 					} catch (NumberFormatException e) {
-					System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsString + "] into valid input");
+						System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsString + "] into valid input");
+						numbFormExcept = "Not Valid";
 					}
 
 					grossPay = hoursWorked * wageRate;
@@ -121,6 +128,8 @@ public class ExceptionalEmployeePay {
 					else if (netPay < 0) {
 						System.out.println("ERROR: Line Number " + lineCounter + ". Your net pay is negative. Please advise.");
 					}	
+					else if (numbFormExcept == "Not Valid") {
+					}
 					else {
 						System.out.printf("%20s %-20.2f %-20.2f %-20.2f %-20.2f %n" ,empId , grossPay , taxes , netPay , averagePay);
 					}
@@ -138,7 +147,7 @@ public class ExceptionalEmployeePay {
 				}
 				
 				if (grossPayConditional == "Don't Break"){
-					if (hoursWorked >=1 && wageRate >= 15){
+					if (hoursWorked >=1 && wageRate >= 15 && deductions < 35 && numbFormExcept == "Valid") {
 						totalGrossPay = totalGrossPay + grossPay;
 						if (grossPay > highestPay) {
 							highestPay = grossPay;
@@ -147,12 +156,13 @@ public class ExceptionalEmployeePay {
 					}
 				}
 				if (taxConditional == "Don't Break"){
-					if (hoursWorked >=1 && wageRate >= 15){
+					if (hoursWorked >=1 && wageRate >= 15 && deductions < 35 && numbFormExcept == "Valid") {
 						totalTaxes = totalTaxes + taxes;
 						}
 					}
 			grossPayConditional = "Don't Break";
 			taxConditional = "Don't Break";
+			numbFormExcept = "Valid";
 			}   
 
 			System.out.println("");
