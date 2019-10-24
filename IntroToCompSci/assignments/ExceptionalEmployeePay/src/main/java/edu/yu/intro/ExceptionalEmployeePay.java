@@ -104,6 +104,7 @@ public class ExceptionalEmployeePay {
 					} catch (NumberFormatException e) {
 						System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsString + "] into valid input");
 						numbFormExcept = "Not Valid";
+						
 					}
 
 					grossPay = hoursWorked * wageRate;
