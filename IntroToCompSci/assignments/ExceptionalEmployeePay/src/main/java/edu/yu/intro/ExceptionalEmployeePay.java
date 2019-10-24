@@ -184,7 +184,6 @@ public class ExceptionalEmployeePay {
 
 		}
 	}
-	
 }
 // REAL FINAL VERSION
 		
