@@ -104,7 +104,7 @@ public class ExceptionalEmployeePay {
 					} catch (NumberFormatException e) {
 						System.out.println("Problem at line # " + lineCounter + ": Could not parse Deductions [" + deductionsString + "] into valid input");
 						numbFormExcept = "Not Valid";
-						
+
 					}
 
 					grossPay = hoursWorked * wageRate;
@@ -128,6 +128,8 @@ public class ExceptionalEmployeePay {
 					}
 					else if (netPay < 0) {
 						System.out.println("ERROR: Line Number " + lineCounter + ". Your net pay is negative. Please advise.");
+						totalTaxes = totalTaxes - taxes;
+						totalGrossPay = totalGrossPay - grossPay;
 					}	
 					else if (numbFormExcept == "Not Valid") {
 					}
@@ -148,7 +150,7 @@ public class ExceptionalEmployeePay {
 				}
 				
 				if (grossPayConditional == "Don't Break"){
-					if (hoursWorked >=1 && wageRate >= 15 && deductions < 35 && numbFormExcept == "Valid") {
+					if (hoursWorked >=1 && wageRate >= 15 && deductions > 0 && deductions < 35 && numbFormExcept == "Valid") {
 						totalGrossPay = totalGrossPay + grossPay;
 						if (grossPay > highestPay) {
 							highestPay = grossPay;
@@ -157,7 +159,7 @@ public class ExceptionalEmployeePay {
 					}
 				}
 				if (taxConditional == "Don't Break"){
-					if (hoursWorked >=1 && wageRate >= 15 && deductions < 35 && numbFormExcept == "Valid") {
+					if (hoursWorked >=1 && wageRate >= 15 && deductions > 0 && deductions < 35 && numbFormExcept == "Valid") {
 						totalTaxes = totalTaxes + taxes;
 						}
 					}
