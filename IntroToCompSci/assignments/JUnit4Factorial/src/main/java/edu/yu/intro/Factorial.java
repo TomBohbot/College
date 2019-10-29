@@ -42,8 +42,7 @@ public class Factorial {
 				passedCounter = counter - 1;
 			}
 		}
-		// return totalFactorialValue;
-		return factorValue[counter];
+		return totalFactorialValue;
 	}
 
 	public static long[] factorialTable() {
@@ -77,5 +76,6 @@ public class Factorial {
 		}
 		System.out.println("********************");
 		return factorValue;
+		//return factorValue;
 	}
 }
