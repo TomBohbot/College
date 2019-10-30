@@ -11,6 +11,15 @@ public class Factorial {
 
 	public static void main (final String [] args) {
 		long factorialTableMethod[] = factorialTable();
+
+		System.out.println("********************");
+		// System.out.println("Factorial " + Arrays.toString(factorialTableMethod));
+		int counter = 0;
+		while (counter <= 20) {
+			System.out.println("Factorial ( " + counter + ") = " + factorialTableMethod[counter]);
+			counter = counter + 1;
+		}
+		System.out.println("********************");
 	}
 
 	public static long factorial (int n) { 
@@ -46,7 +55,7 @@ public class Factorial {
 	}
 
 	public static long[] factorialTable() {
-		System.out.println("********************");
+		// System.out.println("********************");
 		int counter = 0;
 		int passedCounter = 0;
 		long totalFactorialValue = 0;
@@ -56,25 +65,25 @@ public class Factorial {
 			if (counter == 0) {
 				factorValue[0] = 1;
 				totalFactorialValue = 0;
-				System.out.println("Factorial ( " + counter + ") = " + factorValue[counter]);
+				// System.out.println("Factorial ( " + counter + ") = " + factorValue[counter]);
 				counter = 1;
 			}
 			if (counter >= 1 && counter <= 9) {
 				totalFactorialValue = counter * factorValue[passedCounter];
 				factorValue [counter] = totalFactorialValue;
-				System.out.println("Factorial ( " + counter + ") = " + factorValue[counter]);
+				// System.out.println("Factorial ( " + counter + ") = " + factorValue[counter]);
 				counter = counter + 1;
 				passedCounter = counter - 1;
 			}
 			if (counter >= 10) {
 				totalFactorialValue = counter * factorValue[passedCounter];
 				factorValue [counter] = totalFactorialValue;
-				System.out.println("Factorial (" + counter + ") = " + factorValue[counter]);
+				// System.out.println("Factorial (" + counter + ") = " + factorValue[counter]);
 				counter = counter + 1;
 				passedCounter = counter - 1;
 			}
 		}
-		System.out.println("********************");
+		// System.out.println("********************");
 		return factorValue;
 		//return factorValue;
 	}
