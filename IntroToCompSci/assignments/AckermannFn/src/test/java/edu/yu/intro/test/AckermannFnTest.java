@@ -24,28 +24,40 @@ public class AckermannFnTest {
 		assertEquals("testing when m = 1 and n = 0" , 2L , AckermannFn.ackermann(1,0) );
 	}
 	@Test
-	public void TwoThree() {
-		assertEquals("testing when m = 1 and n = 0" , 9L , AckermannFn.ackermann(2,3) );
+	public void TwoTwo() {
+		assertEquals("testing when m = 2 and n = 2" , 7L , AckermannFn.ackermann(2,2) );
 	}
 	@Test
-	public void ThreeZero() {
-		assertEquals("testing when m = 1 and n = 0" , 5L , AckermannFn.ackermann(3,0) );
+	public void OneTwo() {
+		assertEquals("testing when m = 1 and n = 1" , 4L , AckermannFn.ackermann(1,2) );
 	}
-	@Test
-	public void ThreeOne() {
-		assertEquals("testing when m = 1 and n = 0" , 13L , AckermannFn.ackermann(3,1) );
-	}
-	@Test
-	public void ThreeTwo() {
-		assertEquals("testing when m = 1 and n = 0" , 29L , AckermannFn.ackermann(3,2) );
-	}
-	@Test
-	public void ThreeThree() {
-		assertEquals("testing when m = 1 and n = 0" , 61L , AckermannFn.ackermann(3,3) );
-	}
+	// @Test
+	// public void TwoT() {
+	// 	assertEquals("testing when m = 1 and n = 0" , 13L , AckermannFn.ackermann(3,1) );
+	// }
+	// @Test
+	// public void ThreeTwo() {
+	// 	assertEquals("testing when m = 1 and n = 0" , 29L , AckermannFn.ackermann(3,2) );
+	// }
+	// @Test
+	// public void ThreeThree() {
+	// 	assertEquals("testing when m = 1 and n = 0" , 61L , AckermannFn.ackermann(3,3) );
+	// }
 	@Test(expected = StackOverflowError.class)
 	public void StackOverflowError () {
 		AckermannFn.ackermann(4,1);
+	}
+	// @Test(expected = StackOverflowError.class)
+	// public void StackOverflowErrorv2 () {
+	// 	AckermannFn.ackermann(1,4);
+	// }
+	@Test(expected = StackOverflowError.class)
+	public void StackOverflowErrorv3 () {
+		AckermannFn.ackermann(4,4);
+	}
+	@ Test (expected = IllegalArgumentException.class)
+	public void IllegalArgumentException () {
+		AckermannFn.ackermann(-1,1);
 	}
 
 

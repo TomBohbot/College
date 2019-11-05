@@ -32,7 +32,7 @@ public class AckermannFn {
 		long ackResult = 0;
 
 		if (m < 0L || n < 0L) {
-			throw new IllegalArgumentException ("Ackermanm's  function only works with nonnegative integers. Please input nonnegative integers.");
+			throw new IllegalArgumentException ("Ackermanm's function only works with nonnegative integers. Please input nonnegative integers.");
 		} else if (m == 0L) {
 			ackResult = n + 1L;
 		} else if (n == 0L) {
