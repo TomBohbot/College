@@ -13,103 +13,133 @@ public class FindingPrimes {
 
 	public final static int MAX_LIMIT = 10000;
 
+	public static boolean isPrime ( final int N ) {
+		// Double squareRootDouble = 0.0;												// Required -- Nope
+		// Double floorSquareRoot = 0.0;												// Required -- Nope
+		// int prevSquareRoot = 1;														// Required -- Nope
+		// int roundedSquareRoot = 1;													// Required -- Nope
+		// boolean isPrime = false; 													// Required -- Nope
+		// // int listOfPrimes [] = new int [9999];										// Not Required -- Nope
+		// // int arrayCounter = 0;														// Not Required -- Nope
+		// int counter = 0;																// Required -- Nope
+
+		// for (int i =2; i <= 10000*10000; i ++) {										// When I was testing in main.
+		if (N < 2 || N > MAX_LIMIT) {
+			throw new IllegalArgumentException ("Please input an integer greater than one and less than the max limit.");
+		}
+		for (int i =2; i <= Math.round(Math.sqrt(N)); i ++) {							// Most of these notes are for when I tested in main. Will try to never test in main again!
+			// prevSquareRoot = roundedSquareRoot;										// Checking Previous square root to current square root.
+			// squareRootDouble = Math.sqrt(i);											// Process of finding square root as a Double.
+			// System.out.println("squareRootDouble=" + roundedSquareRoot);
+			// floorSquareRoot = Math.floor(squareRootDouble);							// Process of finding square root and converting to int.
+			// System.out.println("floorSquareRoot=" + roundedSquareRoot);
+			// roundedSquareRoot = (int) Math.round(floorSquareRoot);					// This is the square root of i as an int.
+			// System.out.println("roundedSquareRoot=" + roundedSquareRoot);
+			// primeChecker = true;
+			// // listOfPrimes [arrayCounter] = roundedSquareRoot;	
+			// if (prevSquareRoot == roundedSquareRoot) {								// If there is the same square root, then it is a repeating error so skip it.
+			// 	primeChecker = false;
+			// 	continue;									
+			// }
+			// else {
+			if ( N % i == 0){
+				return false;
+			}	
+		}
+		return true;																// If not repeating then all is good.
+			// 	primeChecker = true;
+			// 	for (int j = 2; j < roundedSquareRoot; j ++) {						// Doesn't include sqrt b/c anything modum itself is zero, so does not help to conclude if prime.
+			// 		// roundedSquareRoot = N;
+			// 		if (roundedSquareRoot % j == 0) {	
+			// 			primeChecker = false;
+			// 			return primeChecker;		
+			// 		}
+			// 	}
+			// // }
+			// 	if (roundedSquareRoot < 2 || roundedSquareRoot > MAX_LIMIT) {		// Assignment requirements. Moved up in code due to not requiing two loops. Required two loops because I tried doing everything om one method originally.
+			// 		throw new IllegalArgumentException ("ERROR: Number must be greater than one or smaller than 10,000.");
+			// 	}
+			// 	if (isPrime == true ){
+			// 		// listOfPrimes [counter] = roundedSquareRoot;
+			// 		// System.out.println(roundedSquareRoot);						 // When I used this as main.!!!
+			// 		counter = counter + 1;
+			// 		return primeChecker;
+			// 		// return primeChecker;
+			// 	}
+		// int finalListOfPrimes[] = new int [counter + 1];
+		// for (int k = 0; k <= counter; k++) {
+		// 	finalListOfPrimes[k] = listOfPrimes[k];
+		// }
+		// primeChecker = false;
+		// return primeChecker;
+
+	}
+
 	public static int [] primes ( final int N ) {
-		Double squareRootDouble = 0.0;
-		Double floorSquareRoot = 0.0;
-		int prevSquareRoot = 1;
-		int roundedSquareRoot = 1;
-		String primeChecker = "Pending";
-		int listOfPrimes [] = new int [9999];
-		int arrayCounter = 0;
+		int primeChecker;
+		boolean isPrimeMethod;
+		//System.out.println("is prime num?" + primeChecker)
+		int [] primeNumberArray = new int [MAX_LIMIT];
 		int counter = 0;
 
-		for (int i =2; i <= 10000*10000; i ++) {
-			prevSquareRoot = roundedSquareRoot;										// Checking Previous square root to current square root.
-			squareRootDouble = Math.sqrt(i);										// Process of fidning square root.
-			floorSquareRoot = Math.floor(squareRootDouble);							// Process of fidning square root.
-			roundedSquareRoot = (int) Math.round(floorSquareRoot);					// This is the square root of i.
-			primeChecker = "True";
-			// listOfPrimes [arrayCounter] = roundedSquareRoot;	
-			if (prevSquareRoot == roundedSquareRoot) {								// If there is the same square root, then it is a repeating error so skip it.
-				continue;									
-			}
-			else {																	// If not repeating then all is good.
-				primeChecker = "True";
-				// System.out.println(roundedSquareRoot);
-				for (int j = 2; j < roundedSquareRoot; j ++) {	
-					if (roundedSquareRoot % j == 0) {		// Check if square root modum every number until square root = 0, if it does then not prime.
-						primeChecker = "False";
-						break;		
-					}
-				}
-			}
-				if (primeChecker == "True" ){
-					// System.out.println(roundedSquareRoot);
-					listOfPrimes [counter] = roundedSquareRoot;
-					counter = counter + 1;
-				}
+		if (N < 2 || N > MAX_LIMIT) {
+			throw new IllegalArgumentException ("Please input an integer greater than one and less than the max limit.");
 		}
-		int finalListOfPrimes[] = new int [counter + 1];
-		for (int k = 0; k <= counter; k++) {
-			finalListOfPrimes[k] = listOfPrimes[k];
-			// System.out.println(finalListOfPrimes[k]);
+		for (primeChecker = 2; primeChecker <= N; primeChecker ++) {
+			isPrimeMethod = isPrime(primeChecker);
+			if (isPrimeMethod) {
+
+				primeNumberArray[counter] = primeChecker;
+				counter = counter + 1;
+				// System.out.println(primeChecker); // Checking when this was part of the main.
+			}	
+		}
+		int finalListOfPrimes[] = new int [counter];
+		for (int k = 0; k < counter; k++) {
+			finalListOfPrimes[k] = primeNumberArray[k];
+			// System.out.println(finalListOfPrimes[k]); // Checking when this was part of the main.
 		}
 		return finalListOfPrimes;
 
 	}
 
-	public static boolean isPrime ( final int N ) {
-		int primeNumber = 0;
-		boolean ifPrime = false;
-		int allPrimes [] = primes(primeNumber);
-		for (int i = 2; i <= 10000; i ++) {
-			for (int j = 0; j <= 10000; j ++) {
-				if (i == (allPrimes[j])){
-					ifPrime = true;
-					break;
-				}
-			}
-		}
-		return ifPrime;
-	}
 
 	public static void main (final String [] args) {
-		int primeNumberMethod = 0;
-		int allPrimesScanner [] = primes(primeNumberMethod);
+
+		//int primeNumberMethod = 0;
 		Scanner input = new Scanner(System.in);
 		System.out.print("Nu? Enter the upper limit number that you want to search for primes: ");
 		int maxPrimeNumber = input.nextInt ();
-		int counter = 0;
+		// int searchPrimeNumber = maxPrimeNumber + 1;
 
-		System.out.println("");
-		System.out.println("*************************************************");
-		System.out.println("INPUT ...");
-		System.out.println("Searched for primes up to: " + maxPrimeNumber);
-		System.out.println("OUTPUT ...");
-
-		for (int i = 0; i <= maxPrimeNumber; i ++) {
-			if (allPrimesScanner[i] <= maxPrimeNumber) {
-				counter = counter + 1;
-			}
-			else {
-				System.out.println("Found " + counter + " primes from 2.." + maxPrimeNumber);
-				break;
-			}
+		if (maxPrimeNumber < 2 || maxPrimeNumber > MAX_LIMIT) {
+			throw new IllegalArgumentException ("Please input an integer greater than one and less than the max limit.");
 		}
-		for (int i = 0; i <= maxPrimeNumber; i ++) {
-			if (allPrimesScanner[i] <= maxPrimeNumber) {
+		else {
+
+			int allPrimesScanner [] = primes(maxPrimeNumber);
+			int primeArrayLength = allPrimesScanner.length;
+			System.out.println("");
+			System.out.println("*************************************************");
+			System.out.println("INPUT ...");
+			System.out.println("Searched for primes up to: " + maxPrimeNumber);
+			System.out.println("OUTPUT ...");
+			System.out.println("Found " + primeArrayLength + " primes from 2.." + maxPrimeNumber);
+
+			for (int i = 0; i < primeArrayLength; i ++) {
 				System.out.print (allPrimesScanner[i] + " ");
 			}
-			else {
-				System.out.println("");
-				System.out.println("*************************************************");
-				break;
+			System.out.println("");
+			System.out.println("*************************************************");
+			// 	if (allPrimesScanner[i] <= maxPrimeNumber) {
+					
+			// 	}
+			// 	else {
+			
+			// 		break;
+			// 	}
 			}
-		}
-
+		// }
 	}
 }
-
-
-
 

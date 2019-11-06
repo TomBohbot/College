@@ -1,0 +1,20 @@
+
+Bob
+Bob 40.0
+Bob 40.0 80.2
+Bob 40.0 80.2 24 Bob 
+Bob 40.0 80.2 24 Bob 40.0 
+Bob 40.0 80.2 24 Bob 40.0 80.2
+Bob 40.0 80.2 24 Bob 40.0 80.2 24 
+Bob 40.0 80.2 24  1
+Tom 0.9 15 2
+Tom 1 15 2 1
+Tom 1 14.9 2
+Tom 1 100 0.9
+Tom 1 100 0 
+T0m 1 100 35
+Tom 1 100 36
+Tom Tom 100 10
+Tom 2 Tom 10
+Tom 2 15 Tom
+Tom 2 15 10.0
