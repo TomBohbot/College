@@ -112,10 +112,10 @@ public class FindingPrimes {
 		int maxPrimeNumber = input.nextInt ();
 		// int searchPrimeNumber = maxPrimeNumber + 1;
 
-		if (maxPrimeNumber < 2 || maxPrimeNumber > MAX_LIMIT) {
-			throw new IllegalArgumentException ("Please input an integer greater than one and less than the max limit.");
-		}
-		else {
+		// if (maxPrimeNumber < 2 || maxPrimeNumber > MAX_LIMIT) {
+		// 	throw new IllegalArgumentException ("Please input an integer greater than one and less than the max limit.");
+		// }
+		// else {
 
 			int allPrimesScanner [] = primes(maxPrimeNumber);
 			int primeArrayLength = allPrimesScanner.length;
@@ -127,7 +127,7 @@ public class FindingPrimes {
 			System.out.println("Found " + primeArrayLength + " primes from 2.." + maxPrimeNumber);
 
 			for (int i = 0; i < primeArrayLength; i ++) {
-				System.out.print (allPrimesScanner[i] + " ");
+				System.out.print (allPrimesScanner[i] + ", ");
 			}
 			System.out.println("");
 			System.out.println("*************************************************");
@@ -138,7 +138,7 @@ public class FindingPrimes {
 			
 			// 		break;
 			// 	}
-			}
+			// }
 		// }
 	}
 }

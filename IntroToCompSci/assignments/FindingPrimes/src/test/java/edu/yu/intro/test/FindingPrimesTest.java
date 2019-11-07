@@ -17,8 +17,8 @@ public class FindingPrimesTest {
 		FindingPrimes.isPrime(0);
 	}
 	@Test (expected = IllegalArgumentException.class)
-	public void testingOne () {
-		FindingPrimes.isPrime(1);
+	public void testingNegativeOne () {
+		FindingPrimes.isPrime(-1);
 	}
 	@Test
 	public void testingTwo() {
@@ -31,6 +31,10 @@ public class FindingPrimesTest {
 	@Test
 	public void testing9973() {
 		assertEquals("testing if 9,973 is prime." , true , FindingPrimes.isPrime(9973) );
+	}
+	@Test
+	public void testing8() {
+		assertEquals("testing if 8 is prime." , false , FindingPrimes.isPrime(8) );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void testingTenThousandOne () {
