@@ -1,0 +1,90 @@
+Grade for assignment [BohbotTom]: 10/10
+Pulled files on Fri Nov  8 08:54:01 EST 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/FindingPrimes.java was on: Thu Nov 7 17:31:16 2019
+building Student BohbotTom assignment code base from directory /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/FindingPrimes
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+executing Student BohbotTom main()
+Contents of input file ... 
+
+-1
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Nu? Enter the upper limit number that you want to search for primes: [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:1.6.0:java (default-cli) on project FindingPrimes: An exception occured while executing the Java class. Please input an integer greater than one and less than the max limit. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+Problem invoking 'maven exec:java': aborting this run
+Contents of input file ... 
+
+95
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Nu? Enter the upper limit number that you want to search for primes: 
+*************************************************
+INPUT ...
+Searched for primes up to: 95
+OUTPUT ...
+Found 24 primes from 2..95
+2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 
+*************************************************
+
+Copying Professor's JUnit source files in /Users/avraham/teaching/IntroToCompSci/assignments/FindingPrimes/src/test to Student BohbotTom directory tree in /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/FindingPrimes/src
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Test cases to execute : 2
+Running edu.yu.intro.test.ProfessorFindingPrimesTest
+Execution Started : primesNMustBeGreaterThan1
+Execution Finished : primesNMustBeGreaterThan1
+Execution Started : isPrimeNMustBeGreaterThan1
+Execution Finished : isPrimeNMustBeGreaterThan1
+Execution Started : primesWhereLimitIsPastPrime
+Execution Finished : primesWhereLimitIsPastPrime
+Execution Started : primesNCantExceedMaxLimit
+Execution Finished : primesNCantExceedMaxLimit
+Execution Started : primesWhereLimitIsPrime
+Execution Finished : primesWhereLimitIsPrime
+Execution Started : detectPrime
+Execution Finished : detectPrime
+Execution Started : isPrimeNCantExceedMaxLimit
+Execution Finished : isPrimeNCantExceedMaxLimit
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec - in edu.yu.intro.test.ProfessorFindingPrimesTest
+Running edu.yu.intro.test.FindingPrimesTest
+Execution Started : testingTenThousandOne
+Execution Finished : testingTenThousandOne
+Execution Started : testingTwo
+Execution Finished : testingTwo
+Execution Started : testingNegativeOne
+Execution Finished : testingNegativeOne
+Execution Started : primeArrayTenThousand
+Execution Finished : primeArrayTenThousand
+Execution Started : testing8
+Execution Finished : testing8
+Execution Started : primeArraySeven
+Execution Finished : primeArraySeven
+Execution Started : testing9973
+Execution Finished : testing9973
+Execution Started : testingZero
+Execution Finished : testingZero
+Execution Started : testingTenThousandOneArray
+Execution Finished : testingTenThousandOneArray
+Execution Started : testingSevem
+Execution Finished : testingSevem
+Execution Started : primeArrayFifteen
+Execution Finished : primeArrayFifteen
+Execution Started : ZeroArray
+Execution Finished : ZeroArray
+Execution Started : OneArray
+Execution Finished : OneArray
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in edu.yu.intro.test.FindingPrimesTest
+Test cases executed : 20
+
+Results :
+
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0
+
