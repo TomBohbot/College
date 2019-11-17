@@ -1,0 +1,155 @@
+Grade for assignment [BohbotTom]: 9/10
+Pulled files on Wed Nov 13 09:09:04 EST 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/Rational.java was on: Mon Nov 11 19:06:40 2019
+building Student BohbotTom assignment code base from directory /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/RationalNumbers
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+
+Tom -- figured out a way to deal with the infinite loop problem, only one test failed.
+
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building RationalNumbers 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ RationalNumbers ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ RationalNumbers ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ RationalNumbers ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/RationalNumbers/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ RationalNumbers ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 3 source files to /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/RationalNumbers/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ RationalNumbers ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Test cases to execute : 2
+Running edu.yu.intro.test.ProfessorRationalTest
+Execution Started : testIllegalInvert
+Execution Finished : testIllegalInvert
+Execution Started : testToDouble
+[INFO ] 2019-11-14 21:10:43.099 [Time-limited test] ProfessorRationalTest testToDouble - rational(3, 6) = edu.yu.intro.Rational@2e6f226c
+[INFO ] 2019-11-14 21:10:43.101 [Time-limited test] ProfessorRationalTest testToDouble - toDouble=0.5
+Execution Finished : testToDouble
+Execution Started : testAdd
+[INFO ] 2019-11-14 21:10:43.101 [Time-limited test] ProfessorRationalTest testAdd - rational(2, 50)=edu.yu.intro.Rational@104999fc
+[INFO ] 2019-11-14 21:10:43.102 [Time-limited test] ProfessorRationalTest testAdd - rational(5, 10)=edu.yu.intro.Rational@1e8e6585
+[INFO ] 2019-11-14 21:10:43.102 [Time-limited test] ProfessorRationalTest testAdd - sum=edu.yu.intro.Rational@1ab1f28c
+Execution Finished : testAdd
+Execution Started : testCtor
+[INFO ] 2019-11-14 21:10:43.102 [Time-limited test] ProfessorRationalTest testCtor - rational(3, 6) = edu.yu.intro.Rational@4bb7e5a7
+Execution Finished : testCtor
+Execution Started : testNoArgCtor
+[INFO ] 2019-11-14 21:10:43.103 [Time-limited test] ProfessorRationalTest testNoArgCtor - rational = edu.yu.intro.Rational@25b62032
+Execution Finished : testNoArgCtor
+Execution Started : testNegateNegate
+[INFO ] 2019-11-14 21:10:43.104 [Time-limited test] ProfessorRationalTest testNegateNegate - rational(-3, 6) = edu.yu.intro.Rational@2a21f757
+[INFO ] 2019-11-14 21:10:43.104 [Time-limited test] ProfessorRationalTest testNegateNegate - negated=edu.yu.intro.Rational@2a21f757
+Execution Finished : testNegateNegate
+Execution Started : zeroCannotBeReduced
+Execution Failure : org.junit.runners.model.TestTimedOutException: test timed out after 5 seconds
+Execution Finished : zeroCannotBeReduced
+Execution Started : testInvert
+[INFO ] 2019-11-14 21:10:48.113 [Time-limited test] ProfessorRationalTest testInvert - rational(3, 6) = edu.yu.intro.Rational@2e758496
+[INFO ] 2019-11-14 21:10:48.114 [Time-limited test] ProfessorRationalTest testInvert - inverted=edu.yu.intro.Rational@2e758496
+Execution Finished : testInvert
+Execution Started : testNegate
+[INFO ] 2019-11-14 21:10:48.115 [Time-limited test] ProfessorRationalTest testNegate - rational(3, 6) = edu.yu.intro.Rational@26c022c5
+[INFO ] 2019-11-14 21:10:48.115 [Time-limited test] ProfessorRationalTest testNegate - negated=edu.yu.intro.Rational@26c022c5
+Execution Finished : testNegate
+Execution Started : testZeroDenominator
+Execution Finished : testZeroDenominator
+Execution Started : testReduce
+[INFO ] 2019-11-14 21:10:48.117 [Time-limited test] ProfessorRationalTest testReduce - rational(24, 36)=edu.yu.intro.Rational@56bb9d99
+[INFO ] 2019-11-14 21:10:48.117 [Time-limited test] ProfessorRationalTest testReduce - reduced=edu.yu.intro.Rational@587c793e
+Execution Finished : testReduce
+Tests run: 11, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.272 sec <<< FAILURE! - in edu.yu.intro.test.ProfessorRationalTest
+zeroCannotBeReduced(edu.yu.intro.test.ProfessorRationalTest)  Time elapsed: 5.008 sec  <<< ERROR!
+org.junit.runners.model.TestTimedOutException: test timed out after 5 seconds
+	at edu.yu.intro.test.ProfessorRationalTest.zeroCannotBeReduced(ProfessorRationalTest.java:126)
+
+Running edu.yu.intro.test.FindingRationalNumbersTest
+Execution Started : testingGetNumeratorSecondConstructor
+Execution Finished : testingGetNumeratorSecondConstructor
+Execution Started : testingToDoubleSecondContructorFivaAndTwo
+Execution Finished : testingToDoubleSecondContructorFivaAndTwo
+Execution Started : testingNegateNumeratorSecondConstructor
+Execution Finished : testingNegateNumeratorSecondConstructor
+Execution Started : testingReduce2
+Execution Finished : testingReduce2
+Execution Started : testingReduce3
+Execution Finished : testingReduce3
+Execution Started : testingToDoubleSecondContructor
+Execution Finished : testingToDoubleSecondContructor
+Execution Started : testingInvertDenominatorFirstConstructor
+Execution Finished : testingInvertDenominatorFirstConstructor
+Execution Started : testingAddMethodTwo
+Execution Finished : testingAddMethodTwo
+Execution Started : testingGetDenominator
+Execution Finished : testingGetDenominator
+Execution Started : testingInvertNumeratorFirstConstructor
+Execution Finished : testingInvertNumeratorFirstConstructor
+Execution Started : testingInvertNumeratorSecondConstructor
+Execution Finished : testingInvertNumeratorSecondConstructor
+Execution Started : testingReduce
+Execution Finished : testingReduce
+Execution Started : testingAddMethod
+Execution Finished : testingAddMethod
+Execution Started : testingGetNumeratorFirstConstructor
+Execution Finished : testingGetNumeratorFirstConstructor
+Execution Started : testingToDoubleFirstContructor
+Execution Finished : testingToDoubleFirstContructor
+Execution Started : testingGetDenominatorSecondConstructor
+Execution Finished : testingGetDenominatorSecondConstructor
+Execution Started : testingSecondConstructor
+Execution Finished : testingSecondConstructor
+Execution Started : testingAddMethodThree
+Execution Finished : testingAddMethodThree
+Execution Started : testingNegateDenominatorFirstConstructor
+Execution Finished : testingNegateDenominatorFirstConstructor
+Execution Started : testingNegateNumeratorFirstConstructor
+Execution Finished : testingNegateNumeratorFirstConstructor
+Execution Started : testingInvertDenominatorSecondConstructor
+Execution Finished : testingInvertDenominatorSecondConstructor
+Execution Started : testingNegateDenominatorSecondConstructor
+Execution Finished : testingNegateDenominatorSecondConstructor
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in edu.yu.intro.test.FindingRationalNumbersTest
+Test cases executed : 33
+
+Results :
+
+Tests in error: 
+  ProfessorRationalTest.zeroCannotBeReduced:126 » TestTimedOut test timed out af...
+
+Tests run: 33, Failures: 0, Errors: 1, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.814 s
+[INFO] Finished at: 2019-11-14T21:10:48-05:00
+[INFO] Final Memory: 35M/3925M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project RationalNumbers: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/RationalNumbers/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
