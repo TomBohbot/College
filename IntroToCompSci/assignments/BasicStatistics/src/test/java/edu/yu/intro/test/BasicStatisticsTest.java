@@ -36,6 +36,7 @@ public class BasicStatisticsTest {
 	public void testingGetNDatumsV4 () {
 		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
 		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
+		assertEquals ("testing getNDatums Method." , 8 , statsInstance.getNDatums() );
 		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
 		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
 		assertEquals ("testing getNDatums Method." , 16 , statsInstance.getNDatums() );
@@ -110,9 +111,15 @@ public class BasicStatisticsTest {
 	@Test
 	public void testingGetSumV8 () {
 		statsInstance.enter(new double[] {-1.0 , 2.1 , 3.1 , 4.1});
+		assertEquals("testing getSum Method." , 8.3 , statsInstance.getSum(), 0 ); // error when trying this one. Array out of index error. 
 		statsInstance.enter(1.0);
 		statsInstance.enter(new double[] {-1.0 , 2.1 , 3.1 , 4.1});
 		assertEquals("testing getSum Method." , 17.6 , statsInstance.getSum(), 0 ); // error when trying this one. Array out of index error. 
+	}
+	@Test
+	public void testingGetSumV9 () {
+		double nan = 0/0.0;
+		assertEquals("testing getSum V8 Method." , nan , statsInstance.getSum(), 0.01 );
 	}
 // END: TESTING GetSum METHOD	
 
@@ -120,9 +127,10 @@ public class BasicStatisticsTest {
 	@Test
 	public void testingGetMean () {
 		statsInstance.enter(1.0);
-		statsInstance.enter(-1.0);
-		statsInstance.enter(1.0);
-		assertEquals("testing getMean V1 Method." , 0.333 , statsInstance.getMean(), 0.01 );
+		statsInstance.enter(2.0);
+		assertEquals("testing getMean V1 Method." , 1.5 , statsInstance.getMean(), 0.01 );
+		statsInstance.enter(3.0);
+		assertEquals("testing getMean V1 Method." , 2 , statsInstance.getMean(), 0.01 );
 	}
 	@Test
 	public void testingGetMeanV2 () {
@@ -161,11 +169,23 @@ public class BasicStatisticsTest {
 	}
 	@Test
 	public void testingGetStandardDeviationV1 () {
+		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
+		assertEquals("testing getMean V2 part 1 Method." , 361.913  , statsInstance.getStandardDeviation(), 0.01 );
+		statsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
+		assertEquals("testing getMean V2 part 2 Method." , 361.913  , statsInstance.getStandardDeviation(), 0.01 );
+	}
+	@Test
+	public void testingGetStandardDeviationV10 () {
 		statsInstance.enter(39.8);
 		statsInstance.enter(47.6);
 		statsInstance.enter(22.3);
 		statsInstance.enter(872.1);
-		assertEquals("testing getMean V2 Method." , 361.913  , statsInstance.getStandardDeviation(), 0.01 );
+		assertEquals("testing getMean V2 part 1 Method." , 361.913  , statsInstance.getStandardDeviation(), 0.01 );
+		statsInstance.enter(39.8);
+		statsInstance.enter(47.6);
+		statsInstance.enter(22.3);
+		statsInstance.enter(872.1);
+		assertEquals("testing getMean V2 part 2 Method." , 361.913  , statsInstance.getStandardDeviation(), 0.01 );
 	}
 	@Test
 	public void testingGetStandardDeviationV2 () {
@@ -208,6 +228,7 @@ public class BasicStatisticsTest {
 	public void testingGetMinDeviationV2 () {
 		statsInstance.enter(39.8);
 		statsInstance.enter(47.6);
+		assertEquals("testing GetMin V2 Method." , 39.8  , statsInstance.getMin(), 0.01 );
 		statsInstance.enter(-5);
 		assertEquals("testing GetMin V2 Method." , -5  , statsInstance.getMin(), 0.01 );
 	}
@@ -235,6 +256,7 @@ public class BasicStatisticsTest {
 	public void testingGetMaxDeviation () {
 		statsInstance.enter(39.8);
 		statsInstance.enter(47.6);
+		assertEquals("testing GetMax V1 Method." , 47.6 , statsInstance.getMax(), 0.01 );
 		statsInstance.enter(new double[] {22.3 , 872.1});
 		assertEquals("testing GetMax V1 Method." , 872.1 , statsInstance.getMax(), 0.01 );
 	}

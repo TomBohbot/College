@@ -9,18 +9,17 @@ public class BasicStatistics {
 
 	private int nDatums;
 	private double sum;
+	private double sumOfSquaredDataValues;
 	private double mean;
 	private double standardDeviation; 
 	private double min = Double.POSITIVE_INFINITY;
 	private double max = Double.NEGATIVE_INFINITY;
 
-	private double sumOfStepTwoSDV;
-	private double [] sdvArray = new double [1000000];
-
 	public void enter (double num) {
-		sdvArray[nDatums] = num;
 		nDatums = nDatums + 1;
 		sum = sum + num;
+		double squaredDataValues = num * num;
+		sumOfSquaredDataValues = sumOfSquaredDataValues + squaredDataValues;
 		mean = sum / nDatums;
 		if (min > num) {
 			min = num;
@@ -31,14 +30,10 @@ public class BasicStatistics {
 	}
 
 	public void enter (double[] data) {
-		int j = 0;
-		int lengthOfArray = data.length + nDatums;
-		for (int i = nDatums; i < lengthOfArray; i ++) {
-			sdvArray[i] = data[j];
-			j ++;
-		}
 		nDatums = nDatums + data.length;
 		for (int i = 0; i < data.length; i ++) {
+			double squaredDataValues = (data[i] * data[i]);
+			sumOfSquaredDataValues = sumOfSquaredDataValues + squaredDataValues;
 			sum = sum + data[i];
 			mean = sum / nDatums;
 			if (min > data[i]) {
@@ -55,6 +50,9 @@ public class BasicStatistics {
 	}
 
 	public double getSum () {
+		if (nDatums == 0) {
+			return 0/0.0;
+		}
 		return sum;
 	}
 
@@ -69,16 +67,14 @@ public class BasicStatistics {
 		if (nDatums == 0) {
 			return 0/0.0;
 		}
-		for (int i = 0; i < nDatums; i ++) {
-			double stepOneSDV = (sdvArray[i] - mean);
-			double stepTwoSDV = stepOneSDV * stepOneSDV;
-			sumOfStepTwoSDV = sumOfStepTwoSDV + stepTwoSDV;
-			double stepThreeSDV = sumOfStepTwoSDV / (nDatums);
-			double finalStepSDV = Math.sqrt(stepThreeSDV);
-			standardDeviation = finalStepSDV;
-		}
+
+		double step1 = (sum * sum) / nDatums;
+		double step2 = (sumOfSquaredDataValues) - step1;
+		double step3 = (step2/nDatums);
+		standardDeviation = Math.sqrt(step3);
 		return standardDeviation;
 	}
+
 
 	public double getMin () {
 		return min;
@@ -92,10 +88,10 @@ public class BasicStatistics {
 		BasicStatistics statisticsInstance = new BasicStatistics();
 
 		statisticsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
-		// statisticsInstance.enter(22.3);
-		// statisticsInstance.enter(872.1);
-		// statisticsInstance.enter(39.8);
-		// statisticsInstance.enter(47.6);
+		statisticsInstance.enter(22.3);
+		statisticsInstance.enter(872.1);
+		statisticsInstance.enter(39.8);
+		statisticsInstance.enter(47.6);
 		
 		int printGetNDatumsMethod = statisticsInstance.getNDatums();
 		double printGetMinMethod = statisticsInstance.getMin();
