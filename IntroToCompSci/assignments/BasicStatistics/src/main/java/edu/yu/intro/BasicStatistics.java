@@ -67,14 +67,12 @@ public class BasicStatistics {
 		if (nDatums == 0) {
 			return 0/0.0;
 		}
-
 		double step1 = (sum * sum) / nDatums;
 		double step2 = (sumOfSquaredDataValues) - step1;
 		double step3 = (step2/nDatums);
 		standardDeviation = Math.sqrt(step3);
 		return standardDeviation;
 	}
-
 
 	public double getMin () {
 		return min;
@@ -100,13 +98,11 @@ public class BasicStatistics {
 		double printGetMeanMethod = statisticsInstance.getMean();
 		double printGetSDMethod = statisticsInstance.getStandardDeviation();
 
-		System.out.println("*************************************************");	
 		System.out.printf ("%-20s %-15d %n" , "Number of datums: " , printGetNDatumsMethod);
 		System.out.printf("%-20s %-15.3f %n" ,"Min of datums: " , printGetMinMethod);
 		System.out.printf("%-20s %-15.3f %n" ,"Max of datums: " , printGetMaxMethod);
 		System.out.printf("%-20s %-15.3f %n" , "Sum of datums: " , printGetSumMethod);
 		System.out.printf("%-20s %-15.3f %n" ,"Mean of datums: " , printGetMeanMethod);
 		System.out.printf("%-20s %-15.3f %n" ,"StdDev of datums: " , printGetSDMethod);
-		System.out.println("*************************************************");
 	}
 }
