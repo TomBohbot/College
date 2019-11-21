@@ -51,9 +51,9 @@ public class FindingRationalNumbersTest {
 	}	
 	@Test
 	public void testingNegateNumeratorSecondConstructor() {
-		Rational rationalInstance = new Rational(1 , 2);
+		Rational rationalInstance = new Rational(-1 , 2);
 		rationalInstance.negate();
-		assertEquals("testing negation of numerator for the second constructor." , -1 , rationalInstance.getNumerator());
+		assertEquals("testing negation of numerator for the second constructor." , 1 , rationalInstance.getNumerator());
 	}	
 	@Test
 	public void testingNegateDenominatorFirstConstructor() {
@@ -161,11 +161,11 @@ public class FindingRationalNumbersTest {
 	}
 	@Test
 	public void testingAddMethodThree() {
-		Rational rationalInstance = new Rational(5 , 4);
-		Rational rationalAdded = new Rational (11 , 4);
+		Rational rationalInstance = new Rational(-1 , 4);
+		Rational rationalAdded = new Rational (2 , 4);
 		Rational answer = rationalInstance.add(rationalAdded);
-		assertEquals("testing numerator of added fractions." , 4 , answer.getNumerator() );
-		assertEquals("testing denominator of added fractions." , 1 , answer.getDenominator() );
+		assertEquals("testing numerator of added fractions." , 1 , answer.getNumerator() );
+		assertEquals("testing denominator of added fractions." , 4 , answer.getDenominator() );
 	}
 
 //END: TESTING ADDING FRACTIONS METHOD	

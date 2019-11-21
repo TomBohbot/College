@@ -110,7 +110,7 @@ public class Rational {
 		int addedNumeratorOne = this.numerator * that.denominator;
 		int addedNumeratorTwo = that.numerator * this.denominator;
 		int finalNumerator = addedNumeratorTwo + addedNumeratorOne;
-		int finalDenominator = this.denominator * that.denominator;
+		int commonDenominator = this.denominator * that.denominator;
 
 		Rational rationalAdd = new Rational(finalNumerator , finalDenominator);
 		Rational answer = rationalAdd.reduce();
