@@ -88,10 +88,10 @@ public class BasicStatistics {
 		BasicStatistics statisticsInstance = new BasicStatistics();
 
 		statisticsInstance.enter(new double[] {22.3 , 872.1 , 39.8 , 47.6});
-		statisticsInstance.enter(22.3);
-		statisticsInstance.enter(872.1);
-		statisticsInstance.enter(39.8);
-		statisticsInstance.enter(47.6);
+		// statisticsInstance.enter(22.3);
+		// statisticsInstance.enter(872.1);
+		// statisticsInstance.enter(39.8);
+		// statisticsInstance.enter(47.6);
 		
 		int printGetNDatumsMethod = statisticsInstance.getNDatums();
 		double printGetMinMethod = statisticsInstance.getMin();
