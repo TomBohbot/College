@@ -1,0 +1,126 @@
+Grade for assignment [BohbotTom]: 9.5/10
+Pulled files on Sat Nov 23 18:39:02 EST 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/BasicStatistics.java was on: Thu Nov 21 18:38:14 2019
+building and running Student BohbotTom assignment code base from directory /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/BasicStatistics
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Number of datums:    4               
+Min of datums:       22.300          
+Max of datums:       872.100         
+Sum of datums:       981.800         
+Mean of datums:      245.450         
+StdDev of datums:    361.913         
+Copying Professor's JUnit source files in /Users/avraham/teaching/IntroToCompSci/assignments/BasicStatistics/src/test to Student BohbotTom directory tree in /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/BasicStatistics/src
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Test cases to execute : 2
+Running edu.yu.intro.test.ProfessorBasicStatisticsTest
+Execution Started : happyPathSingleDataEntry
+Execution Finished : happyPathSingleDataEntry
+Execution Started : happyPathMultipleDataEntry
+Execution Finished : happyPathMultipleDataEntry
+Execution Started : noDataEntered
+Execution Failure : java.lang.AssertionError: sum expected:<0.0> but was:<NaN>
+Execution Finished : noDataEntered
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec <<< FAILURE! - in edu.yu.intro.test.ProfessorBasicStatisticsTest
+noDataEntered(edu.yu.intro.test.ProfessorBasicStatisticsTest)  Time elapsed: 0.004 sec  <<< FAILURE!
+java.lang.AssertionError: sum expected:<0.0> but was:<NaN>
+	at edu.yu.intro.test.ProfessorBasicStatisticsTest.noDataEntered(ProfessorBasicStatisticsTest.java:53)
+
+Running edu.yu.intro.test.BasicStatisticsTest
+Execution Started : testingGetSumV2
+Execution Finished : testingGetSumV2
+Execution Started : testingGetSumV3
+Execution Finished : testingGetSumV3
+Execution Started : testingGetSumV4
+Execution Finished : testingGetSumV4
+Execution Started : testingGetSumV5
+Execution Finished : testingGetSumV5
+Execution Started : testingGetSumV7
+Execution Finished : testingGetSumV7
+Execution Started : testingGetSumV8
+Execution Finished : testingGetSumV8
+Execution Started : testingGetSumV9
+Execution Finished : testingGetSumV9
+Execution Started : testingGetStandardDeviationV10
+Execution Finished : testingGetStandardDeviationV10
+Execution Started : testingGetStandardDeviationV1
+Execution Finished : testingGetStandardDeviationV1
+Execution Started : testingGetStandardDeviationV2
+Execution Finished : testingGetStandardDeviationV2
+Execution Started : testingGetStandardDeviationV3
+Execution Finished : testingGetStandardDeviationV3
+Execution Started : testingGetStandardDeviationV4
+Execution Finished : testingGetStandardDeviationV4
+Execution Started : testingGetStandardDeviation
+Execution Finished : testingGetStandardDeviation
+Execution Started : testingGetMaxDeviationV2
+Execution Finished : testingGetMaxDeviationV2
+Execution Started : testingGetMaxDeviationV3
+Execution Finished : testingGetMaxDeviationV3
+Execution Started : testingGetMaxDeviationV4
+Execution Finished : testingGetMaxDeviationV4
+Execution Started : testingGetMaxDeviationV5
+Execution Finished : testingGetMaxDeviationV5
+Execution Started : testingGetMaxDeviationV6
+Execution Finished : testingGetMaxDeviationV6
+Execution Started : testingGetSum
+Execution Finished : testingGetSum
+Execution Started : testingGetMinDeviationV1
+Execution Finished : testingGetMinDeviationV1
+Execution Started : testingGetMinDeviationV2
+Execution Finished : testingGetMinDeviationV2
+Execution Started : testingGetMinDeviationV3
+Execution Finished : testingGetMinDeviationV3
+Execution Started : testingGetMinDeviationV4
+Execution Finished : testingGetMinDeviationV4
+Execution Started : testingGetMinDeviationV5
+Execution Finished : testingGetMinDeviationV5
+Execution Started : testingGetMaxDeviation
+Execution Finished : testingGetMaxDeviation
+Execution Started : testingGetMinDeviation
+Execution Finished : testingGetMinDeviation
+Execution Started : testingGetNDatums
+Execution Finished : testingGetNDatums
+Execution Started : testingGetMeanV2
+Execution Finished : testingGetMeanV2
+Execution Started : testingGetMeanV3
+Execution Finished : testingGetMeanV3
+Execution Started : testingGetMeanV4
+Execution Finished : testingGetMeanV4
+Execution Started : testingGetMeanV5
+Execution Finished : testingGetMeanV5
+Execution Started : testingGetMeanV6
+Execution Finished : testingGetMeanV6
+Execution Started : testingGetNSumV6
+Execution Finished : testingGetNSumV6
+Execution Started : testingGetNDatumsV2
+Execution Finished : testingGetNDatumsV2
+Execution Started : testingGetNDatumsV3
+Execution Finished : testingGetNDatumsV3
+Execution Started : testingGetNDatumsV4
+Execution Finished : testingGetNDatumsV4
+Execution Started : testingGetNDatumsV5
+Execution Finished : testingGetNDatumsV5
+Execution Started : testingGetNDatumsV6
+Execution Finished : testingGetNDatumsV6
+Execution Started : testingGetNDatumsV7
+Execution Finished : testingGetNDatumsV7
+Execution Started : testingGetNDatumsV8
+Execution Finished : testingGetNDatumsV8
+Execution Started : testingGetMean
+Execution Finished : testingGetMean
+Tests run: 41, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in edu.yu.intro.test.BasicStatisticsTest
+Test cases executed : 44
+
+Results :
+
+Failed tests: 
+  ProfessorBasicStatisticsTest.noDataEntered:53 sum expected:<0.0> but was:<NaN>
+
+Tests run: 44, Failures: 1, Errors: 0, Skipped: 0
