@@ -1,6 +1,6 @@
 package edu.yu.intro;
 
-/** " FindingRationalNumbers " Assignment #11
+/** " Employee Class for Departments Assignment " Assignment #11
 *
 * @author Tom Bohbot
 */
@@ -35,11 +35,7 @@ public class Employee {
 		return grossPay;
 	}
 
-	public double getTotalGrossPay () {
-		return totalGrossPay;
-	}
-
-	public String getDeptName () {
+	protected String getDeptName () {
 		return deptName;
 	}
 }

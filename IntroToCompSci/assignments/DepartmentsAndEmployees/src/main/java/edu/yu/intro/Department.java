@@ -1,6 +1,6 @@
 package edu.yu.intro;
 
-/** " FindingRationalNumbers " Assignment #11
+/** " Department Class for Departments Assignment " Assignment #11
 *
 * @author Tom Bohbot
 */
@@ -13,43 +13,63 @@ import java.nio.file.Paths;
 import java.util.StringTokenizer;
 import java.util.NoSuchElementException;
 
-
-
 public class Department {
 	public final static int MAX_EMPLOYEES = 100;
 	
-	private String empId;
-	private double grossPay;
-	private String deptName;
-	private double totalGrossPay;
-	private int empCounter;
-
-	Employee empInstance = new Employee (empId , grossPay , deptName);
+	private String empId;   			// constructor
+	private double grossPay;			// constructor
+	private String deptName;			// constructor
+	private Employee empInstance = new Employee (empId , grossPay , deptName); // employee constructor
+	private double totalGrossPay;		// sums up all employees gross pay per department
+	private int empCounter;				// counts how many employees per department			
+	private Employee [] arrayofEmp; 	// adds employees to accurate department
+	private double currentGrossPay;		// takes current employees gross pay
 
 	public Department (String deptName) {
 		this.deptName = deptName;
+		this.arrayofEmp = new Employee [MAX_EMPLOYEES];
+		this.grossPay = grossPay;
 	}
 
-	// public Employee [] getEmployees () {
-	// 	String empsDeptId = empInstance.getDeptName();
+	protected Employee addEmployee (Employee emp) {
+		arrayofEmp [empCounter] = emp;
+		currentGrossPay = emp.getGrossPay();
+		empCounter ++;
+		return emp;
+	}
 
+	protected double getGrossPay (double grossPayEmp) {
+		totalGrossPay = totalGrossPay + grossPayEmp;
+		return totalGrossPay;
+	}
 
-	// 	empCounter ++;
-	// 	return something;
-	// }
+	public Employee [] getEmployees () {
+		String empsDeptId = empInstance.getDeptName();
+		for (int i = 0; i < MAX_EMPLOYEES; i ++) {
+			if (empsDeptId.equals(this.deptName) ) {
+			empInstance = arrayofEmp[i];
+			}
+		}
+		return arrayofEmp;
+	}
 
 	public int getNEmployees () {
 		return empCounter;
 	}
 
 	public String getName () {
-		return deptName;
+		return this.deptName;
 	}
 	
 	public double getTotalGrossPay () {
-		double totalGrossPay = empInstance.getTotalGrossPay();
 		return totalGrossPay;
 	}
 
-
+	protected double getAverageGrossPay () {
+		double averageGrossPay = totalGrossPay / empCounter;
+		if (empCounter==0) {
+			return 0;
+		}
+		return averageGrossPay;
+	}
 }
