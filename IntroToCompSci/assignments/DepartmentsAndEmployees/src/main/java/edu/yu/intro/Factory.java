@@ -56,7 +56,7 @@ public class Factory {
 		deptLineNumber ++;
 
 		if (allTokensDept != 1) {
-			throw new IllegalArgumentException("Incorrect amount of departments per line.");
+			throw new IllegalArgumentException("ERROR: Problem at line # " + deptLineNumber + ": Incorrect amount of departments per line.");
 		}	 
 		else {
 			deptName = tokenizerDept.nextToken();
@@ -64,13 +64,13 @@ public class Factory {
 		// Looking for a duplicate department via the loop.
 		for (int i = 0; i < this.deptNames.length; i ++) {
 			if (deptName.equals(deptNames[i]) ) {
-				throw new IllegalArgumentException("ERROR: Duplicate department.");
+				throw new IllegalArgumentException("ERROR: Problem at line # " + deptLineNumber + ": Duplicate department.");
 			}
 		}
 
 		// not throwing the error because I don't want to show the stack. The client should not see that. Prof. Leff said either is fine on Dec. 5th in class. 
 		if(deptCounter == 10) {
-			System.out.println("ERROR: Over ten departments were entered. Discarding file and exiting program.");
+			System.out.println("ERROR: Problem at line # " + deptLineNumber + ": Over ten departments were entered. Discarding file and exiting program.");
 			System.exit(1); 
 		}
 
@@ -115,15 +115,34 @@ public class Factory {
 		deductionsString = tokenizer.nextToken();
 		deptName = tokenizer.nextToken();
 
-		// Ensuring there are no duplicate employee ids from next few lines. Unable to get this one to work :(
-		for (int i = 0; i <= empIdCounter; i ++) {
-			if (empId.equals(empIdArray[i]) ) {
-				passedTests = false;
-				throw new IllegalArgumentException ("ERROR: Problem at line # " + lineNumber + " of employee file: This employee has already been accounted for.");
-			}
-		}
-		empIdArray [empIdCounter] = empId;
-		empIdCounter ++;	
+		// Department [] arrayOfDepts = this.getDepartments();
+		// Employee [] arrayOfEmp;
+		// for (int i = 0; i < deptCounter; i ++) {
+		// 	if (deptName.equals(arrayOfDepts[i].getName() ) ) {
+		// 	// if (deptName.equals(this.deptNames[i]) ) {	
+		// 		System.out.println(arrayOfDepts[i].getName() );
+		// 		arrayOfEmp = arrayOfDepts[i].getEmployees();
+		// 		for (int j = 0; j < arrayOfDepts[i].getNEmployees(); j ++) {
+		// 			if (empId.equals(arrayOfEmp[j].getId() ) ) {
+		// 				throw new IllegalArgumentException ("ERROR: Problem at line # " + lineNumber + " of employee file: This employee has already been accounted for.");
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		// Department deptInstance = new Department(deptName); // To pull in the array of employees
+		// Employee [] empInDeptArray = deptInstance.getEmployees();
+
+		// Ensuring there are no duplicate employee ids. Modifying this one to only catch duplicates in the same department. If same id in different departments then it is okay according to Leff's Piazza response on 11/23/19.
+		// for (int i = 0; i <= empIdCounter; i ++) {
+		// 	if (empId.equals(empIdArray[i]) ) {
+		// 	// if (empId.equals(empInDeptArray[i].getId() ) ) {
+		// 		passedTests = false;
+		// 		throw new IllegalArgumentException ("ERROR: Problem at line # " + lineNumber + " of employee file: This employee has already been accounted for.");
+		// 	}
+		// }
+		// empIdArray [empIdCounter] = empId;
+		// empIdCounter ++;	
 		// I throw Illegal Arguement exceptions instead of System.out.println per Prof. Leff's comment to me in class on December 5, 2019. 
 		try {
 			hoursWorked = Double.parseDouble(hoursWorkedString);

@@ -32,6 +32,13 @@ public class Department {
 	}
 
 	protected Employee addEmployee (Employee emp) {
+		try {
+			for (int i = 0; i < arrayofEmp.length; i ++) {
+				if (emp.getId().equals(arrayofEmp[i].getId() )) {
+					throw new IllegalArgumentException("Duplicate employees in same department.");
+				}
+			}
+		} catch (NullPointerException e) {}
 		arrayofEmp [empCounter] = emp;
 		currentGrossPay = emp.getGrossPay();
 		empCounter ++;
@@ -45,6 +52,7 @@ public class Department {
 
 	public Employee [] getEmployees () {
 		String empsDeptId = empInstance.getDeptName();
+
 		for (int i = 0; i < MAX_EMPLOYEES; i ++) {
 			if (empsDeptId.equals(this.deptName) ) {
 			empInstance = arrayofEmp[i];
