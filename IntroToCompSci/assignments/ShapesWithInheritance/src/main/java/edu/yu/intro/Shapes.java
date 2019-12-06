@@ -30,7 +30,6 @@ public class Shapes {
 		if (s1 <= 0 || s2 <= 0 || s3 <= 0) {
 			throw new IllegalArgumentException ("ERROR: The radius must be positive.");
 		}
-		// @return Corresponding Triangle instance.
 		Shape triangle = new Triangle (s1 , s2 , s3);
 		return triangle;
 	}

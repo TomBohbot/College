@@ -7,6 +7,7 @@ package edu.yu.intro.test;
 
 import edu.yu.intro.Shapes;
 import edu.yu.intro.Shape;
+import edu.yu.intro.Polygon;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -17,8 +18,8 @@ public class ShapesTest {
 	@Test
 	public void CheckCircleMethod () {
 		Shape circle = shapesInstance.newCircle(5);
-		assertEquals ("testing area of circle." , 78.5 , circle.area() , 0 );
-		assertEquals ("testing perimeter of circle." , 31.4 , circle.perimeter() , 0.01 );
+		assertEquals ("testing area of circle." , 78.5 , circle.area() , 0.1 );
+		assertEquals ("testing perimeter of circle." , 31.4 , circle.perimeter() , 0.1 );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void negativeInputCircle () {
@@ -43,6 +44,11 @@ public class ShapesTest {
 	public void nonPositiveInputRectangle () {
 		Shape rectangle = shapesInstance.newRectangle(0 , 2);
 	}
+	@Test
+	public void CheckRectangleNSides () {
+		Polygon rectangleNSides = shapesInstance.newRectangleNSides(2 , 2);
+		assertEquals ("checking number of sides of a rectangle." , 4 , rectangleNSides.nSides() );
+	}
 
 	@Test
 	public void CheckTriangleMethod () {
@@ -57,6 +63,11 @@ public class ShapesTest {
 	@Test (expected = IllegalArgumentException.class)
 	public void nonPositiveInputTriangle () {
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 0);
+	}
+	@Test
+	public void CheckTriangleNSides () {
+		Polygon triangleNSides = shapesInstance.newTriangleNSides(2 , 2 , 3);
+		assertEquals ("checking number of sides of a triangle." , 3 , triangleNSides.nSides() );
 	}
 
 }
