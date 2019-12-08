@@ -1,0 +1,124 @@
+Grade for assignment [BohbotTom]: 9.5/10
+
+nice work!  you decided that an API test (not main) should shut down
+the system when detecting an error.  The required semantics was to to
+throw IAE.
+
+
+Pulled files on Fri Dec  6 10:20:47 EST 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/Department.java was on: Thu Dec 5 22:40:01 2019
+Latest commit of src/main/java/edu/yu/intro/Factory.java was on: Thu Dec 5 22:40:01 2019
+Latest commit of src/main/java/edu/yu/intro/Employee.java was on: Thu Dec 5 20:29:13 2019
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Invoking main with one pair of files (should fail): 
+
+00001 40.0 80.2 24 Payroll
+00002 34.2 75.1 20 DataModelling
+00003 65.2 98.7 34 TechSupport
+00004 0.5  98.7 34 Payroll
+00005 -20.5 98.7 34 TechSupport
+00006 10.5 98.7 -2 DataModelling
+00007 10.5 98.7 38 Payroll
+00008 2.0 15.0 34 TechSupport
+00009 42.0 80.2 24 TechSupport
+00015 40.0 80.2 24 TechSupport
+00016 40.0 80.2 24 StealthDepartment
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+9
+9
+9
+8
+7
+11
+2
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+*************************************************
+ERROR: Problem at line # 11: Duplicate department.
+ERROR: Problem at line # 12: Duplicate department.
+ERROR: Problem at line # 13: Duplicate department.
+ERROR: Problem at line # 14: Duplicate department.
+ERROR: Problem at line # 15: Duplicate department.
+ERROR: Problem at line # 16: Over ten departments were entered. Discarding file and exiting program.
+Problem invoking 'maven exec:java': will continue anyway with JUnit tests
+Invoking main with one pair of files (should NOT fail): 
+
+00001 40.0 80.2 24 Payroll
+00002 34.2 75.1 20 DataModelling
+00003 65.2 98.7 34 TechSupport
+00004 0.5  98.7 34 Payroll
+00005 -20.5 98.7 34 TechSupport
+00006 10.5 98.7 -2 DataModelling
+00007 10.5 98.7 38 Payroll
+00008 2.0 15.0 34 TechSupport
+00009 42.0 80.2 24 TechSupport
+00015 40.0 80.2 24 TechSupport
+00016 40.0 80.2 24 StealthDepartment
+Payroll
+TechSupport
+DataModelling
+Payroll
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+*************************************************
+ERROR: Problem at line # 4: Duplicate department.
+ERROR: Problem at line # 4 of employee file. You have not worked enough hours. Come back when you have worked at least one hour.
+ERROR: Problem at line # 5 of employee file. You have not worked enough hours. Come back when you have worked at least one hour.
+ERROR: Problem at line # 6 of employee file. Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.
+ERROR: Problem at line # 7 of employee file. Your deductions must be greater than 0 and less than 35. Please verify your deductions and re-enter.
+ERROR: Problem at line # 8 of employee file. Your net pay is negative. Please advise.
+ERROR: Problem at line # 11 of employee file. Employee has an unknown department.
+Department          # Employees      Total Gross Pay    Average Gross Pay 
+Payroll             1                3208.00            3208.00              
+TechSupport         3                13011.64           4337.21              
+DataModelling       1                2568.42            2568.42              
+*************************************************
+Copying Professor's JUnit source files in /Users/avraham/teaching/IntroToCompSci/assignments/DepartmentsAndEmployees/src/test to Student BohbotTom directory tree in /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/DepartmentsAndEmployees/src
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Test cases to execute : 2
+Running edu.yu.intro.test.ProfessorDepartmentsAndEmployeesTest
+Execution Started : happyPath
+Execution Finished : happyPath
+Execution Started : oneDepartmentOneEmployee
+Execution Failure : java.lang.NullPointerException
+Execution Finished : oneDepartmentOneEmployee
+Execution Started : cantExceedMaxEmployees
+Execution Finished : cantExceedMaxEmployees
+Execution Started : onlyOneDepartmentTokenAllowed
+Execution Finished : onlyOneDepartmentTokenAllowed
+Execution Started : noDuplicateEmployees
+Execution Finished : noDuplicateEmployees
+Execution Started : employeeMustReferenceValidDepartment
+Execution Finished : employeeMustReferenceValidDepartment
+Execution Started : oneDepartmentNoEmployees
+Execution Finished : oneDepartmentNoEmployees
+Execution Started : cantExceedMaxDepartments
+ERROR: Problem at line # 11: Over ten departments were entered. Discarding file and exiting program.
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project DepartmentsAndEmployees: Execution default-test of goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test failed: The forked VM terminated without properly saying goodbye. VM crash or System.exit called?
+[ERROR] Command was /bin/sh -c cd /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/DepartmentsAndEmployees && /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/bin/java -jar /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/DepartmentsAndEmployees/target/surefire/surefirebooter5674188004351747059.jar /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/DepartmentsAndEmployees/target/surefire/surefire5530265230893963629tmp /Users/avraham/YUGitRepos/1300/BohbotTom/IntroToCompSci/assignments/DepartmentsAndEmployees/target/surefire/surefire_05534720420534258211tmp
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException
+Problem invoking 'maven test target': aborting this run
