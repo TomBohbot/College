@@ -1,6 +1,6 @@
 package edu.yu.intro.test;
 
-/** " FindingRationalNumbersTest " Assignment #8
+/** " Shapes Test " Assignment #12
 *
 * @author Tom Bohbot
 */
@@ -8,6 +8,9 @@ package edu.yu.intro.test;
 import edu.yu.intro.Shapes;
 import edu.yu.intro.Shape;
 import edu.yu.intro.Polygon;
+import edu.yu.intro.Circle;
+import edu.yu.intro.Rectangle;
+import edu.yu.intro.Triangle;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -33,8 +36,10 @@ public class ShapesTest {
 	@Test
 	public void CheckRectangleMethod () {
 		Shape rectangle = shapesInstance.newRectangle(2 , 2);
+		Rectangle rectangleNSides = (Rectangle) rectangle;
 		assertEquals ("testing area of rectangle." , 4.0 , rectangle.area() , 0 );
 		assertEquals ("testing perimeter of rectangle." , 8.0 , rectangle.perimeter() , 0 );
+		assertEquals ("testing n of sides of rectangle." , 4 , rectangleNSides.nSides() );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void negativeInputRectangle () {
@@ -44,17 +49,14 @@ public class ShapesTest {
 	public void nonPositiveInputRectangle () {
 		Shape rectangle = shapesInstance.newRectangle(0 , 2);
 	}
-	@Test
-	public void CheckRectangleNSides () {
-		Polygon rectangleNSides = shapesInstance.newRectangleNSides(2 , 2);
-		assertEquals ("checking number of sides of a rectangle." , 4 , rectangleNSides.nSides() );
-	}
 
 	@Test
 	public void CheckTriangleMethod () {
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
+		Triangle triangleNSides = (Triangle) triangle;
 		assertEquals ("testing area of triangle." , 216.0 , triangle.area() , 0 );
 		assertEquals ("testing perimeter of triangle." , 36.0 , triangle.perimeter() , 0 );
+		assertEquals ("testing n of sides of triangle." , 3 , triangleNSides.nSides() );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void negativeInputTriangle () {
@@ -64,10 +66,4 @@ public class ShapesTest {
 	public void nonPositiveInputTriangle () {
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 0);
 	}
-	@Test
-	public void CheckTriangleNSides () {
-		Polygon triangleNSides = shapesInstance.newTriangleNSides(2 , 2 , 3);
-		assertEquals ("checking number of sides of a triangle." , 3 , triangleNSides.nSides() );
-	}
-
 }

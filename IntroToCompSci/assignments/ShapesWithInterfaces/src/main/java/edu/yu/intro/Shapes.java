@@ -25,15 +25,6 @@ public class Shapes {
 		return rectangle;
 	}
 
-	public static Polygon newRectangleNSides (final double width , final double height) {
-
-		if (width <= 0 || height <= 0) {
-			throw new IllegalArgumentException ("ERROR: The radius must be positive.");
-		}
-		Polygon rectangleNSides = new Rectangle (width , height);
-		return rectangleNSides;
-	}
-
 	public static Shape newTriangle (final double s1 , final double s2 , final double s3) {
 
 		if (s1 <= 0 || s2 <= 0 || s3 <= 0) {
@@ -41,15 +32,6 @@ public class Shapes {
 		}
 		Shape triangle = new Triangle (s1 , s2 , s3);
 		return triangle;
-	}
-
-	public static Polygon newTriangleNSides (final double s1 , final double s2 , final double s3) {
-
-		if (s1 <= 0 || s2 <= 0 || s3 <= 0) {
-			throw new IllegalArgumentException ("ERROR: The radius must be positive.");
-		}
-		Polygon triangleNSides = new Triangle (s1 , s2 , s3);
-		return triangleNSides;
 	}
 
 	public static void main (final String [] args) {
@@ -60,9 +42,8 @@ public class Shapes {
 		Shape rectangle = shapesInstance.newRectangle(2 , 2);
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
 
-		Polygon rectangleNSides = shapesInstance.newRectangleNSides(2 , 2);
-		Polygon triangleNSides = shapesInstance.newTriangleNSides(18 , 30 , 24);
-
+		Rectangle rectangleNSides = (Rectangle) rectangle;
+		Triangle triangleNSides = (Triangle) triangle;
 
 		System.out.println("*************************************************");
 		System.out.println("circle's area is " + circle.area() );
@@ -78,4 +59,3 @@ public class Shapes {
 		System.out.println("*************************************************");
 	}
 }
-
