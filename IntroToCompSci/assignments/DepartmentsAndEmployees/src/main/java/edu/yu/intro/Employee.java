@@ -1,6 +1,6 @@
 package edu.yu.intro;
 
-/** " Employee Class for Departments Assignment " Assignment #11
+/** " Employee for Departments Assignment " Assignment #11
 *
 * @author Tom Bohbot
 */

@@ -7,16 +7,13 @@ package edu.yu.intro;
 
 public abstract class Shape {
 	
-	public abstract double area (); {
-	}
-
-	public abstract double perimeter (); {
-	}
+	public abstract double area ();
+	public abstract double perimeter ();
 }
 
 class Circle extends Shape {
 	private double radius;
-	private double pi = 3.14;
+	private double pi = Math.PI;
 
 	public Circle (double radius) {
 		this.radius = radius;
@@ -31,7 +28,6 @@ class Circle extends Shape {
 		double perimeter = 2 * pi * radius;
 		return perimeter;
 	}
-
 }
 
 class Rectangle extends Shape {
@@ -73,7 +69,6 @@ class Triangle extends Shape {
 	@Override
 	public double area () {
 		double p = perimeter();
-		// double p = perimeter;
 		double area = Math.sqrt(p*(p-s1)*(p-s2)*(p-s3) );
 		return area;
 	}

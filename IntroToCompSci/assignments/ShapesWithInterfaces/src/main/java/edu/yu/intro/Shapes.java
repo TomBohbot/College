@@ -52,30 +52,30 @@ public class Shapes {
 		return triangleNSides;
 	}
 
-	// public static void main (final String [] args) {
+	public static void main (final String [] args) {
 
-	// 	Shapes shapesInstance = new Shapes();
+		Shapes shapesInstance = new Shapes();
 
-	// 	Shape circle = shapesInstance.newCircle(5);
-	// 	Shape rectangle = shapesInstance.newRectangle(2 , 2);
-	// 	Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
+		Shape circle = shapesInstance.newCircle(5);
+		Shape rectangle = shapesInstance.newRectangle(2 , 2);
+		Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
 
-	// 	Polygon rectangleNSides = shapesInstance.newRectangleNSides(2 , 2);
-	// 	Polygon triangleNSides = shapesInstance.newTriangleNSides(18 , 30 , 24);
+		Polygon rectangleNSides = shapesInstance.newRectangleNSides(2 , 2);
+		Polygon triangleNSides = shapesInstance.newTriangleNSides(18 , 30 , 24);
 
 
-	// 	System.out.println("*************************************************");
-	// 	System.out.println("circle's area is " + circle.area() );
-	// 	System.out.println("circle's perimeter is " + circle.perimeter() );
-	// 	System.out.println();
-	// 	System.out.println("rectangle's area is " + rectangle.area() );
-	// 	System.out.println("rectangle's perimeter is " + rectangle.perimeter() );
-	// 	System.out.println("rectangle's number of sides is " + rectangleNSides.nSides() );
-	// 	System.out.println();
-	// 	System.out.println("triangle's area is " + triangle.area() );
-	// 	System.out.println("triangle's perimeter is " + triangle.perimeter() );
-	// 	System.out.println("triangle's number of sides is " + triangleNSides.nSides() );
-	// 	System.out.println("*************************************************");
-	// }
+		System.out.println("*************************************************");
+		System.out.println("circle's area is " + circle.area() );
+		System.out.println("circle's perimeter is " + circle.perimeter() );
+		System.out.println();
+		System.out.println("rectangle's area is " + rectangle.area() );
+		System.out.println("rectangle's perimeter is " + rectangle.perimeter() );
+		System.out.println("rectangle's number of sides is " + rectangleNSides.nSides() );
+		System.out.println();
+		System.out.println("triangle's area is " + triangle.area() );
+		System.out.println("triangle's perimeter is " + triangle.perimeter() );
+		System.out.println("triangle's number of sides is " + triangleNSides.nSides() );
+		System.out.println("*************************************************");
+	}
 }
 

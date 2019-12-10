@@ -30,7 +30,6 @@ class Circle implements Shape {
 		double perimeter = 2 * pi * radius;
 		return perimeter;
 	}
-
 }
 
 class Rectangle implements Shape , Polygon{

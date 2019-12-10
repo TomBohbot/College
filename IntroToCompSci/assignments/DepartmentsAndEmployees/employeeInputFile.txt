@@ -1,2 +1,11 @@
+1 41.0 20.2 24 Dept2 4
+2 41.0 20.2 24 Hijab
 Tom 40.0 20.2 24 Dept1
 Joe 41.0 20.2 24 Dept1
+Tom 41.0 20.2 24 Dept
+Tom 40.0 20.2 24 Dept1
+Aron 41.0 20.2 24 Dept5
+Eli 41.0 20.2 24 Dept3
+Yaakov hi 20.2 24 Dept8
+David 15 15 18 Dept7
+Leff 15 25 8 Dept9
