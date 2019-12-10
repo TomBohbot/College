@@ -17,12 +17,12 @@ public class Rectangle implements Shape , Polygon{
 	}
 	@Override
 	public double area() {
-		double area = width * height;
+		double area = this.width * this.height;
 		return area;
 	}
 	@Override
 	public double perimeter() {
-		double perimeter = (width * 2) + (height * 2);
+		double perimeter = (this.width * 2) + (this.height * 2);
 		return perimeter;
 	}
 	@Override

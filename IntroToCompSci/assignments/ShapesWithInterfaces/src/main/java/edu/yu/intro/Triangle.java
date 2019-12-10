@@ -20,13 +20,13 @@ public class Triangle implements Shape , Polygon {
 	}
 	@Override
 	public double perimeter() {
-		double perimeter = (s1 + s2 + s3)/2;
+		double perimeter = (this.s1 + this.s2 + this.s3);
 		return perimeter;
 	}
 	@Override
 	public double area() {
-		double p = perimeter();
-		double area = Math.sqrt(p*(p-s1)*(p-s2)*(p-s3) );
+		double p = perimeter()/2;
+		double area = Math.sqrt(p*(p-this.s1)*(p-this.s2)*(p-this.s3) );
 		return area;
 	}
 	@Override

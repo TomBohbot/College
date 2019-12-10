@@ -16,12 +16,12 @@ public class Circle implements Shape {
 	}
 	@Override
 	public double area () {
-		double area = pi * radius * radius;
+		double area = pi * this.radius * this.radius;
 		return area;
 	}
 	@Override
 	public double perimeter () {
-		double perimeter = 2 * pi * radius;
+		double perimeter = 2 * pi * this.radius;
 		return perimeter;
 	}
 }

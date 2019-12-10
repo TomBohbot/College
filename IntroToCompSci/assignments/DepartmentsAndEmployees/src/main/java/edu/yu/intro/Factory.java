@@ -82,8 +82,13 @@ public class Factory {
 			
 		return deptInstance;
 	}
-
+	/**
+		 * @param input A variable of type String.
+		 * @throws IllelgalArguementException if duplicate employee, department does not exist, doesn't satisfy ExceptionalEmployee.
+		 * @return empInstance that passed all tests.
+		 */
 	public Employee newEmployee (final String input) {
+		
 
 		Employee empInstance = new Employee ("sampleEmp" , 100 , "sampleDept");
 		String empId = "";

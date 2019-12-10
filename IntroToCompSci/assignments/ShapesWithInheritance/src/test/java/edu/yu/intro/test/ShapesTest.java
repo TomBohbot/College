@@ -16,9 +16,9 @@ public class ShapesTest {
 
 	@Test
 	public void CheckCircleMethod () {
-		Shape circle = shapesInstance.newCircle(5);
-		assertEquals ("testing area of circle." , 78.53981 , circle.area() , 0.01 );
-		assertEquals ("testing perimeter of circle." , 31.4159 , circle.perimeter() , 0.01 );
+		Shape circle = shapesInstance.newCircle(5.5);
+		assertEquals ("testing area of circle." , 95.03317 , circle.area() , 0.01 );
+		assertEquals ("testing perimeter of circle." , 34.557519 , circle.perimeter() , 0.01 );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void negativeInputCircle () {
@@ -48,7 +48,7 @@ public class ShapesTest {
 	public void CheckTriangleMethod () {
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
 		assertEquals ("testing area of triangle." , 216.0 , triangle.area() , 0 );
-		assertEquals ("testing perimeter of triangle." , 36.0 , triangle.perimeter() , 0 );
+		assertEquals ("testing perimeter of triangle." , 72.0 , triangle.perimeter() , 0 );
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void negativeInputTriangle () {

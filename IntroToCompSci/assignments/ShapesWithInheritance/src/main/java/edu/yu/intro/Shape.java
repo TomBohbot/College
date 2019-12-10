@@ -20,12 +20,12 @@ class Circle extends Shape {
 	}
 	@Override
 	public double area () {
-		double area = pi * radius * radius;
+		double area = pi * this.radius * this.radius;
 		return area;
 	}
 	@Override
 	public double perimeter () {
-		double perimeter = 2 * pi * radius;
+		double perimeter = 2 * pi * this.radius;
 		return perimeter;
 	}
 }
@@ -40,12 +40,12 @@ class Rectangle extends Shape {
 	}
 	@Override
 	public double area () {
-		double area = width * height;
+		double area = this.width * this.height;
 		return area;
 	}
 	@Override
 	public double perimeter () {
-		double perimeter = (width * 2) + (height * 2);
+		double perimeter = (this.width * 2) + (this.height * 2);
 		return perimeter;
 	}
 }
@@ -63,13 +63,13 @@ class Triangle extends Shape {
 	}
 	@Override
 	public double perimeter () {
-		double perimeter = (s1 + s2 + s3)/2;
+		double perimeter = (this.s1 + this.s2 + this.s3);
 		return perimeter;
 	}
 	@Override
 	public double area () {
-		double p = perimeter();
-		double area = Math.sqrt(p*(p-s1)*(p-s2)*(p-s3) );
+		double p = perimeter()/2;
+		double area = Math.sqrt(p*(p-this.s1)*(p-this.s2)*(p-this.s3) );
 		return area;
 	}
 }
