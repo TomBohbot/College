@@ -55,7 +55,7 @@ public class ShapesTest {
 		Shape triangle = shapesInstance.newTriangle(18 , 30 , 24);
 		Triangle triangleNSides = (Triangle) triangle;
 		assertEquals ("testing area of triangle." , 216.0 , triangle.area() , 0 );
-		assertEquals ("testing perimeter of triangle." , 36.0 , triangle.perimeter() , 0 );
+		assertEquals ("testing perimeter of triangle." , 72.0 , triangle.perimeter() , 0 );
 		assertEquals ("testing n of sides of triangle." , 3 , triangleNSides.nSides() );
 	}
 	@Test (expected = IllegalArgumentException.class)
