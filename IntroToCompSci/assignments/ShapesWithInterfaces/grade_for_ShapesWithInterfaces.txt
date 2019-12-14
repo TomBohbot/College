@@ -1,0 +1,67 @@
+Grade for assignment [BohbotTom]: 10/10
+Pulled files on Wed Dec 11 09:14:33 EST 2019
+Latest commit of student files ....
+Latest commit of src/main/java/edu/yu/intro/Polygon.java was on: Fri Dec 6 11:10:55 2019
+Latest commit of src/main/java/edu/yu/intro/Triangle.java was on: Tue Dec 10 18:49:16 2019
+Latest commit of src/main/java/edu/yu/intro/Shapes.java was on: Tue Dec 10 15:13:00 2019
+Latest commit of src/main/java/edu/yu/intro/Circle.java was on: Tue Dec 10 18:49:16 2019
+Latest commit of src/main/java/edu/yu/intro/Rectangle.java was on: Tue Dec 10 18:49:16 2019
+Latest commit of src/main/java/edu/yu/intro/Shape.java was on: Tue Dec 10 15:12:19 2019
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
+Test cases to execute : 2
+Running edu.yu.intro.test.ShapesTest
+Execution Started : nonPositiveInputCircle
+Execution Finished : nonPositiveInputCircle
+Execution Started : CheckCircleMethod
+Execution Finished : CheckCircleMethod
+Execution Started : nonPositiveInputTriangle
+Execution Finished : nonPositiveInputTriangle
+Execution Started : CheckTriangleMethod
+Execution Finished : CheckTriangleMethod
+Execution Started : CheckRectangleMethod
+Execution Finished : CheckRectangleMethod
+Execution Started : nonPositiveInputRectangle
+Execution Finished : nonPositiveInputRectangle
+Execution Started : negativeInputRectangle
+Execution Finished : negativeInputRectangle
+Execution Started : negativeInputTriangle
+Execution Finished : negativeInputTriangle
+Execution Started : negativeInputCircle
+Execution Finished : negativeInputCircle
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec - in edu.yu.intro.test.ShapesTest
+Running edu.yu.intro.test.ProfessorShapesTest
+Execution Started : testTriangle
+Execution Finished : testTriangle
+Execution Started : circleRadiusMustBePositive
+Execution Finished : circleRadiusMustBePositive
+Execution Started : rectangleHeightMustBePositive
+Execution Finished : rectangleHeightMustBePositive
+Execution Started : triangleS3MustBePositive
+Execution Finished : triangleS3MustBePositive
+Execution Started : shapeIsAnInterface
+Execution Finished : shapeIsAnInterface
+Execution Started : rectangleWidthMustBePositive
+Execution Finished : rectangleWidthMustBePositive
+Execution Started : aCircleIsNotAPolygon
+Execution Finished : aCircleIsNotAPolygon
+Execution Started : triangleS1MustBePositive
+Execution Finished : triangleS1MustBePositive
+Execution Started : testCircle
+Execution Finished : testCircle
+Execution Started : testRectangle
+Execution Finished : testRectangle
+Execution Started : triangleS2MustBePositive
+Execution Finished : triangleS2MustBePositive
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in edu.yu.intro.test.ProfessorShapesTest
+Test cases executed : 20
+
+Results :
+
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0
+
