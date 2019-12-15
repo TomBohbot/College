@@ -162,7 +162,6 @@ public class AuthorsAndBooks {
 				if(newSetOfPubWAuth.size() > publisherWithMostAuthorsCounter) {
 					publisherWithMostAuthorsCounter = newSetOfPubWAuth.size();
 					publisherWithMostAuthors = book.getPublisher();
-					System.out.println(publisherWithMostAuthors);
 				}
 			}
 			else {
@@ -199,7 +198,6 @@ public class AuthorsAndBooks {
 	}
 
 	public String publisherMostUniqueAuthors () {
-
 		return publisherWithMostAuthors; 
 	}
 

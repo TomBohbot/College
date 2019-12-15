@@ -19,7 +19,6 @@ public class AuthorsAndBooksTest {
 
 	@Test
 	public void parseLineMethod() {
-
 		assertTrue ("testing ISBN of book." , "ISBN".equals(bookInstance.getISBN() ) );
 		assertTrue ("testing Title of book." , "Book-Title".equals(bookInstance.getTitle() ) );
 		assertTrue ("testing Author of book." , "Book-Author".equals(bookInstance.getAuthor() ) );
