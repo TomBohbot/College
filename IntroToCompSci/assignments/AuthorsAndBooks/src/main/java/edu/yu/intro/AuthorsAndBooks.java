@@ -145,14 +145,14 @@ public class AuthorsAndBooks {
 			}
 			// returning titles of a specific author.
 			if (titlesHashMap.containsKey(book.getAuthor() ) ) {
-				Set <String> newSetOfTitles = titlesHashMap.get(book.getTitle());
+				Set <String> newSetOfTitles = titlesHashMap.get(book.getAuthor());
 				newSetOfTitles.add(book.getTitle() );
-				titlesHashMap.put(book.getTitle() , newSetOfTitles);
+				titlesHashMap.put(book.getAuthor() , newSetOfTitles);
 			}
 			else {
 				Set <String> newEntryToTitlesMap = new HashSet <String>();
 				newEntryToTitlesMap.add(book.getTitle() );
-				titlesHashMap.put(book.getTitle() , newEntryToTitlesMap);
+				titlesHashMap.put(book.getAuthor() , newEntryToTitlesMap);
 			}
 			// returning publisher with most unique authors.
 			if (pubWAuthHashMap.containsKey(book.getPublisher() ) ) {
