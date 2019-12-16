@@ -25,6 +25,7 @@ public class AuthorsAndBooksTest {
 		assertTrue ("testing Year of Pub. of book." , "Year-Of-Publication1".equals(bookInstance.getYearPublished() ) );
 		assertTrue ("testing Publisher of book." , "Publisher1".equals(bookInstance.getPublisher() ) );
 	}
+
 	@Test 
 	public void addMethod() {
 		authorsInstance.add(bookInstance);
@@ -41,6 +42,7 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(bookInstance);
 		authorsInstance.add(bookInstanceCopy);
 	}
+
 	@Test 
 	public void countNumberOfBooks() {
 		Book book1 = new Book ("ISBN1", "Book-Title" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
@@ -51,6 +53,7 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book3);
 		assertEquals("testing if unique number of books is correct." , 3 , authorsInstance.numberOfDistinctBooks() );
 	}
+
 	@Test 
 	public void booksByAuthorMethodTest() {
 		Book book1 = new Book ("ISBN1", "Book-Title" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
@@ -69,6 +72,13 @@ public class AuthorsAndBooksTest {
 		int lengthofBooksByAuthor = booksByAuthorSet.size();
 		assertEquals("testing if author does not exist in hashMap." , 0 , lengthofBooksByAuthor );
 	}
+	@Test (expected = IllegalArgumentException.class)
+	public void AuthorscMethodTestEmptyAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+	}
+
 	@Test 
 	public void booksByPublisherMethodTest() {
 		Book book1 = new Book ("ISBN1", "Book-Title" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
@@ -87,6 +97,13 @@ public class AuthorsAndBooksTest {
 		int lengthofBooksByPublisher = booksByPublisherSet.size();
 		assertEquals("testing if set of publishers is correct when the publisher does not exist." , 0 , lengthofBooksByPublisher );
 	}
+	@Test (expected = IllegalArgumentException.class)
+	public void allPublishersMethodTestEmptyAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+	}
+
 	@Test
 	public void allTitlesMethodTest() {
 		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
@@ -105,6 +122,13 @@ public class AuthorsAndBooksTest {
 		int lengthofBooksByAuthorGetTitle = booksByAuthorGetTitlesSet.size();
 		assertEquals("testing if set of titles by author is correct when author does not exist." , 0 , lengthofBooksByAuthorGetTitle );
 	}
+	@Test (expected = IllegalArgumentException.class)
+	public void allTitlesMethodTestEmptyAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+	}
+
 	@Test 
 	public void PublisherWithMostUniqueAuthorsMethod() {
 		Book book1 = new Book ("ISBN1", "Book-Title" ,"Author1" ,"Year-Of-Publication" ,"PublisherMost");
@@ -120,5 +144,11 @@ public class AuthorsAndBooksTest {
 		String publisherWMostUniqAuthors = authorsInstance.publisherMostUniqueAuthors();
 		assertTrue("testing publisher with most unique authors." , "PublisherMost".equals(publisherWMostUniqAuthors) );
 	}
+	@Test 
+	public void PublisherWithMostUniqueAuthorsMethodNullTest() {
+		String publisherWMostUniqAuthors = authorsInstance.publisherMostUniqueAuthors();
+		assertEquals("testing publisher with most unique authors." , null , publisherWMostUniqAuthors);
+	}
 }
 // Final Version :)
+// Final Version after adjusting for non empty strings. :)

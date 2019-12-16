@@ -32,11 +32,6 @@ public class AuthorsAndBooks {
 	public AuthorsAndBooks () {}
 
 	public Book parseLine (String input) {
-	/** TODO LIST:
-	 *	1) Get rid of quote marks. DONE
-	 *  2) If a string is leading with a space bar I should count for that. DONE
-	 *  3) Get rid of the first line of text. DONE
-	 */
 
 		Book bookInstance = new Book ("isbn" , "title" , "author" , "yearPublished" , "publisher" );
 		String isbn = "Sample";
@@ -70,38 +65,31 @@ public class AuthorsAndBooks {
 			}
 		}
 		// Next five for loops made to remove the quotation marks. 
-		// try {
-			String [] splitISBN = isbn.split("\"");
-			for (int i = 0; i < splitISBN.length; i ++) {
-				isbn = splitISBN[1];
-				break;
-			}
-			String [] splitTitle = title.split("\"");
-			for (int i = 0; i < splitTitle.length; i ++) {
-				title = splitTitle[1];
-				break;
-			}
-			String [] splitAuthor = author.split("\"");
-			for (int i = 0; i < splitAuthor.length; i ++) {
-				author = splitAuthor[1];
-				break;
-			}
-			String [] splitYearPublished = yearPublished.split("\"");
-			for (int i = 0; i < splitYearPublished.length; i ++) {
-				yearPublished = splitYearPublished[1];
-				break;
-			}
-			String [] splitPublisher = publisher.split("\"");
-			for (int i = 0; i < splitPublisher.length; i ++) {
-				publisher = splitPublisher[1];
-				break;
-			}
-		// } catch (ArrayIndexOutOfBoundsException e) {
-		// 	System.out.println ("HI");
-		// }
-		// if (isbn.equals("ISBN") && title.equals("Book-Title") && author.equals("Book-Author") && yearPublished.equals("Year-Of-Publication") && publisher.equals("Publisher") ){
-		// 	throw new IllegalArgumentException("The first line of the txt file is not a real file.");
-		// }
+		String [] splitISBN = isbn.split("\"");
+		for (int i = 0; i < splitISBN.length; i ++) {
+			isbn = splitISBN[1];
+			break;
+		}
+		String [] splitTitle = title.split("\"");
+		for (int i = 0; i < splitTitle.length; i ++) {
+			title = splitTitle[1];
+			break;
+		}
+		String [] splitAuthor = author.split("\"");
+		for (int i = 0; i < splitAuthor.length; i ++) {
+			author = splitAuthor[1];
+			break;
+		}
+		String [] splitYearPublished = yearPublished.split("\"");
+		for (int i = 0; i < splitYearPublished.length; i ++) {
+			yearPublished = splitYearPublished[1];
+			break;
+		}
+		String [] splitPublisher = publisher.split("\"");
+		for (int i = 0; i < splitPublisher.length; i ++) {
+			publisher = splitPublisher[1];
+			break;
+		}
 		bookInstance = new Book (isbn , title , author , yearPublished , publisher);
 		return bookInstance;
 	}
@@ -184,6 +172,9 @@ public class AuthorsAndBooks {
 	}	
 
 	public Set<Book> booksByAuthor (final String author) {	
+		if (author.isEmpty() ) {
+			throw new IllegalArgumentException("Author must be nonempty.");
+		}
 		if (authorHashMap.containsKey(author) ) {
 			Set <Book> setOfAuthors = (Set <Book>)authorHashMap.get(author);
 			Set <Book> unmodifiableSetOfAuthors = Collections.unmodifiableSet(setOfAuthors);
@@ -197,6 +188,9 @@ public class AuthorsAndBooks {
 	}
 
 	public Set<Book> booksByPublisher(final String publisher) {
+		if (publisher.isEmpty() ) {
+			throw new IllegalArgumentException("Publisher must be nonempty.");
+		}
 		if (publisherHashMap.containsKey(publisher) ) {
 			Set <Book> setOfPublishers = (Set <Book>)publisherHashMap.get(publisher);
 			Set <Book> unmodifiableSetOfPublishers = Collections.unmodifiableSet(setOfPublishers);
@@ -210,6 +204,9 @@ public class AuthorsAndBooks {
 	}
 
 	public Set<String> allTitles (final String author) {
+		if (author.isEmpty() ) {
+			throw new IllegalArgumentException("Author must be nonempty.");
+		}
 		if (titlesHashMap.containsKey(author) ) {
 			Set <String> setOfTitles = (Set <String>)titlesHashMap.get(author);
 			// Set <String> unmodifiableSetOfTitles = Collections.unmodifiableSet(setOfTitles);
@@ -289,3 +286,4 @@ public class AuthorsAndBooks {
 	}
 }
 // Final Version :)
+// Final Version after adjusting for non empty strings. :)
