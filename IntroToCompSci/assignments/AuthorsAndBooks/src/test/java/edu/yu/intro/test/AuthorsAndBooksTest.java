@@ -19,11 +19,11 @@ public class AuthorsAndBooksTest {
 
 	@Test
 	public void parseLineMethod() {
-		assertTrue ("testing ISBN of book." , "ISBN1".equals(bookInstance.getISBN() ) );
-		assertTrue ("testing Title of book." , "Book-Title1".equals(bookInstance.getTitle() ) );
-		assertTrue ("testing Author of book." , "Book-Author1".equals(bookInstance.getAuthor() ) );
-		assertTrue ("testing Year of Pub. of book." , "Year-Of-Publication1".equals(bookInstance.getYearPublished() ) );
-		assertTrue ("testing Publisher of book." , "Publisher1".equals(bookInstance.getPublisher() ) );
+		assertTrue ("testing ISBN of book." , "\"ISBN1\"".equals(bookInstance.getISBN() ) );
+		assertTrue ("testing Title of book." , "\"Book-Title1\"".equals(bookInstance.getTitle() ) );
+		assertTrue ("testing Author of book." , "\"Book-Author1\"".equals(bookInstance.getAuthor() ) );
+		assertTrue ("testing Year of Pub. of book." , "\"Year-Of-Publication1\"".equals(bookInstance.getYearPublished() ) );
+		assertTrue ("testing Publisher of book." , "\"Publisher1\"".equals(bookInstance.getPublisher() ) );
 	}
 
 	@Test 
@@ -144,6 +144,7 @@ public class AuthorsAndBooksTest {
 		String publisherWMostUniqAuthors = authorsInstance.publisherMostUniqueAuthors();
 		assertTrue("testing publisher with most unique authors." , "PublisherMost".equals(publisherWMostUniqAuthors) );
 	}
+
 	@Test 
 	public void PublisherWithMostUniqueAuthorsMethodNullTest() {
 		String publisherWMostUniqAuthors = authorsInstance.publisherMostUniqueAuthors();

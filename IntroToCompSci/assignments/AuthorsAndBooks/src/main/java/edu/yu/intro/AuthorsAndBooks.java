@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.lang.String;
 
 public class AuthorsAndBooks {
-	private Set <Book> hashSet = new HashSet<Book>();												// Don't know why I have this
+	// private Set <Book> hashSet = new HashSet<Book>();												// Don't know why I have this
 	private Set <String> hashSetISBN = new HashSet<String>();										// To check for duplicate ISBN												
 	private Set <String> hashSetAuthors = new HashSet<String>();									// To find total unique authors
 	private Set <String> hashSetPublishers = new HashSet<String>();									// To find total unique publishers		
@@ -29,6 +29,7 @@ public class AuthorsAndBooks {
 	private String publisherWithMostBooks;
 	private int publisherWithMostAuthorsCounter;
 	private String publisherWithMostAuthors = null;
+
 	public AuthorsAndBooks () {}
 
 	public Book parseLine (String input) {
@@ -39,57 +40,25 @@ public class AuthorsAndBooks {
 		String author = "Sample";
 		String yearPublished = "Sample";
 		String publisher = "Sample";
-		String urlS = "Sample";
-		String urlM = "Sample";
-		String urlL = "Sample";
-		//for loop made to remove the ";" marks.
+		// Remove the ";" marks.
 		String [] tokens = input.split(";");
-		for (int i = 0; i < tokens.length; i ++) {
-			if (i == 0) {
-				isbn = tokens[i]; 
-			}
-			else if (i == 1) {
-				title = tokens[i]; 
-			}
-			else if (i == 2) {
-				author = tokens[i]; 
-			}
-			else if (i == 3) {
-				yearPublished = tokens[i]; 
-			}
-			else if (i == 4) {
-				publisher = tokens[i]; 
-			}
-			else {
-				break;
-			}
-		}
-		// Next five for loops made to remove the quotation marks. 
-		String [] splitISBN = isbn.split("\"");
-		for (int i = 0; i < splitISBN.length; i ++) {
-			isbn = splitISBN[1];
-			break;
-		}
-		String [] splitTitle = title.split("\"");
-		for (int i = 0; i < splitTitle.length; i ++) {
-			title = splitTitle[1];
-			break;
-		}
-		String [] splitAuthor = author.split("\"");
-		for (int i = 0; i < splitAuthor.length; i ++) {
-			author = splitAuthor[1];
-			break;
-		}
-		String [] splitYearPublished = yearPublished.split("\"");
-		for (int i = 0; i < splitYearPublished.length; i ++) {
-			yearPublished = splitYearPublished[1];
-			break;
-		}
-		String [] splitPublisher = publisher.split("\"");
-		for (int i = 0; i < splitPublisher.length; i ++) {
-			publisher = splitPublisher[1];
-			break;
-		}
+		isbn = tokens[0]; 
+		title = tokens[1]; 
+		author = tokens[2]; 
+		yearPublished = tokens[3]; 
+		publisher = tokens[4]; 
+		// Remove the quotation marks. 
+		// String [] splitISBN = isbn.split("\"");
+		// isbn = splitISBN[1];
+		// String [] splitTitle = title.split("\"");
+		// title = splitTitle[1];
+		// String [] splitAuthor = author.split("\"");
+		// author = splitAuthor[1];
+		// String [] splitYearPublished = yearPublished.split("\"");
+		// yearPublished = splitYearPublished[1];
+		// String [] splitPublisher = publisher.split("\"");
+		// publisher = splitPublisher[1];
+		// Final return value.
 		bookInstance = new Book (isbn , title , author , yearPublished , publisher);
 		return bookInstance;
 	}
@@ -106,7 +75,7 @@ public class AuthorsAndBooks {
 			hashSetISBN.add(bookISBN);
 			hashSetAuthors.add(book.getAuthor() );
 			hashSetPublishers.add(book.getPublisher() );
-			hashSet.add(book);
+			// hashSet.add(book);
 			arrayListAuthor.add(book.getAuthor() );
 			arrayListPublisher.add(book.getPublisher() );
 			numberOfBooks ++;
@@ -115,22 +84,38 @@ public class AuthorsAndBooks {
 				Set <Book> newSetOfAuthors = authorHashMap.get(book.getAuthor());
 				newSetOfAuthors.add(book);
 				authorHashMap.put(book.getAuthor() , newSetOfAuthors);
+				if (newSetOfAuthors.size() > authorWithMostBooksCounter) {
+					authorWithMostBooksCounter = newSetOfAuthors.size();
+					authorWithMostBooks = book.getAuthor();
+				}
 			}
 			else {
 				Set <Book> newEntryToMap = new HashSet <Book>();
 				newEntryToMap.add(book);
 				authorHashMap.put(book.getAuthor() , newEntryToMap);
+				if (newEntryToMap.size() > authorWithMostBooksCounter) {
+					authorWithMostBooksCounter = newEntryToMap.size();
+					authorWithMostBooks = book.getAuthor();
+				}
 			}
 			// adding publisher set to map to find specific set of all books of publisher later.
 			if (publisherHashMap.containsKey(book.getPublisher() ) ) {
 				Set <Book> newSetOfPublishers = publisherHashMap.get(book.getPublisher());
 				newSetOfPublishers.add(book);
 				publisherHashMap.put(book.getPublisher() , newSetOfPublishers);
+				if (newSetOfPublishers.size() > publisherWithMostBooksCounter) {
+					publisherWithMostBooksCounter = newSetOfPublishers.size();
+					publisherWithMostBooks = book.getPublisher();
+				}
 			}
 			else {
 				Set <Book> newEntryToPublisherMap = new HashSet <Book>();
 				newEntryToPublisherMap.add(book);
 				publisherHashMap.put(book.getPublisher() , newEntryToPublisherMap);
+				if (newEntryToPublisherMap.size() > publisherWithMostBooksCounter) {
+					publisherWithMostBooksCounter = newEntryToPublisherMap.size();
+					publisherWithMostBooks = book.getPublisher();
+				}
 			}
 			// returning titles of a specific author.
 			if (titlesHashMap.containsKey(book.getAuthor() ) ) {
@@ -147,7 +132,7 @@ public class AuthorsAndBooks {
 			if (pubWAuthHashMap.containsKey(book.getPublisher() ) ) {
 				Set <String> newSetOfPubWAuth = pubWAuthHashMap.get(book.getPublisher());
 				newSetOfPubWAuth.add(book.getAuthor() );
-				titlesHashMap.put(book.getPublisher() , newSetOfPubWAuth);
+				pubWAuthHashMap.put(book.getPublisher() , newSetOfPubWAuth);
 				if(newSetOfPubWAuth.size() > publisherWithMostAuthorsCounter) {
 					publisherWithMostAuthorsCounter = newSetOfPubWAuth.size();
 					publisherWithMostAuthors = book.getPublisher();
@@ -157,18 +142,23 @@ public class AuthorsAndBooks {
 				Set <String> newEntryToPubWAuthMap = new HashSet <String>();
 				newEntryToPubWAuthMap.add(book.getAuthor() );
 				pubWAuthHashMap.put(book.getPublisher() , newEntryToPubWAuthMap);
+				if(newEntryToPubWAuthMap.size() > publisherWithMostAuthorsCounter) {
+					publisherWithMostAuthorsCounter = newEntryToPubWAuthMap.size();
+					publisherWithMostAuthors = book.getPublisher();
+				}
 			}
 		}
 		// counting max author here. 
-		if(Collections.frequency(arrayListAuthor , book.getAuthor() ) > authorWithMostBooksCounter) {
-			authorWithMostBooksCounter = Collections.frequency(arrayListAuthor , book.getAuthor() );
-			authorWithMostBooks = book.getAuthor();
-		}
+		// if(Collections.frequency(arrayListAuthor , book.getAuthor() ) > authorWithMostBooksCounter) {
+		// 	System.out.println("im in freq");
+		// 	authorWithMostBooksCounter = Collections.frequency(arrayListAuthor , book.getAuthor() );
+		// 	authorWithMostBooks = book.getAuthor();
+		// }
 		// counting max publisher here. 
-		if(Collections.frequency(arrayListPublisher , book.getPublisher() ) > publisherWithMostBooksCounter) {
-			publisherWithMostBooksCounter = Collections.frequency(arrayListPublisher , book.getPublisher() );
-			publisherWithMostBooks = book.getPublisher();
-		}
+		// if(Collections.frequency(arrayListPublisher , book.getPublisher() ) > publisherWithMostBooksCounter) {
+		// 	publisherWithMostBooksCounter = Collections.frequency(arrayListPublisher , book.getPublisher() );
+		// 	publisherWithMostBooks = book.getPublisher();
+		// }
 	}	
 
 	public Set<Book> booksByAuthor (final String author) {	
@@ -257,10 +247,11 @@ public class AuthorsAndBooks {
 			final Scanner scanner = new Scanner (input);
 			// testing the parseline method.
 			String firstLineOfTxt = "\"ISBN\";\"Book-Title\";\"Book-Author\";\"Year-Of-Publication\";\"Publisher\";\"Image-URL-S\";\"Image-URL-M\";\"Image-URL-L\"";
+			String firstLineSkip = scanner.nextLine();
 			while (scanner.hasNextLine() ) {
 				try {
 					String nextLine = scanner.nextLine();
-					if(nextLine.equals(firstLineOfTxt) || nextLine.equals("") ) {
+					if(nextLine.equals(firstLineOfTxt) || nextLine.isEmpty() ) {
 						continue;
 					}
 					else {
