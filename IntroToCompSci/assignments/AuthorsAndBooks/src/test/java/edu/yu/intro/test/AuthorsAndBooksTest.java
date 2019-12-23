@@ -19,11 +19,11 @@ public class AuthorsAndBooksTest {
 
 	@Test
 	public void parseLineMethod() {
-		assertTrue ("testing ISBN of book." , "\"ISBN1\"".equals(bookInstance.getISBN() ) );
-		assertTrue ("testing Title of book." , "\"Book-Title1\"".equals(bookInstance.getTitle() ) );
-		assertTrue ("testing Author of book." , "\"Book-Author1\"".equals(bookInstance.getAuthor() ) );
-		assertTrue ("testing Year of Pub. of book." , "\"Year-Of-Publication1\"".equals(bookInstance.getYearPublished() ) );
-		assertTrue ("testing Publisher of book." , "\"Publisher1\"".equals(bookInstance.getPublisher() ) );
+		assertTrue ("testing ISBN of book." , "ISBN1".equals(bookInstance.getISBN() ) );
+		assertTrue ("testing Title of book." , "Book-Title1".equals(bookInstance.getTitle() ) );
+		assertTrue ("testing Author of book." , "Book-Author1".equals(bookInstance.getAuthor() ) );
+		assertTrue ("testing Year of Pub. of book." , "Year-Of-Publication1".equals(bookInstance.getYearPublished() ) );
+		assertTrue ("testing Publisher of book." , "Publisher1".equals(bookInstance.getPublisher() ) );
 	}
 
 	@Test 
@@ -63,6 +63,7 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book2);
 		authorsInstance.add(book3);
 		Set <Book> booksByAuthorSet = authorsInstance.booksByAuthor("Book-Author");
+		Set <Book> booksByAuthorSetExpected = new HashSet <Book>();
 		int lengthofBooksByAuthor = booksByAuthorSet.size();
 		assertEquals("testing if set of authors is correct." , 2 , lengthofBooksByAuthor );
 	}
@@ -103,6 +104,13 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book1);
 		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
 	}
+	// @Test (expected = IllegalArgumentException.class)
+	// public void allPublishersMethodTestNullAuthor() {
+	// 	Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+	// 	authorsInstance.add(book1);
+	// 	String null1 = null;
+	// 	Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles(null1);
+	// }
 
 	@Test
 	public void allTitlesMethodTest() {

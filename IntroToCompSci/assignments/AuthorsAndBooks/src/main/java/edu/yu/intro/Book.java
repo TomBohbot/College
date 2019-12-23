@@ -19,6 +19,13 @@ public class Book {
 
 	public Book(final String isbn , final String title , final String author , final String yearPublished , final String publisher ) {
 
+		if (isbn.isEmpty() || title.isEmpty() || author.isEmpty() || yearPublished.isEmpty() || publisher.isEmpty() ) {
+			throw new IllegalArgumentException("None of these paramters can be empty.");
+		}
+		if (isbn == null || title == null || author == null || yearPublished == null || publisher == null ) {
+			throw new IllegalArgumentException("None of these paramters can be null.");
+		}
+
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
@@ -43,3 +50,4 @@ public class Book {
 
 }
 // Final Version :)
+// Added if statement to exclude emoty and null cases. :)

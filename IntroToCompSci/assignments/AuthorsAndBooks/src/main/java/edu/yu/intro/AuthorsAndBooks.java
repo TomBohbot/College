@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 import java.lang.String;
 
 public class AuthorsAndBooks {
-	// private Set <Book> hashSet = new HashSet<Book>();												// Don't know why I have this
 	private Set <String> hashSetISBN = new HashSet<String>();										// To check for duplicate ISBN												
 	private Set <String> hashSetAuthors = new HashSet<String>();									// To find total unique authors
 	private Set <String> hashSetPublishers = new HashSet<String>();									// To find total unique publishers		
@@ -23,8 +22,6 @@ public class AuthorsAndBooks {
 	private int numberOfBooks;
 	private int authorWithMostBooksCounter;
 	private String authorWithMostBooks;
-	private ArrayList <String> arrayListAuthor = new ArrayList <String>();							// To find out who is most frequent as author.
-	private ArrayList <String> arrayListPublisher = new ArrayList <String>();						// To find out who is most frequent as publisher.
 	private int publisherWithMostBooksCounter;
 	private String publisherWithMostBooks;
 	private int publisherWithMostAuthorsCounter;
@@ -42,22 +39,12 @@ public class AuthorsAndBooks {
 		String publisher = "Sample";
 		// Remove the ";" marks.
 		String [] tokens = input.split(";");
-		isbn = tokens[0]; 
-		title = tokens[1]; 
-		author = tokens[2]; 
-		yearPublished = tokens[3]; 
-		publisher = tokens[4]; 
-		// Remove the quotation marks. 
-		// String [] splitISBN = isbn.split("\"");
-		// isbn = splitISBN[1];
-		// String [] splitTitle = title.split("\"");
-		// title = splitTitle[1];
-		// String [] splitAuthor = author.split("\"");
-		// author = splitAuthor[1];
-		// String [] splitYearPublished = yearPublished.split("\"");
-		// yearPublished = splitYearPublished[1];
-		// String [] splitPublisher = publisher.split("\"");
-		// publisher = splitPublisher[1];
+		// Remove the ";" marks and the "\"" marks through .replace.
+		isbn = tokens[0].replace("\"" , ""); 
+		title = tokens[1].replace("\"" , ""); 
+		author = tokens[2].replace("\"" , ""); 
+		yearPublished = tokens[3].replace("\"" , ""); 
+		publisher = tokens[4].replace("\"" , ""); 
 		// Final return value.
 		bookInstance = new Book (isbn , title , author , yearPublished , publisher);
 		return bookInstance;
@@ -75,9 +62,6 @@ public class AuthorsAndBooks {
 			hashSetISBN.add(bookISBN);
 			hashSetAuthors.add(book.getAuthor() );
 			hashSetPublishers.add(book.getPublisher() );
-			// hashSet.add(book);
-			arrayListAuthor.add(book.getAuthor() );
-			arrayListPublisher.add(book.getPublisher() );
 			numberOfBooks ++;
 			// adding author set to map to find specific set of all books of author later.
 			if (authorHashMap.containsKey(book.getAuthor() ) ) {
@@ -148,21 +132,10 @@ public class AuthorsAndBooks {
 				}
 			}
 		}
-		// counting max author here. 
-		// if(Collections.frequency(arrayListAuthor , book.getAuthor() ) > authorWithMostBooksCounter) {
-		// 	System.out.println("im in freq");
-		// 	authorWithMostBooksCounter = Collections.frequency(arrayListAuthor , book.getAuthor() );
-		// 	authorWithMostBooks = book.getAuthor();
-		// }
-		// counting max publisher here. 
-		// if(Collections.frequency(arrayListPublisher , book.getPublisher() ) > publisherWithMostBooksCounter) {
-		// 	publisherWithMostBooksCounter = Collections.frequency(arrayListPublisher , book.getPublisher() );
-		// 	publisherWithMostBooks = book.getPublisher();
-		// }
 	}	
 
 	public Set<Book> booksByAuthor (final String author) {	
-		if (author.isEmpty() ) {
+		if (author.isEmpty() || author == null ) {
 			throw new IllegalArgumentException("Author must be nonempty.");
 		}
 		if (authorHashMap.containsKey(author) ) {
@@ -178,7 +151,7 @@ public class AuthorsAndBooks {
 	}
 
 	public Set<Book> booksByPublisher(final String publisher) {
-		if (publisher.isEmpty() ) {
+		if (publisher.isEmpty() || publisher == null) {
 			throw new IllegalArgumentException("Publisher must be nonempty.");
 		}
 		if (publisherHashMap.containsKey(publisher) ) {
@@ -194,9 +167,12 @@ public class AuthorsAndBooks {
 	}
 
 	public Set<String> allTitles (final String author) {
-		if (author.isEmpty() ) {
-			throw new IllegalArgumentException("Author must be nonempty.");
-		}
+		try { 
+			if (author.isEmpty() || author == null ) {
+				throw new IllegalArgumentException("Author must be nonempty.");
+			}
+		} catch (NullPointerException e) {}
+		 
 		if (titlesHashMap.containsKey(author) ) {
 			Set <String> setOfTitles = (Set <String>)titlesHashMap.get(author);
 			// Set <String> unmodifiableSetOfTitles = Collections.unmodifiableSet(setOfTitles);
@@ -218,7 +194,7 @@ public class AuthorsAndBooks {
 	}
 
 	public int numberOfDistinctAuthors () {
-		return hashSetAuthors.size();
+		return titlesHashMap.size();
 	}
 
 	public int numberOfDistinctPublishers () {
@@ -245,7 +221,6 @@ public class AuthorsAndBooks {
 		AuthorsAndBooks authorsInstance = new AuthorsAndBooks();
 		try {
 			final Scanner scanner = new Scanner (input);
-			// testing the parseline method.
 			String firstLineOfTxt = "\"ISBN\";\"Book-Title\";\"Book-Author\";\"Year-Of-Publication\";\"Publisher\";\"Image-URL-S\";\"Image-URL-M\";\"Image-URL-L\"";
 			String firstLineSkip = scanner.nextLine();
 			while (scanner.hasNextLine() ) {
