@@ -193,7 +193,7 @@ public class AuthorsAndBooks {
 	}
 
 	public int numberOfDistinctAuthors () {
-		return titlesHashMap.size();
+		return hashSetAuthors.size();
 	}
 
 	public int numberOfDistinctPublishers () {
