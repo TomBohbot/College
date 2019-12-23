@@ -37,7 +37,6 @@ public class AuthorsAndBooks {
 		String author = "Sample";
 		String yearPublished = "Sample";
 		String publisher = "Sample";
-		// Remove the ";" marks.
 		String [] tokens = input.split(";");
 		// Remove the ";" marks and the "\"" marks through .replace.
 		isbn = tokens[0].replace("\"" , ""); 
@@ -172,7 +171,7 @@ public class AuthorsAndBooks {
 				throw new IllegalArgumentException("Author must be nonempty.");
 			}
 		} catch (NullPointerException e) {}
-		 
+
 		if (titlesHashMap.containsKey(author) ) {
 			Set <String> setOfTitles = (Set <String>)titlesHashMap.get(author);
 			// Set <String> unmodifiableSetOfTitles = Collections.unmodifiableSet(setOfTitles);
@@ -222,7 +221,10 @@ public class AuthorsAndBooks {
 		try {
 			final Scanner scanner = new Scanner (input);
 			String firstLineOfTxt = "\"ISBN\";\"Book-Title\";\"Book-Author\";\"Year-Of-Publication\";\"Publisher\";\"Image-URL-S\";\"Image-URL-M\";\"Image-URL-L\"";
-			String firstLineSkip = scanner.nextLine();
+			// This try catch block is made for the case that the txt file is empty.
+			try {
+				String firstLineSkip = scanner.nextLine();
+			} catch (NoSuchElementException e) {}
 			while (scanner.hasNextLine() ) {
 				try {
 					String nextLine = scanner.nextLine();
