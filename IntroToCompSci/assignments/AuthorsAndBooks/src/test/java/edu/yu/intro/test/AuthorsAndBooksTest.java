@@ -64,6 +64,9 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book3);
 		Set <Book> booksByAuthorSet = authorsInstance.booksByAuthor("Book-Author");
 		Set <Book> booksByAuthorSetExpected = new HashSet <Book>();
+		booksByAuthorSetExpected.add(book1);
+		booksByAuthorSetExpected.add(book3);
+		assertEquals("testing if set of authors is correct." , booksByAuthorSetExpected , booksByAuthorSet );
 		int lengthofBooksByAuthor = booksByAuthorSet.size();
 		assertEquals("testing if set of authors is correct." , 2 , lengthofBooksByAuthor );
 	}
@@ -77,7 +80,13 @@ public class AuthorsAndBooksTest {
 	public void AuthorscMethodTestEmptyAuthor() {
 		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
 		authorsInstance.add(book1);
-		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+		Set <Book> booksByAuthorGetTitlesSet = authorsInstance.booksByAuthor("");
+	}
+	@Test (expected = IllegalArgumentException.class)
+	public void AuthorscMethodTestNullAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		Set <Book> booksByAuthorGetTitlesSet = authorsInstance.booksByAuthor(null);
 	}
 
 	@Test 
@@ -89,6 +98,10 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book2);
 		authorsInstance.add(book3);
 		Set <Book> booksByPublisherSet = authorsInstance.booksByPublisher("Publisher");
+		Set <Book> booksByAuthorSetExpected = new HashSet <Book>();
+		booksByAuthorSetExpected.add(book1);
+		booksByAuthorSetExpected.add(book3);
+		assertEquals("testing if set of publishers is correct." , booksByAuthorSetExpected , booksByPublisherSet );
 		int lengthofBooksByPublisher = booksByPublisherSet.size();
 		assertEquals("testing if set of publishers is correct." , 2 , lengthofBooksByPublisher );
 	}
@@ -102,14 +115,13 @@ public class AuthorsAndBooksTest {
 	public void allPublishersMethodTestEmptyAuthor() {
 		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
 		authorsInstance.add(book1);
-		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+		Set <Book> booksByAuthorGetTitlesSet = authorsInstance.booksByPublisher("");
 	}
 	@Test (expected = IllegalArgumentException.class)
 	public void allPublishersMethodTestNullAuthor() {
 		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
 		authorsInstance.add(book1);
-		String null1 = null;
-		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles(null1);
+		Set <Book> booksByAuthorGetTitlesSet = authorsInstance.booksByPublisher(null);
 	}
 
 	@Test
@@ -121,6 +133,10 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book2);
 		authorsInstance.add(book3);
 		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("Book-Author");
+		Set <String> booksByAuthorSetExpected = new HashSet <String>();
+		booksByAuthorSetExpected.add(book1.getTitle() );
+		booksByAuthorSetExpected.add(book3.getTitle() );
+		assertEquals("testing if set of authors is correct." , booksByAuthorSetExpected , booksByAuthorGetTitlesSet );
 		int lengthofBooksByAuthorGetTitle = booksByAuthorGetTitlesSet.size();
 		assertEquals("testing if set of titles by author is correct." , 2 , lengthofBooksByAuthorGetTitle );
 	}
@@ -135,6 +151,12 @@ public class AuthorsAndBooksTest {
 		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
 		authorsInstance.add(book1);
 		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
+	}
+	@Test (expected = IllegalArgumentException.class)
+	public void allTitlesMethodTestNullAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles(null);
 	}
 
 	@Test 
