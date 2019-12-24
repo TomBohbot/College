@@ -134,7 +134,7 @@ public class AuthorsAndBooks {
 	}	
 
 	public Set<Book> booksByAuthor (final String author) {	
-		if (author.isEmpty() || author == null ) {
+		if (author == null || author.isEmpty()) {
 			throw new IllegalArgumentException("Author must be nonempty.");
 		}
 		if (authorHashMap.containsKey(author) ) {
@@ -150,7 +150,7 @@ public class AuthorsAndBooks {
 	}
 
 	public Set<Book> booksByPublisher(final String publisher) {
-		if (publisher.isEmpty() || publisher == null) {
+		if (publisher == null || publisher.isEmpty()) {
 			throw new IllegalArgumentException("Publisher must be nonempty.");
 		}
 		if (publisherHashMap.containsKey(publisher) ) {
@@ -167,7 +167,7 @@ public class AuthorsAndBooks {
 
 	public Set<String> allTitles (final String author) {
 		try { 
-			if (author.isEmpty() || author == null ) {
+			if (author == null || author.isEmpty()) {
 				throw new IllegalArgumentException("Author must be nonempty.");
 			}
 		} catch (NullPointerException e) {}
@@ -225,6 +225,7 @@ public class AuthorsAndBooks {
 			try {
 				String firstLineSkip = scanner.nextLine();
 			} catch (NoSuchElementException e) {}
+			// Process the file and gather all usefull information, without printing anything.
 			while (scanner.hasNextLine() ) {
 				try {
 					String nextLine = scanner.nextLine();
@@ -239,6 +240,7 @@ public class AuthorsAndBooks {
 					System.out.println(e.getMessage() );
 				}			
 			} 
+			// Print out the required main.
 			System.out.println("*************************************************");
 			System.out.println("AuthorsAndBooks main - Number of distinct books: " + authorsInstance.numberOfDistinctBooks() );
 			System.out.println("AuthorsAndBooks main - Number of distinct authors: " + authorsInstance.numberOfDistinctAuthors() );

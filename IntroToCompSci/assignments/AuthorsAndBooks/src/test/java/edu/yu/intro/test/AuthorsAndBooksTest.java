@@ -104,13 +104,13 @@ public class AuthorsAndBooksTest {
 		authorsInstance.add(book1);
 		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles("");
 	}
-	// @Test (expected = IllegalArgumentException.class)
-	// public void allPublishersMethodTestNullAuthor() {
-	// 	Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
-	// 	authorsInstance.add(book1);
-	// 	String null1 = null;
-	// 	Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles(null1);
-	// }
+	@Test (expected = IllegalArgumentException.class)
+	public void allPublishersMethodTestNullAuthor() {
+		Book book1 = new Book ("ISBN1", "Book-Title1" ,"Book-Author" ,"Year-Of-Publication" ,"Publisher");
+		authorsInstance.add(book1);
+		String null1 = null;
+		Set <String> booksByAuthorGetTitlesSet = authorsInstance.allTitles(null1);
+	}
 
 	@Test
 	public void allTitlesMethodTest() {
