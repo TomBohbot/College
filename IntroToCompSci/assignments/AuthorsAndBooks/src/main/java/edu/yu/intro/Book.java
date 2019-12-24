@@ -8,6 +8,7 @@ package edu.yu.intro;
 import java.util.Scanner;
 import java.io.*;
 import java.util.NoSuchElementException;
+import java.util.*;
 
 public class Book {
 
@@ -48,6 +49,26 @@ public class Book {
 		return publisher;
 	}
 
+	// Code to override HashCode and Equals:
+	@Override 
+	public boolean equals (Object that) {
+		if (this == that) {
+			return true;
+		}
+		if (that == null) {
+			return false;
+		}
+		if (getClass() != that.getClass() ) {
+			return false;
+		}
+		Book otherBook = (Book) that;
+		return Objects.equals(isbn , otherBook.isbn);
+	}
+	@Override 
+	public int hashCode () {
+		return Objects.hash(isbn);
+	}
 }
 // Final Version :)
 // Added if statement to exclude emoty and null cases. :)
+// Added override methods.

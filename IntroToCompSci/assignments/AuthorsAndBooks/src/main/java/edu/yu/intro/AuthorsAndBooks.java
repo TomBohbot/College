@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.lang.String;
 
 public class AuthorsAndBooks {
+	private Set <Book> authorsAndBooksState = new HashSet<Book>();								    // Authors and books state API Requirement
 	private Set <String> hashSetISBN = new HashSet<String>();										// To check for duplicate ISBN												
 	private Set <String> hashSetAuthors = new HashSet<String>();									// To find total unique authors
 	private Set <String> hashSetPublishers = new HashSet<String>();									// To find total unique publishers		
@@ -54,10 +55,14 @@ public class AuthorsAndBooks {
 			throw new IllegalArgumentException("ERROR: This book is null.");
 		}
 		String bookISBN = book.getISBN();
+		if (authorsAndBooksState.contains(book) ) {
+			throw new IllegalArgumentException("ERROR: Duplicate book in maintaned state.");
+		}
 		if (hashSetISBN.contains(bookISBN) ) {
 			throw new IllegalArgumentException("ERROR: Duplicate book.");
 		}
 		else {
+			authorsAndBooksState.add(book);
 			hashSetISBN.add(bookISBN);
 			hashSetAuthors.add(book.getAuthor() );
 			hashSetPublishers.add(book.getPublisher() );
