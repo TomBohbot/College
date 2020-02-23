@@ -5,21 +5,16 @@ import edu.yu.cs.com1320.project.stage1.impl.DocumentStoreImpl;
 import edu.yu.cs.com1320.project.impl.HashTableImpl;
 import edu.yu.cs.com1320.project.stage1.impl.DocumentImpl;
 
-import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import edu.yu.cs.com1320.project.stage1.Document;
-import edu.yu.cs.com1320.project.impl.HashTableImpl;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class DocumentStoreImplTest  {
 
@@ -80,17 +75,24 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if I get old value when I return null and no prev. value exists" , 0, doc.putDocument(null , uri , DocumentStore.DocumentFormat.TXT));
     }
 
-//    @Test (expected = IllegalArgumentException.class)
-//    public void testIfUriIsNull() throws URISyntaxException{
-//        DocumentStoreImpl doc = new DocumentStoreImpl();
-//        String inputStreamContent = "Hey, I'm Tom";
-//        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
-//        InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
-//        URI uri = new URI(null);
-//        int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
-////        assertEquals("Testing if I get old value when I return null and no prev. value exists" , null, testPutHashCode));
-//
-//    }
+    @Test (expected = IllegalArgumentException.class)
+    public void testIfUriIsNull() throws URISyntaxException{
+        DocumentStoreImpl doc = new DocumentStoreImpl();
+        String inputStreamContent = "Hey, I'm Tom";
+        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
+        int testPutHashCode = doc.putDocument(inputStream , null , DocumentStore.DocumentFormat.TXT);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testIfDocTypeIsNull() throws URISyntaxException{
+        DocumentStoreImpl doc = new DocumentStoreImpl();
+        String inputStreamContent = "Hey, I'm Tom";
+        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
+        URI uri = new URI("Tom'sURI");
+        int testPutHashCode = doc.putDocument(inputStream , uri , null);
+    }
 
     // TXT Test
     @Test

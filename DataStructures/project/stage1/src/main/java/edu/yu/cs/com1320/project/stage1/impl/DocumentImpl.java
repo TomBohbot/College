@@ -1,34 +1,23 @@
+package edu.yu.cs.com1320.project.stage1.impl;
+
 /** "Document Store Implementation" Stage 1
 *
 * @author Tom Bohbot
-* Code to compile: javac -cp src/main/java src/main/java/edu/yu/cs/com1320/project/stage1/impl/DocumentImpl.java
-* Code to run:     java -cp target/classes edu.yu.cs.com1320.project.stage1.impl.DocumentImpl
-* This Table is currently an accurate map, but have not yet integrated hashing, so it is not a HashMap yet.
-* FB Ea have same hashcode - 2236
+*
 */
 
-package edu.yu.cs.com1320.project.stage1.impl;
 import edu.yu.cs.com1320.project.stage1.Document;
 import edu.yu.cs.com1320.project.impl.HashTableImpl;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Objects;
-
-// import org.apache.pdfbox.pdmodel.PDDocument;
-// import org.apache.pdfbox.io.IOUtils;
-// import java.io.IOException;
-// import org.apache.pdfbox.pdmodel.PDDocument;
-// import org.apache.pdfbox.pdmodel.PDPage;
-// import org.apache.pdfbox.pdmodel.PDPageContentStream;
-// import org.apache.pdfbox.pdmodel.font.PDFont;
-// import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class DocumentImpl implements Document {
 
@@ -38,7 +27,7 @@ public class DocumentImpl implements Document {
         private int hashCode;
         private HashTableImpl <URI , DocumentImpl> hashTableOfDocs  = new HashTableImpl <URI , DocumentImpl>  ();
 
-    // Constructer for txt files:
+    // Constructor for txt files:
     public DocumentImpl (URI uri , String txt , int hashCode) {
         this.uri = uri;
         this.txt = txt;

@@ -1,3 +1,5 @@
+package edu.yu.cs.com1320.project.stage1.impl;
+
 /** "Document Store Implementation" Stage 1
  *
  * @author Tom Bohbot
@@ -6,8 +8,6 @@
  * Code to run:     java -cp target/classes edu.yu.cs.com1320.project.stage1.impl.DocumentImpl
  */
 
-package edu.yu.cs.com1320.project.stage1.impl;
-
 import edu.yu.cs.com1320.project.impl.HashTableImpl;
 import edu.yu.cs.com1320.project.stage1.DocumentStore;
 import edu.yu.cs.com1320.project.stage1.impl.DocumentImpl;
@@ -15,30 +15,20 @@ import edu.yu.cs.com1320.project.stage1.impl.DocumentImpl;
 import java.net.URI;
 import java.io.InputStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.io.IOUtils;
 import java.io.IOException;
-
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.text.PDFTextStripper;
-import java.io.*;
-
 import java.io.ByteArrayOutputStream;
-import java.net.URISyntaxException;
-
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.PDPage;
 
 public class DocumentStoreImpl implements DocumentStore {
 
     private HashTableImpl <URI , DocumentImpl > hashTableOfDocs = new HashTableImpl<URI , DocumentImpl>();
     private int hashCodeOfStream;
 
-    public DocumentStoreImpl () { // no arg constructor
+    public DocumentStoreImpl () {
 
     }
 
-    private static byte []inputStreamToByteArray(InputStream inputStream) throws IOException {
+    private byte []inputStreamToByteArray(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
         byte[] data = new byte [inputStream.available()];
         int atEnd = inputStream.read(data, 0, data.length); // if int is -1, then it is at the end.
@@ -58,12 +48,11 @@ public class DocumentStoreImpl implements DocumentStore {
         return oldValue;
     }
 
-
     private int putText (byte [] streamAsBytes , URI uri) throws IOException {
         String txt = new String (streamAsBytes);
         hashCodeOfStream = Math.abs(txt.hashCode() );
-        if (hashTableOfDocs.get(uri) != null) {                                                        // Check if key already exists in hashtable
-            if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {             // Check for duplicate uri
+        if (hashTableOfDocs.get(uri) != null) {
+            if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {
                 return hashCodeOfStream;
             }
         }
@@ -73,10 +62,10 @@ public class DocumentStoreImpl implements DocumentStore {
 
     private int putPDF (byte [] streamAsBytes , URI uri) throws IOException {
         PDFTextStripper pdfStripper = new PDFTextStripper();
-        String strippedByteArray =  pdfStripper.getText(PDDocument.load(streamAsBytes)).trim(); // End of file error at the .load. Need to fix. Fixed it, just wasnt putting pdf files in..
+        String strippedByteArray =  pdfStripper.getText(PDDocument.load(streamAsBytes)).trim();
         hashCodeOfStream = Math.abs(strippedByteArray.hashCode());
-        if (hashTableOfDocs.get(uri) != (null) ) {       // Check for duplicate hashcode value of txt.
-            if ( hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {        // Check for duplicate uri
+        if (hashTableOfDocs.get(uri) != (null) ) {
+            if ( hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {
                 return hashCodeOfStream;
             }
         }
@@ -87,9 +76,9 @@ public class DocumentStoreImpl implements DocumentStore {
     @Override
     public int putDocument(InputStream input, URI uri, DocumentFormat format) {
       try{
-        if (uri == null) { throw new IllegalArgumentException(); }
+        if (uri == null || format == null) { throw new IllegalArgumentException(); }
         if (input == null) { return ifNull(input , uri); }
-        byte [] streamAsBytes = inputStreamToByteArray(input); // converts input stream to byte array.
+        byte [] streamAsBytes = inputStreamToByteArray(input);
         switch (format) {
             case TXT:
                 return putText(streamAsBytes , uri);
@@ -118,55 +107,11 @@ public class DocumentStoreImpl implements DocumentStore {
         return text;
     }
 
-
-    //Restart the delete doc method. and fix it in the hashtable impl method.
     @Override
     public boolean deleteDocument(URI uri) {
         DocumentImpl doc = hashTableOfDocs.get(uri);
-        if (doc == null) { return false;}           // in the case that there is nothing to delete.
+        if (doc == null) { return false;}
         hashTableOfDocs.put(uri , null);
         return true;
     }
-
-//    public static void main (final String [] args) throws IOException , URISyntaxException {
-//        DocumentStoreImpl docStore = new DocumentStoreImpl();
-//        URI uri = new URI ("uri1"); // create a uri to add in constructor.
-//        String txt = "Hey, I'm Tom"; // The string I will pass in as the Input Stream.
-//
-//        byte [] txtAsBytes = txt.getBytes();
-//        InputStream txtAsIS = new ByteArrayInputStream(txtAsBytes); // this is the input stream.
-////
-////        byte [] is = docStore.inputStreamToByteArray(txtAsIS);
-////        String str = new String (is);
-////        System.out.println(str);
-//
-//        int testPut = docStore.putDocument(txtAsIS ,  uri , DocumentStore.DocumentFormat.TXT);
-//        String str = new String(docStore.getDocumentAsPdf(uri));
-//        System.out.println(str);
-
-
-
-
-
-//        File file = new File("//Users/tombohbot/Desktop/testDoc.pdf");
-//        URI uri = file.toURI();
-//        InputStream inputStreamOg = new FileInputStream(file);          // this is ths input stream. Untouched and will go in method signature.
-//        InputStream inputStreamCopy = new FileInputStream(file);        // this is ths input stream #2.
-//        byte [] txtAsBytes = IOUtils.toByteArray(inputStreamCopy);
-//        PDFTextStripper pdfStripper = new PDFTextStripper();
-//        String is2AsString = pdfStripper.getText(PDDocument.load(txtAsBytes) );
-//        int hashCode = is2AsString.hashCode();
-//        int testPut = docStore.putDocument(inputStreamOg , uri , DocumentStore.DocumentFormat.PDF);
-//        String str = new String(docStore.getDocumentAsPdf(uri));
-//        System.out.println(str);
-
-
-
-//        byte [] bytes = docStore.inputStreamToByteArray(txtAsIS);
-//        String str = new String (bytes);
-//        System.out.println("String is: " + str);
-
-//    }
-
-
 }

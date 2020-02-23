@@ -9,17 +9,7 @@
 
 package edu.yu.cs.com1320.project.impl;
 import edu.yu.cs.com1320.project.HashTable;
-import edu.yu.cs.com1320.project.stage1.DocumentStore;
-import org.apache.pdfbox.io.IOUtils;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 import java.lang.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 
 public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
 
@@ -107,7 +97,6 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         return null;
     }
 
-
     @Override
     public Value put(Key k, Value v) {
         /** Goals for the method Put(k , v)
@@ -145,77 +134,4 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
             currentValue.next = obj;
         return null;
     }
-
-//    public static void main (final String [] args) throws IOException {
-//        HashTableImpl <String, String> htImp = new HashTableImpl <String, String> ();
-//        HashTableImpl <URI, String> htImp1 = new HashTableImpl <URI, String> ();
-//        File file = new File("//Users/tombohbot/Desktop/testDoc.pdf");
-//        URI uri = file.toURI();
-//        InputStream inputStreamOg = new FileInputStream(file);          // this is ths input stream. Untouched and will go in method signature.
-//        InputStream inputStreamCopy = new FileInputStream(file);        // this is ths input stream #2.
-//        byte [] txtAsBytes = IOUtils.toByteArray(inputStreamCopy);
-//        PDFTextStripper pdfStripper = new PDFTextStripper();
-//        String is2AsString = pdfStripper.getText(PDDocument.load(txtAsBytes) );
-//        int hashCode = is2AsString.hashCode();
-//
-//        String testGetter = htImp1.put(uri , is2AsString);
-//        String getTest = htImp1.get(uri);
-//
-//        System.out.println(testGetter);
-//        System.out.println(getTest);
-
-
-
-//        String get0 = htImp.get("hi");
-//        String value1  = htImp.put("hi" , "1");
-//        String get1 = htImp.get("hi");
-//        String value2  = htImp.put("hi" , "2");
-//        String get2 = htImp.get("hi");
-//        String value3  = htImp.put("hi" , "3");
-//        String get3 = htImp.get("hi");
-//        String value4  = htImp.put("hi" , "4");
-//        String get4 = htImp.get("hi");
-//        String c = htImp.put("c" , "c"); // hashcode is 4 - same as hi
-//        String cGet = htImp.get("c");
-//        String c1 = htImp.put("c" , "c1"); // hashcode is 4 - same as hi
-//        String c2 = htImp.put("c" , "c2"); // hashcode is 4 - same as hi
-//        String cGet1 = htImp.put("c" , "c"); // hashcode is 4 - same as hi
-//
-//        String obj3 = htImp.put("Tom" , "Tomv1");
-//        String obj3Copy = htImp.put("Tom" , "Tomv2");
-//        String obj3Copy1 = htImp.put("Tom" , "Tomv3");
-//
-////        String remHello = htImp.put("hi" , null);
-//        String getrmv = htImp.get("hi");
-//        String remc = htImp.put("c" , null);
-//        String getrmvc = htImp.get("c");
-//
-//        System.out.println(value1);
-//        System.out.println(value2);
-//        System.out.println(value3);
-//        System.out.println(value4);
-//        System.out.println("Getters:");
-//        System.out.println(get0);
-//        System.out.println(get1);
-//        System.out.println(get2);
-//        System.out.println(get3);
-//        System.out.println(get4);
-//        System.out.println();
-//        System.out.println(c);
-//        System.out.println(cGet);
-//        System.out.println(c1);
-//        System.out.println(c2);
-////        System.out.println(cGet1);
-//        System.out.println();
-//        System.out.println(obj3);
-//        System.out.println(obj3Copy);
-//        System.out.println(obj3Copy1);
-//        System.out.println("Removed Objects:");
-////        System.out.println(remHello);
-//        System.out.println(getrmv);
-////        System.out.println(remc);
-//        System.out.println(getrmvc);
-
-
-//    }
 }
