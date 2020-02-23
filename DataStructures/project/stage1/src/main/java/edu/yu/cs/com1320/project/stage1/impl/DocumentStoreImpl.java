@@ -100,6 +100,9 @@ public class DocumentStoreImpl implements DocumentStore {
 
     @Override
     public String getDocumentAsTxt(URI uri){
+        if (hashTableOfDocs.get(uri) == null) {
+            return null;
+        }
         String text =  hashTableOfDocs.get(uri).getDocumentAsTxt();
         if (text == null) {
             return null;

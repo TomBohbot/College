@@ -73,7 +73,7 @@ public class HashTableTest {
         assertEquals("Testing if deleting two objects in a row works." , "cValue1", hashTable.put("c" , null) );
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullDeleteValue() {
         assertEquals("Testing if deleting an object that doesn't exist works" , null, hashTable.put("c" , null) );
     }

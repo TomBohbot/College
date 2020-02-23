@@ -108,6 +108,7 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         LinkedList <Key , Value> obj = new LinkedList <Key , Value> (k , v , null);
         // If null is the value, then delete the node from the list:
         if (v == null) {
+            if (get(k) == null) {return null;}
             Value oldValue = get(k);
             deleteNode(k , v);
             return oldValue;

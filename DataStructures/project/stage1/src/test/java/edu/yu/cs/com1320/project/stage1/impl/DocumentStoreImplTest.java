@@ -65,7 +65,7 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if I get old value when I return null" , hashCodeOfStream, doc.putDocument(null , uri , DocumentStore.DocumentFormat.TXT));
     }
 
-    @Test //(expected = NullPointerException.class)
+    @Test
     public void testIfInputStreamIsNullV2() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
@@ -132,7 +132,7 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if GetDocAsTxt returns correct string" , "Hey, I'm Tom" , txt);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetDocAsTextNullReturn ()  throws URISyntaxException {
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
