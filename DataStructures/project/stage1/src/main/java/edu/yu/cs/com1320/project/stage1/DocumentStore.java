@@ -10,8 +10,8 @@ public interface DocumentStore
      * Note that TXT means plain text, i.e. a String.
      */
     static enum DocumentFormat{
-        TXT,PDF
-    };
+    TXT,PDF
+};
     /**
      * @param input the document being put
      * @param uri unique identifier for the document
