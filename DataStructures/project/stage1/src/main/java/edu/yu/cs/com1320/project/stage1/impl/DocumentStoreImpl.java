@@ -50,7 +50,6 @@ public class DocumentStoreImpl implements DocumentStore {
 
     private int putText (byte [] streamAsBytes , URI uri) throws IOException {
         String txt = new String (streamAsBytes);
-        //hashCodeOfStream = Math.abs(txt.hashCode() )
         hashCodeOfStream = txt.hashCode() & 0x7fffffff;
         if (hashTableOfDocs.get(uri) != null) {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {
@@ -64,7 +63,6 @@ public class DocumentStoreImpl implements DocumentStore {
     private int putPDF (byte [] streamAsBytes , URI uri) throws IOException {
         PDFTextStripper pdfStripper = new PDFTextStripper();
         String strippedByteArray =  pdfStripper.getText(PDDocument.load(streamAsBytes)).trim();
-//        hashCodeOfStream = Math.abs(strippedByteArray.hashCode());
         hashCodeOfStream = strippedByteArray.hashCode() & 0x7fffffff;
         if (hashTableOfDocs.get(uri) != (null) ) {
             if ( hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream ) {
@@ -118,13 +116,5 @@ public class DocumentStoreImpl implements DocumentStore {
         if (doc == null) { return false;}
         hashTableOfDocs.put(uri , null);
         return true;
-    }
-
-    public static void main (final String [] args) {
-        String str = "HFSAJ@!#$R@^!!@^RI&!@^I!!^"; //&I@KDGAFKJGDJDGDG;?!@#FKHJDGLFGD";
-        int hash = str.hashCode();
-        int hashCut = str.hashCode() & 0x7fffffff;
-        System.out.println(hash);
-        System.out.println(hashCut);
     }
 }
