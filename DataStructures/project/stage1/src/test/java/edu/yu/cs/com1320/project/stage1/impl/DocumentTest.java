@@ -34,7 +34,7 @@ public class DocumentTest {
         String inputStreamContent = "Hey, I'm Tom";
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, Math.abs(inputStreamContent.hashCode()) );
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() & 0x7fffffff );
         int testPutHashCode = docStore.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
         assertEquals("Checking if getDocAsTxt works for txt docs" , inputStreamContent , document.getDocumentAsTxt());
     }
@@ -50,10 +50,10 @@ public class DocumentTest {
 
         DocumentStoreImpl docStore = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCode = Math.abs(inputStreamContent.hashCode());
+        int hashCode = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, Math.abs(inputStreamContent.hashCode()) );
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() & 0x7fffffff);
         int testPutHashCode = docStore.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
         assertEquals("Checking if getDocHashCode works for txt docs" , hashCode , document.getDocumentTextHashCode());
     }
@@ -71,7 +71,7 @@ public class DocumentTest {
         String inputStreamContent = "Hey, I'm Tom";
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, Math.abs(inputStreamContent.hashCode()) );
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent,inputStreamContent.hashCode() & 0x7fffffff);
         assertEquals("Checking if getDocHashCode works for txt docs" , uri , document.getKey());
     }
 }

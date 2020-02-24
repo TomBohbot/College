@@ -50,15 +50,18 @@ public class DocumentStoreImplTest  {
         InputStream txtAsIS = new ByteArrayInputStream(returnValue);
         URI uri = new URI ("uri1");
         int testPut = docStore.putDocument(txtAsIS , uri , DocumentStore.DocumentFormat.PDF);
-        int expected = Math.abs(dataOfFile.hashCode());
+        int expected = dataOfFile.hashCode() & 0x7fffffff;
         assertEquals("Testing if hashcode with put PDF works" , expected , testPut);
+        DocumentImpl testDoc = new DocumentImpl (uri , dataOfFile , testPut , returnValue);
+        assertEquals("Testing if get doc as text for pdf works" , "Hi, I'm Tom" , testDoc.getDocumentAsTxt());
+
     }
 
     @Test
     public void testIfInputStreamIsNull() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
@@ -69,7 +72,7 @@ public class DocumentStoreImplTest  {
     public void testIfInputStreamIsNullV2() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         assertEquals("Testing if I get old value when I return null and no prev. value exists" , 0, doc.putDocument(null , uri , DocumentStore.DocumentFormat.TXT));
@@ -79,7 +82,7 @@ public class DocumentStoreImplTest  {
     public void testIfUriIsNull() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         int testPutHashCode = doc.putDocument(inputStream , null , DocumentStore.DocumentFormat.TXT);
     }
@@ -88,7 +91,7 @@ public class DocumentStoreImplTest  {
     public void testIfDocTypeIsNull() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , null);
@@ -105,7 +108,7 @@ public class DocumentStoreImplTest  {
          */
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
@@ -124,7 +127,7 @@ public class DocumentStoreImplTest  {
 
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
@@ -136,7 +139,7 @@ public class DocumentStoreImplTest  {
     public void testGetDocAsTextNullReturn ()  throws URISyntaxException {
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         String txt = doc.getDocumentAsTxt(uri);
@@ -147,7 +150,7 @@ public class DocumentStoreImplTest  {
     public void testDeleteDocument() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
@@ -158,7 +161,7 @@ public class DocumentStoreImplTest  {
     public void testDeleteDocumentThatDoesntExist() throws URISyntaxException{
         DocumentStoreImpl doc = new DocumentStoreImpl();
         String inputStreamContent = "Hey, I'm Tom";
-        int hashCodeOfStream = Math.abs(inputStreamContent.hashCode() );
+        int hashCodeOfStream = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         assertEquals("Testing if deleting a value is true" , false , doc.deleteDocument(uri));

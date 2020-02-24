@@ -56,8 +56,12 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         this.value = value;
     }
 
+//    private int getHashCode(Key k) {
+//        return Math.abs(k.hashCode() % hashTable.length);
+//    }
+
     private int getHashCode(Key k) {
-        return Math.abs(k.hashCode() % hashTable.length);
+        return k.hashCode() & 0x7fffffff % hashTable.length;
     }
 
     private void deleteNode (Key k , Value v) {
