@@ -29,6 +29,9 @@ public class DocumentImpl implements Document {
 
     // Constructor for txt files:
     public DocumentImpl (URI uri , String txt , int hashCode) {
+        if (txt == null) {
+            throw new IllegalArgumentException();
+        }
         this.uri = uri;
         this.txt = txt;
         this.hashCode = hashCode;
@@ -36,6 +39,9 @@ public class DocumentImpl implements Document {
 
     // Constructor for pdf files:
     public DocumentImpl (URI uri , String txt , int hashCode , byte[] inputStream) {
+        if (txt == null) {
+            throw new IllegalArgumentException();
+        }
         this.uri = uri;
         this.txt = txt;
         this.inputStream = inputStream;
