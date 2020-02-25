@@ -51,10 +51,10 @@ public class DocumentStoreImplTest  {
         URI uri = new URI ("uri1");
         int testPut = docStore.putDocument(txtAsIS , uri , DocumentStore.DocumentFormat.PDF);
         int expected = dataOfFile.hashCode() & 0x7fffffff;
-        assertEquals("Testing if hashcode with put PDF works" , expected , testPut);
+//        assertEquals("Testing if hashcode with put PDF works" , expected , testPut);
+        assertEquals("Testing if hashcode with put PDF works" , 0 , testPut);
         DocumentImpl testDoc = new DocumentImpl (uri , dataOfFile , testPut , returnValue);
         assertEquals("Testing if get doc as text for pdf works" , "Hi, I'm Tom" , testDoc.getDocumentAsTxt());
-
     }
 
     @Test
@@ -112,7 +112,11 @@ public class DocumentStoreImplTest  {
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         int testPutHashCode = doc.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
-        assertEquals("Testing if hash codes are correct" , hashCodeOfStream, testPutHashCode);
+        assertEquals("Testing if hash codes are correct" , 0, testPutHashCode);
+        String inputStreamContent2 = "Hey, I'm Pau";
+        InputStream inputStream2 = new ByteArrayInputStream(inputStreamContent.getBytes() );
+        int testPutHashCode2 = doc.putDocument(inputStream2 , uri , DocumentStore.DocumentFormat.TXT);
+        assertEquals("Testing if hash codes are correct after putting second doc." , hashCodeOfStream, testPutHashCode2);
     }
 
 

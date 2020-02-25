@@ -56,8 +56,13 @@ public class DocumentStoreImpl implements DocumentStore {
                 return hashCodeOfStream;
             }
         }
+        if (hashTableOfDocs.get(uri) == null) {
+            hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
+            return 0;
+        }
         hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
-        return hashCodeOfStream;
+        int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();
+        return oldValue;
     }
 
     private int putPDF (byte [] streamAsBytes , URI uri) throws IOException {
@@ -69,8 +74,13 @@ public class DocumentStoreImpl implements DocumentStore {
                 return hashCodeOfStream;
             }
         }
+        if (hashTableOfDocs.get(uri) == null) {
+            hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray , hashCodeOfStream , streamAsBytes));
+            return 0;
+        }
         hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray , hashCodeOfStream , streamAsBytes));
-        return hashCodeOfStream;
+        int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();
+        return oldValue;
     }
 
     @Override
