@@ -47,6 +47,10 @@ public class HashTableTest {
         assertEquals("Testing values postdoubling" , "4" , hashTable.get("fourth"));
         assertEquals("Testing values postdoubling" , "1" , hashTable.get("Firstobj"));
         assertEquals("Testing values postdoubling" , "3" , hashTable.get("third"));
+
+        assertEquals("Testing values postdoubling" , "6" , hashTable.get("sixth"));
+        assertEquals("Testing values postdoubling" , "4" , hashTable.get("fourth"));
+
     }
 
 

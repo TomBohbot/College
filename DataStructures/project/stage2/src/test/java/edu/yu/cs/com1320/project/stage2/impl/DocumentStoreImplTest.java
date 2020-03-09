@@ -50,7 +50,7 @@ public class DocumentStoreImplTest  {
         URI uri = new URI ("uri1");
         int testPut = docStore.putDocument(txtAsIS , uri , DocumentStore.DocumentFormat.PDF);
         int expected = dataOfFile.hashCode();
-//        assertEquals("Testing if hashcode with put PDF works" , expected , testPut);
+    //    assertEquals("Testing if hashcode with put PDF works" , expected , testPut);
         assertEquals("Testing if hashcode with put PDF works" , 0 , testPut);
         DocumentImpl testDoc = new DocumentImpl (uri , dataOfFile , testPut , returnValue);
         assertEquals("Testing if get doc as text for pdf works" , "Hi, I'm Tom" , testDoc.getDocumentAsTxt());
@@ -171,7 +171,7 @@ public class DocumentStoreImplTest  {
     }
 
     @Test
-    public void testUndoMethods() throws URISyntaxException {
+    public void testUndo() throws URISyntaxException {
         /**
          * TEST CASES:
          * 1) Undoing putting in a doc.
@@ -219,10 +219,141 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if hash codes are correct" , 0 , testPutHashCode3);
         assertEquals("Testing if hash codes are correct" , 0 , testPutHashCode4);
         assertEquals("Testing if hash codes are correct" , 0 , testPutHashCode5);
+    }
 
-        // doc.undo(); 
-        // assertEquals("Testing if undo works" , doc5 , );
+    @Test
+    public void testUndoMethod() throws URISyntaxException{
 
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+
+        // First round of putting in docs:
+        String inputStreamContent1 = "doc1";
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+
+        // Second round of putting in docs:
+        String inputStreamContent1Dup = "doc1Dup";
+        InputStream inputStream1Dup = new ByteArrayInputStream(inputStreamContent1Dup.getBytes() );
+        int testPutHashCode1Dup = doc.putDocument(inputStream1Dup , uri1 , DocumentStore.DocumentFormat.TXT);
+
+        // Third round of putting in docs, actually deleting them:
+        boolean testPutHashCode1Delete = doc.deleteDocument(uri1);
+
+        doc.undo();
+        assertEquals("Testing if undoing a delete method works" , "doc1Dup" , doc.getDocumentAsTxt(uri1));
+        doc.undo();
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc1" , doc.getDocumentAsTxt(uri1));
+        doc.undo();
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri1));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void undoNothing () {
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        doc.undo();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void undoNothingTwo () throws URISyntaxException {
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+        doc.undo(uri1);
+    }
+
+    @Test
+    public void testUndoMethoBig() throws URISyntaxException{
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+        URI uri2 = new URI("2");
+        URI uri3 = new URI("3");
+        URI uri4 = new URI("4");
+        URI uri5 = new URI("5");
+
+        String inputStreamContent1 = "doc1";
+        String inputStreamContent2 = "doc2";
+        String inputStreamContent3 = "doc3";
+        String inputStreamContent4 = "doc4";
+        String inputStreamContent5 = "doc5";
+
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        InputStream inputStream2 = new ByteArrayInputStream(inputStreamContent2.getBytes() );
+        InputStream inputStream3 = new ByteArrayInputStream(inputStreamContent3.getBytes() );
+        InputStream inputStream4 = new ByteArrayInputStream(inputStreamContent4.getBytes() );
+        InputStream inputStream5 = new ByteArrayInputStream(inputStreamContent5.getBytes() ); 
+
+        // First round of putting in docs:
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode2 = doc.putDocument(inputStream2 , uri2 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode3 = doc.putDocument(inputStream3 , uri3 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode4 = doc.putDocument(inputStream4 , uri4 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode5 = doc.putDocument(inputStream5 , uri5 , DocumentStore.DocumentFormat.TXT);
+
+        String inputStreamContent1Dup = "doc1Dup";
+        String inputStreamContent2Dup = "doc2Dup";
+        String inputStreamContent3Dup = "doc3Dup";
+        String inputStreamContent4Dup = "doc4Dup";
+        String inputStreamContent5Dup = "doc5Dup";
+
+        InputStream inputStream1Dup = new ByteArrayInputStream(inputStreamContent1Dup.getBytes() );
+        InputStream inputStream2Dup = new ByteArrayInputStream(inputStreamContent2Dup.getBytes() );
+        InputStream inputStream3Dup = new ByteArrayInputStream(inputStreamContent3Dup.getBytes() );
+        InputStream inputStream4Dup = new ByteArrayInputStream(inputStreamContent4Dup.getBytes() );
+        InputStream inputStream5Dup = new ByteArrayInputStream(inputStreamContent5Dup.getBytes() );
+        
+        // Second round of putting in docs:
+        int testPutHashCode1Dup = doc.putDocument(inputStream1Dup , uri1 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode2Dup = doc.putDocument(inputStream2Dup , uri2 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode3Dup = doc.putDocument(inputStream3Dup , uri3 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode4Dup = doc.putDocument(inputStream4Dup , uri4 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode5Dup = doc.putDocument(inputStream5Dup , uri5 , DocumentStore.DocumentFormat.TXT);
+
+        // Third round of putting in docs, actually deleting them:
+        boolean testPutHashCode1Delete = doc.deleteDocument(uri1);
+        boolean testPutHashCode2Delete = doc.deleteDocument(uri2);
+        boolean testPutHashCode3Delete = doc.deleteDocument(uri3);
+        boolean testPutHashCode4Delete = doc.deleteDocument(uri4);
+        boolean testPutHashCode5Delete = doc.deleteDocument(uri5);
+
+        doc.undo(uri1);
+        assertEquals("Testing if undoing a delete method works" , "doc1Dup" , doc.getDocumentAsTxt(uri1));
+        doc.undo(uri1);
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc1" , doc.getDocumentAsTxt(uri1));
+        doc.undo(uri1);
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri1));    
+
+        doc.undo(uri2);
+        assertEquals("Testing if undoing a delete method works" , "doc2Dup" , doc.getDocumentAsTxt(uri2));
+        doc.undo(uri2);
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc2" , doc.getDocumentAsTxt(uri2));
+        doc.undo(uri3);
+        assertEquals("Testing if undoing a delete method works" , "doc3Dup" , doc.getDocumentAsTxt(uri3));
+        doc.undo(uri3);
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc3" , doc.getDocumentAsTxt(uri3));
+        doc.undo(uri4);
+        assertEquals("Testing if undoing a delete method works" , "doc4Dup" , doc.getDocumentAsTxt(uri4));
+        doc.undo(uri5);
+        assertEquals("Testing if undoing a delete method works" , "doc5Dup" , doc.getDocumentAsTxt(uri5));
+        doc.undo(uri2);
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri2));    
+        doc.undo(uri3);
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri3)); 
+        doc.undo(uri5);  
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc5" , doc.getDocumentAsTxt(uri5));
+        doc.undo(uri4);  
+        assertEquals("Testing if undoing switching a value of a doc works" , "doc4" , doc.getDocumentAsTxt(uri4));
+        doc.undo(uri5);
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri5));    
+        doc.undo(uri4);
+        assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri4)); 
+ 
 
     }
 }

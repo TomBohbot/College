@@ -117,11 +117,4 @@ public class DocumentImpl implements Document {
     public int hashCode() {
         return Objects.hash(txt);
     }
-
-    @Override
-    public String toString() {
-        return "DocumentImpl{" +
-            "txt='" + txt + '\'' +
-            '}';
-    }
 }

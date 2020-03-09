@@ -17,10 +17,15 @@ import java.net.URISyntaxException;
 
 import static org.junit.Assert.*;
 
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 public class DocumentTest {
 
     // Still need to test the get Doc as PDF Method!!!
-
+    
     @Test
     public void testGetDocAsTxt () throws URISyntaxException {
         /**
