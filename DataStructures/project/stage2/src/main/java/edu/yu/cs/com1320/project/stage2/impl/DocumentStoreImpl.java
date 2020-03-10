@@ -10,7 +10,7 @@ import edu.yu.cs.com1320.project.stage2.DocumentStore;
 import edu.yu.cs.com1320.project.impl.HashTableImpl;
 import edu.yu.cs.com1320.project.stage2.impl.DocumentImpl;
 import edu.yu.cs.com1320.project.stage2.Document;
-import edu.yu.cs.com1320.project.stage2.impl.StackImpl;
+import edu.yu.cs.com1320.project.impl.StackImpl;
 import edu.yu.cs.com1320.project.Command;
 import java.util.function.Function;
 
@@ -49,10 +49,6 @@ public class DocumentStoreImpl implements DocumentStore {
         if (hashTableOfDocs.get(uri) == null) {
             return 0;
         }
-        // Add deleted doc to the command stack:
-        // Function<URI , Boolean> lambdaFunction = () -> (return )
-        // commandStack.push(new Command(uri , Function< URI , Boolean > ))
-        // Need to push the deleted docs to the stack.
         if (format == DocumentStore.DocumentFormat.PDF) {
             DocumentImpl oldDoc = hashTableOfDocs.get(uri);
             int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();

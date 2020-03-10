@@ -1,10 +1,10 @@
 package edu.yu.cs.com1320.project.impl;
 
-/** "Document Store Implementation" Stage 2
-*
-* @author Tom Bohbot
-*
-*/
+/** 
+ * Stage 2:
+ * HashTable Implementation Code=
+ * @author Tom Bohbot
+ */
 
 import edu.yu.cs.com1320.project.HashTable;
 
@@ -89,87 +89,6 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         }
     }
 
-    // private void doubleHashTableV3() {
-    //     int prevLength = m;
-    //     m = m * 2;
-    //     // Create a new empty doubled array:
-    //     HashTableImpl <Key, Value> doubledHashTable = new HashTableImpl <Key, Value> ();
-    //     LinkedList [] doubledHashTableArray = new LinkedList [m];
-    //     for (int i = 0; i < prevLength; i ++){
-    //         LinkedList <Key , Value> currentNode = hashTable[i];
-    //         if (hashTable[i] == null) {
-    //             continue;
-    //         }
-    //         doubledHashTable.put(currentNode.getKey() , currentNode.getValue() );
-    //         while (currentNode.next != null) {
-    //             currentNode  = currentNode.next;
-    //             doubledHashTable.put(currentNode.getKey() , currentNode.getValue() );
-    //         }
-    //     }
-    // }
-
-    // private void doubleHashTableV2 () {
-    //     int prevLength = m;
-    //     m = m * 2;
-    //     // Create a new empty doubled array:
-    //     LinkedList [] doubledHashTable = new LinkedList [m];
-    //     // Loop through the previous hashTable and copy it's values to the new, empty hashTable:
-    //     for (int i = 0; i < prevLength; i ++) {
-    //         LinkedList <Key , Value> currentNode = hashTable[i];
-    //         if (currentNode == null) { continue;}
-    //         int newIndex = getHashCode(currentNode.getKey());
-    //         // Insert an element directly as the headNode:
-    //         if (doubledHashTable[newIndex] == null) {
-    //             doubledHashTable[newIndex] = currentNode;
-    //         }
-    //         // Set a value in the new hashTable using seperate collisions.
-    //         else {
-    //             LinkedList <Key , Value> tempNode = doubledHashTable[newIndex];
-    //             while (tempNode.next != null) {
-    //                 tempNode = tempNode.next;
-    //             }
-    //             tempNode.next = currentNode;
-    //         }
-    //         // If the original hashTable had collisons, loop through them and add them to the doubled hashtable:
-    //         int counter = 0;
-    //         while(currentNode.next != null) {
-    //             currentNode = currentNode.next;
-    //             newIndex = getHashCode(currentNode.getKey());
-    //             if (doubledHashTable[newIndex] == null) {
-    //                 doubledHashTable[newIndex] = currentNode;
-    //             }
-    //             counter ++;
-    //         }
-    //     }
-    //     hashTable = doubledHashTable;
-    // }
-
-    // private LinkedList [] doubleHashTableV4 () {
-    //     int prevHtLength = m;
-    //     m = m * 2;
-    //     HashTableImpl <Key , Value> doubledHashTable = new HashTableImpl<Key , Value>(); // currently a blank hashTable, double the size of the prev hashtable.
-    //     LinkedList [] newHashTable = getHashTable();
-    //     // Get all the old docs from the hashtable:
-    //     for (int i = 0; i < prevHtLength; i ++) {
-    //         LinkedList currentNode = hashTable[i]; 
-    //         if (currentNode == null) { continue; }
-    //         // Put in the elems that are the headNode:
-    //         Key currentKey = (Key) currentNode.getKey();
-    //         Value currentValue = (Value) currentNode.getValue();
-    //         doubledHashTable.put(currentKey , currentValue);
-    //         // Put in the seperate collisions:
-    //         while (currentNode.next != null) {
-    //             currentNode = currentNode.next;
-    //             currentKey = (Key) currentNode.getKey();
-    //             currentValue = (Value) currentNode.getValue();
-    //             doubledHashTable.put(currentKey , currentValue);
-    //             // System.out.println(currentNode.getKey());
-    //         }
-    //     }
-    //     System.out.println("HEYYYY THIS IS MY SIZE " + newHashTable);
-    //     return this.hashTable;
-    // }
-
     private void doubleHashTableV5 () {
         int prevHtLength = m;
         m = m * 2;
@@ -233,8 +152,7 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         currentValue = hashTable[getHashCode(k)];
         if (currentValue == null) {
             hashTable[getHashCode(k)] = obj;
-            return null;
-        }
+            return null; }
         // Check for duplicate:
         while (currentValue != null) {
             if(currentValue.getKey().equals(k) ) {
@@ -251,34 +169,4 @@ public class HashTableImpl <Key , Value> implements HashTable <Key , Value> {
         currentValue.next = obj;
         return null;
     }
-
-    // public static void main (final String [] args) {
-
-    //     HashTableImpl <String , String> hashTable = new HashTableImpl<String , String>();
-
-    //     hashTable.put("Firstobj" , "1");
-    //     hashTable.put("second" , "2");
-    //     hashTable.put("third" , "3");
-    //     hashTable.put("fourth" , "4");
-    //     hashTable.put("fifth" , "5");
-    //     hashTable.put("sixth" , "6");
-    //     hashTable.put("seventh" , "7");
-    //     hashTable.put("eighth" , "8");
-    //     hashTable.put("ninth" , "9");
-        
-    //     System.out.println("HASHCODES");
-    //     hashTable.get("Firstobj");
-    //     hashTable.get("second");
-    //     hashTable.get("third");
-    //     hashTable.get("fourth");
-    //     hashTable.get("fifth");
-    //     hashTable.get("sixth");
-    //     hashTable.get("seventh");
-    //     hashTable.get("eighth");
-    //     hashTable.get("ninth"); 
-        
-    //     System.out.println(hashTable.get("sixth") );
-    //     System.out.println(hashTable.get("fourth") );
-    //     System.out.println(hashTable.get("sixth") );
-    // }
 }
