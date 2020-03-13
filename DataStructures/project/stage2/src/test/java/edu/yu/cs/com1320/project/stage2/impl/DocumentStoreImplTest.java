@@ -353,7 +353,14 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri5));    
         doc.undo(uri4);
         assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri4)); 
- 
+    }
+
+    @Test
+    public void testUndoWhenNothingToDelete() throws URISyntaxException {
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+        URI uri = new URI ("hi");
+        assertEquals ("testUndoWhenNothingToDelete" , false , doc.deleteDocument(uri) );
 
     }
 }

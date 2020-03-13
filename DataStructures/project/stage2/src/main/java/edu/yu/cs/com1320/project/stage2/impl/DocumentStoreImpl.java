@@ -47,6 +47,8 @@ public class DocumentStoreImpl implements DocumentStore {
 
     private int ifNull(InputStream input, URI uri, DocumentFormat format) throws IOException {
         if (hashTableOfDocs.get(uri) == null) {
+            Function lambda = (x) -> { return true; };
+            commandStack.push(new Command(uri, lambda));
             return 0;
         }
         if (format == DocumentStore.DocumentFormat.PDF) {
@@ -79,6 +81,8 @@ public class DocumentStoreImpl implements DocumentStore {
         hashCodeOfStream = txt.hashCode();
         if (hashTableOfDocs.get(uri) != null) {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream) {
+                Function lambda = (x) -> { return true; };
+                commandStack.push(new Command(uri, lambda));
                 return hashCodeOfStream;
             }
         }
@@ -107,6 +111,8 @@ public class DocumentStoreImpl implements DocumentStore {
         hashCodeOfStream = strippedByteArray.hashCode();
         if (hashTableOfDocs.get(uri) != (null)) {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream) {
+                Function lambda = (x) -> { return true; };
+                commandStack.push(new Command(uri, lambda));
                 return hashCodeOfStream;
             }
         }
@@ -183,6 +189,8 @@ public class DocumentStoreImpl implements DocumentStore {
     public boolean deleteDocument(URI uri) {
         DocumentImpl doc = hashTableOfDocs.get(uri);
         if (doc == null) {
+            Function lambda = (x) -> { return true; };
+            commandStack.push(new Command(uri, lambda));
             return false;
         }
         Function lambda = (x) -> {
