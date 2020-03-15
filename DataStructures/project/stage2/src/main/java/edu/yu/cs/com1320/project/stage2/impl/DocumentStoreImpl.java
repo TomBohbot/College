@@ -211,7 +211,6 @@ public class DocumentStoreImpl implements DocumentStore {
         undoElem.undo();
     }
     
-    // Last node is not making the stack size zero, byst staying constant at 1. Check this error.
     @Override
     public void undo(URI uri) throws IllegalStateException {
         if (commandStack.size() == 0) { throw new IllegalStateException(); }

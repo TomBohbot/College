@@ -249,6 +249,59 @@ public class DocumentStoreImplTest  {
         assertEquals("Testing if undoing an initial entry works" , null , doc.getDocumentAsTxt(uri1));
     }
 
+    @Test
+    public void testUndoDuplicates() throws URISyntaxException{
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+
+        // First round of putting in docs:
+        String inputStreamContent1 = "doc1";
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode1ExactDup = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+
+        doc.undo();
+        assertEquals("Testing if undoing a delete method works" , "doc1" , doc.getDocumentAsTxt(uri1));
+        doc.undo();
+        assertEquals("Testing if undoing switching a value of a doc works" , null , doc.getDocumentAsTxt(uri1));
+    }
+
+    @Test
+    public void testUndoNullInputStream() throws URISyntaxException{
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+
+        // First round of putting in docs:
+        String inputStreamContent1 = "doc1";
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+        int testPutHashCode1ExactDup = doc.putDocument(null , uri1 , DocumentStore.DocumentFormat.TXT);
+
+        doc.undo();
+        assertEquals("Testing if undoing a delete method works" , "doc1" , doc.getDocumentAsTxt(uri1));
+        doc.undo();
+        assertEquals("Testing if undoing switching a value of a doc works" , null , doc.getDocumentAsTxt(uri1));
+    }
+
+    @Test
+    public void testUndoWhenDeletingNothing() throws URISyntaxException{
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+
+        // First round of putting in docs:
+        String inputStreamContent1 = "doc1";
+        // InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        boolean testPutHashCode1Delete = doc.deleteDocument(uri1);
+        doc.undo();
+        assertEquals("Testing if undoing a delete method works" , null , doc.getDocumentAsTxt(uri1));
+    }
+
     @Test(expected = IllegalStateException.class)
     public void undoNothing () {
 
@@ -360,7 +413,8 @@ public class DocumentStoreImplTest  {
 
         DocumentStoreImpl doc = new DocumentStoreImpl(); 
         URI uri = new URI ("hi");
-        assertEquals ("testUndoWhenNothingToDelete" , false , doc.deleteDocument(uri) );
-
+        assertEquals ("testUndoWhenNothingToDelete" , false , doc.deleteDocument(uri) ); // problem with this test bc the actual method returns null as well.
     }
+
+
 }

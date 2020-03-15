@@ -1,13 +1,9 @@
 package edu.yu.cs.com1320.project.stage2.impl;
 
 /**
- * "HashTable Test Code" Stage 1
+ * "HashTable Test Code" Stage 2
  *
  * @author Tom Bohbot
- *
- * STOP USING AS TEXT EDITOR:
- * Code to compile: javac -cp junit/junit-4.12.jar:TomsGit/BohbotTom/DataStructures/project/stage1/src/main/java TomsGit/BohbotTom/DataStructures/project/stage1/src/test/java/edu/yu/cs/com1320/project/HashTableTest.java
- * Code to run:     java -cp junit/junit-4.12.jar:junit/hamcrest-core-1.3.jar:TomsGit/BohbotTom/DataStructures/project/stage1/src/main/java:TomsGit/BohbotTom/DataStructures/project/stage1 org.junit.runner.JUnitCore src.test.java.edu.yu.cs.com1320.project.HashTableTest
  */
 
 
