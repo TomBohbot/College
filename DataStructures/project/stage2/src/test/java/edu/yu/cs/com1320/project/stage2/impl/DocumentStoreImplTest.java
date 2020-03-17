@@ -311,11 +311,37 @@ public class DocumentStoreImplTest  {
     }
 
     @Test(expected = IllegalStateException.class)
+    public void undoNotFound () throws URISyntaxException {
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+        URI uri2 = new URI("2");
+        String inputStreamContent1 = "doc1";
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+        doc.undo(uri2);
+    }
+
+    @Test(expected = IllegalStateException.class)
     public void undoNothingTwo () throws URISyntaxException {
 
         DocumentStoreImpl doc = new DocumentStoreImpl(); 
 
         URI uri1 = new URI("1");
+        doc.undo(uri1);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void undoNothingTwoV2 () throws URISyntaxException {
+
+        DocumentStoreImpl doc = new DocumentStoreImpl(); 
+
+        URI uri1 = new URI("1");
+        String inputStreamContent1 = "doc1";
+        InputStream inputStream1 = new ByteArrayInputStream(inputStreamContent1.getBytes() );
+        int testPutHashCode1 = doc.putDocument(inputStream1 , uri1 , DocumentStore.DocumentFormat.TXT);
+        doc.undo();
         doc.undo(uri1);
     }
 
