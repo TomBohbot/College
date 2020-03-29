@@ -75,10 +75,10 @@ public interface DocumentStore
      */
     List<String> searchByPrefix(String prefix);
 
-    /**
-     * same logic as searchByPrefix, but returns the docs as PDFs instead of as Strings
-     */
-    List<byte[]> searchPDFsByPrefix(String prefix);
+    // /**
+    //  * same logic as searchByPrefix, but returns the docs as PDFs instead of as Strings
+    //  */
+    // List<byte[]> searchPDFsByPrefix(String prefix);
 
     /**
      * delete ALL exact matches for the given key

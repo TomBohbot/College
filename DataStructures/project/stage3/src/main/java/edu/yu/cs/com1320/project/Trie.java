@@ -1,5 +1,6 @@
 package edu.yu.cs.com1320.project;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,9 +14,14 @@ public interface Trie<Value>
      * add the given value at the given key
      * @param key
      * @param val
-     * @return if there was a Value already at that key, return that previous Value. Otherwise, return null.
      */
-    Value put(String key, Value val);
+    void put(String key, Value val);
+
+    /**
+     * set the comparator to be used in methods which sort values
+     * @param comparator
+     */
+    void setComparator(Comparator<Value> comparator);
 
     /**
      * get all exact matches for the given key, sorted in descending order.

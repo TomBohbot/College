@@ -9,7 +9,7 @@ import java.util.List;
  */
 public abstract class TooSimpleTrie<Value>
 {
-    private static final int alphabetSize = 256; // extended ASCII
+    static final int alphabetSize = 256; // extended ASCII
     private Node root; // root of trie
 
     public static class Node<Value>
