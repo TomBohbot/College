@@ -1,8 +1,8 @@
 package edu.yu.cs.com1320.project.stage2.diamentTests;
 
+import edu.yu.cs.com1320.project.Utils;
 import edu.yu.cs.com1320.project.stage2.DocumentStore;
 
-import edu.yu.cs.com1320.project.Utils;
 import edu.yu.cs.com1320.project.stage2.impl.DocumentStoreImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertTrue(returned == 0 );
     }
 
     @Test
@@ -54,9 +54,8 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertTrue(returned == 0);
     }
-
     @Test
     public void testPutDocumentWithNullArguments(){
         DocumentStore store = new DocumentStoreImpl();
@@ -76,13 +75,13 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertTrue(returned == 0);
         assertEquals("failed to return correct pdf text",this.pdfTxt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
 
         //put the second version, testing both return value of put and see if it gets the correct text
         returned = store.putDocument(new ByteArrayInputStream(this.pdfData2),this.uri1, DocumentStore.DocumentFormat.PDF);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue("should return hashcode of old text",this.pdfTxt1.hashCode() == returned || this.pdfTxt2.hashCode() == returned);
+        assertTrue("should return hashcode of old text",this.pdfTxt1.hashCode() == returned);
         assertEquals("failed to return correct pdf text", this.pdfTxt2,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
     }
 
@@ -92,13 +91,13 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertTrue(returned == 0 );
         assertEquals("failed to return correct text",this.txt1,store.getDocumentAsTxt(this.uri1));
 
         //put the second version, testing both return value of put and see if it gets the correct text
         returned = store.putDocument(new ByteArrayInputStream(this.txt2.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue("should return hashcode of old text",this.txt1.hashCode() == returned || this.txt2.hashCode() == returned);
+        assertTrue("should return hashcode of old text",this.txt1.hashCode() == returned );
         assertEquals("failed to return correct text",this.txt2,store.getDocumentAsTxt(this.uri1));
     }
 
@@ -107,7 +106,7 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertTrue(returned == 0 );
         assertEquals("failed to return correct pdf text",this.txt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
     }
 
@@ -116,7 +115,7 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertTrue(returned == 0 );
         assertEquals("failed to return correct text",this.txt1,store.getDocumentAsTxt(this.uri1));
     }
 
@@ -125,7 +124,7 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertTrue(returned == 0 );
         assertEquals("failed to return correct pdf text",this.pdfTxt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
     }
 
@@ -134,7 +133,7 @@ public class DocumentStoreImplDiamentTest {
         DocumentStore store = new DocumentStoreImpl();
         int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
         //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
-        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertTrue(returned == 0);
         assertEquals("failed to return correct text",this.pdfTxt1,store.getDocumentAsTxt(this.uri1));
     }
 
