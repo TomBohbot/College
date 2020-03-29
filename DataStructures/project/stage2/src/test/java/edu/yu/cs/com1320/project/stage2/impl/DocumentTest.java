@@ -39,7 +39,7 @@ public class DocumentTest {
         String inputStreamContent = "Hey, I'm Tom";
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() & 0x7fffffff );
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() );
         int testPutHashCode = docStore.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
         assertEquals("Checking if getDocAsTxt works for txt docs" , inputStreamContent , document.getDocumentAsTxt());
     }
@@ -58,7 +58,7 @@ public class DocumentTest {
         int hashCode = inputStreamContent.hashCode() & 0x7fffffff;
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() & 0x7fffffff);
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode());
         int testPutHashCode = docStore.putDocument(inputStream , uri , DocumentStore.DocumentFormat.TXT);
         assertEquals("Checking if getDocHashCode works for txt docs" , hashCode , document.getDocumentTextHashCode());
     }
@@ -76,7 +76,7 @@ public class DocumentTest {
         String inputStreamContent = "Hey, I'm Tom";
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
-        DocumentImpl document = new DocumentImpl(uri, inputStreamContent,inputStreamContent.hashCode() & 0x7fffffff);
+        DocumentImpl document = new DocumentImpl(uri, inputStreamContent,inputStreamContent.hashCode());
         assertEquals("Checking if getDocHashCode works for txt docs" , uri , document.getKey());
     }
 }

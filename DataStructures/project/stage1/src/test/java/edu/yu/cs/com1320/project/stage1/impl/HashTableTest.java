@@ -1,81 +1,159 @@
 package edu.yu.cs.com1320.project.stage1.impl;
 
-/**
- * "HashTable Test Code" Stage 1
- *
- * @author Tom Bohbot
- *
- * STOP USING AS TEXT EDITOR:
- * Code to compile: javac -cp junit/junit-4.12.jar:TomsGit/BohbotTom/DataStructures/project/stage1/src/main/java TomsGit/BohbotTom/DataStructures/project/stage1/src/test/java/edu/yu/cs/com1320/project/HashTableTest.java
- * Code to run:     java -cp junit/junit-4.12.jar:junit/hamcrest-core-1.3.jar:TomsGit/BohbotTom/DataStructures/project/stage1/src/main/java:TomsGit/BohbotTom/DataStructures/project/stage1 org.junit.runner.JUnitCore src.test.java.edu.yu.cs.com1320.project.HashTableTest
- */
+import edu.yu.cs.com1320.project.Utils;
+// import edu.yu.cs.com1320.project.stage1.DocumentStore;
+import edu.yu.cs.com1320.project.stage1.impl.DocumentStoreImpl;
+import org.junit.Before;
+import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.net.URI;
 
-import edu.yu.cs.com1320.project.impl.HashTableImpl;
-import org.junit.*;
 import static org.junit.Assert.*;
 
 public class HashTableTest {
 
-    HashTableImpl hashTable = new HashTableImpl();
+    //variables to hold possible values for doc1
+    private URI uri1;
+    private String txt1;
+    private byte[] pdfData1;
+    private String pdfTxt1;
 
+    //variables to hold possible values for doc2
+    private URI uri2;
+    private String txt2;
+    private byte[] pdfData2;
+    private String pdfTxt2;
 
+    @Before
+    public void init() throws Exception {
+        //init possible values for doc1
+        this.uri1 = new URI("http://edu.yu.cs/com1320/project/doc1");
+        this.txt1 = "This is the text of doc1, in plain text. No fancy file format - just plain old String";
+        this.pdfTxt1 = "This is some PDF text for doc1, hat tip to Adobe.";
+        this.pdfData1 = Utils.textToPdfData(this.pdfTxt1);
 
-    @Test
-    public void testingPut() {
-        /**
-         * Test Cases:
-         * 1) array size should be 5.
-         * 2) HashTable must be generic.
-         * 3) If a new key is inputted, then return null
-         * 4) If an existing key is inputted, then replace the old value with new value and return the old value.
-         */
-        assertEquals("testing first object in list" , null , hashTable.put("hi" , "ogValue") );
-        assertEquals("changing first object in list" , "ogValue" , (hashTable.put("hi" , "value2") ) );
-        assertEquals("Make sure the value is being replaced when there is a collision" , "value2" , hashTable.put("hi" , "value3"));
-        assertEquals("adding second object in the list" , null , hashTable.put("c" , "cValue") );
-        assertEquals("Inserting the same key again" , "cValue" , hashTable.put("c" , "newCValue"));
+        //init possible values for doc2
+        this.uri2 = new URI("http://edu.yu.cs/com1320/project/doc2");
+        this.txt2 = "Text for doc2. A plain old String.";
+        this.pdfTxt2 = "PDF content for doc2: PDF format was opened in 2008.";
+        this.pdfData2 = Utils.textToPdfData(this.pdfTxt2);
     }
 
     @Test
-    public void testingGet() {
-        /**
-         * Test Cases:
-         * 1) Return the value associated with the key.
-         * 2) If there is no value associated with the key, then return null
-         */
-        assertEquals("Testing when a value does not exist" , null , hashTable.get("hi") );
-        hashTable.put("hi" , "ogValue");
-        assertEquals("Testing when a value is initially entered" , "ogValue" , hashTable.get("hi") );
-        hashTable.put("hi" , "value2");
-        assertEquals("Testing when a key's value is altered" , "value2" , hashTable.get("hi") );
-        hashTable.put("c" , "cValue");
-        assertEquals("Testing when a new object is added through separate chaining" , "cValue" , hashTable.get("c") );
-        hashTable.put("c" , "cValue1");
-        assertEquals("Testing when a new object is altered down the chain" , "cValue1" , hashTable.get("c") );
+    public void testPutPdfDocumentNoPreviousDocAtURI(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
     }
 
     @Test
-    public void testingNullValues() {
-        /**
-         * Test Cases:
-         * 1) If a null value is entered then the object must be removed from the hashMap
-         */
-
-        hashTable.put("hi" , "ogValue");
-        assertEquals("Testing if deleting objects works." , "ogValue" , hashTable.put("hi" , null) );
-        hashTable.put("hi" , "ogValue");
-        hashTable.put("c" , "cValue");
-        assertEquals("Testing if deleting objects works down the chain." , "cValue" , hashTable.put("c" , null) );
-        hashTable.put("hi" , "ogValue1");
-        hashTable.put("c" , "cValue1");
-        assertEquals("Testing if deleting two objects in a row works." , "ogValue1" , hashTable.put("hi" , null) );
-        assertEquals("Testing if deleting two objects in a row works." , "cValue1", hashTable.put("c" , null) );
+    public void testPutTxtDocumentNoPreviousDocAtURI(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.txt1.hashCode());
     }
 
     @Test
-    public void nullDeleteValue() {
-        assertEquals("Testing if deleting an object that doesn't exist works" , null, hashTable.put("c" , null) );
+    public void testPutDocumentWithNullArguments(){
+        DocumentStore store = new DocumentStoreImpl();
+        try {
+            store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()), null, DocumentStore.DocumentFormat.TXT);
+            fail("null URI should've thrown IllegalArgumentException");
+        }catch(IllegalArgumentException e){}
+        try {
+            store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()), this.uri1, null);
+            fail("null format should've thrown IllegalArgumentException");
+        }catch(IllegalArgumentException e){}
     }
 
+    @Test
+    public void testPutNewVersionOfDocumentPdf(){
+        //put the first version
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertEquals("failed to return correct pdf text",this.pdfTxt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
+
+        //put the second version, testing both return value of put and see if it gets the correct text
+        returned = store.putDocument(new ByteArrayInputStream(this.pdfData2),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue("should return hashcode of old text",this.pdfTxt1.hashCode() == returned || this.pdfTxt2.hashCode() == returned);
+        assertEquals("failed to return correct pdf text", this.pdfTxt2,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
+    }
+
+    @Test
+    public void testPutNewVersionOfDocumentTxt(){
+        //put the first version
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertEquals("failed to return correct text",this.txt1,store.getDocumentAsTxt(this.uri1));
+
+        //put the second version, testing both return value of put and see if it gets the correct text
+        returned = store.putDocument(new ByteArrayInputStream(this.txt2.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue("should return hashcode of old text",this.txt1.hashCode() == returned || this.txt2.hashCode() == returned);
+        assertEquals("failed to return correct text",this.txt2,store.getDocumentAsTxt(this.uri1));
+    }
+
+    @Test
+    public void testGetTxtDocAsPdf(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertEquals("failed to return correct pdf text",this.txt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
+    }
+
+    @Test
+    public void testGetTxtDocAsTxt(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.txt1.getBytes()),this.uri1, DocumentStore.DocumentFormat.TXT);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.txt1.hashCode());
+        assertEquals("failed to return correct text",this.txt1,store.getDocumentAsTxt(this.uri1));
+    }
+
+    @Test
+    public void testGetPdfDocAsPdf(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertEquals("failed to return correct pdf text",this.pdfTxt1,Utils.pdfDataToText(store.getDocumentAsPdf(this.uri1)));
+    }
+
+    @Test
+    public void testGetPdfDocAsTxt(){
+        DocumentStore store = new DocumentStoreImpl();
+        int returned = store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //TODO allowing for student following old API comment. To be changed for stage 2 to insist on following new comment.
+        assertTrue(returned == 0 || returned == this.pdfTxt1.hashCode());
+        assertEquals("failed to return correct text",this.pdfTxt1,store.getDocumentAsTxt(this.uri1));
+    }
+
+    @Test
+    public void testDeleteDoc(){
+        DocumentStore store = new DocumentStoreImpl();
+        store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        store.deleteDocument(this.uri1);
+        assertEquals("calling get on URI from which doc was deleted should've returned null", null, store.getDocumentAsPdf(this.uri1));
+    }
+
+    @Test
+    public void testDeleteDocReturnValue(){
+        DocumentStore store = new DocumentStoreImpl();
+        store.putDocument(new ByteArrayInputStream(this.pdfData1),this.uri1, DocumentStore.DocumentFormat.PDF);
+        //should return true when deleting a document
+        assertEquals("failed to return true when deleting a document",true,store.deleteDocument(this.uri1));
+        //should return false if I try to delete the same doc again
+        assertEquals("failed to return false when trying to delete that which was already deleted",false,store.deleteDocument(this.uri1));
+        //should return false if I try to delete something that was never there to begin with
+        assertEquals("failed to return false when trying to delete that which was never there to begin with",false,store.deleteDocument(this.uri2));
+    }
 }

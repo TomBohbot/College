@@ -101,7 +101,7 @@ public class DocumentStoreImpl implements DocumentStore {
 
     @Override
     public byte[] getDocumentAsPdf(URI uri) {
-        if (hashTableOfDocs.get(uri) == null && uri == null) {
+        if (hashTableOfDocs.get(uri) == null || uri == null) {
             return null;
         }
         DocumentImpl obj =  hashTableOfDocs.get(uri);
