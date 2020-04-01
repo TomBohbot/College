@@ -4,8 +4,8 @@ package edu.yu.cs.com1320.project.impl;
  * "Trie Implementation Code" Stage 3
  * @author Tom Bohbot
  * Things Left to do:
- * 1) Delete Leaf Nodes after deleting values.
- * 2) Make the comparator to return a sorted list. 
+ * 1) Delete Leaf Nodes after deleting values.      think im done :/
+ * 2) Make the comparator to return a sorted list.  DONE
  * 3) Exclude and special characters.               DONE
  * 4) Get rid of the queue.                         DONE
  */
@@ -20,26 +20,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.print.attribute.standard.CopiesSupported;
-
 public class TrieImpl <Value> implements Trie <Value> {
 
     private int alphabetSize = 256; // extended ASCII
     private Node root; // root of trie
     private ArrayList <Value> listAtValue;
     private ArrayList <Document> listOfValuesAsDoc;
-    private Comparator <Document>  compareDocs = new ComparatorImpl();
+    // private Comparator <Document>  compareDocs = new ComparatorImpl();
 
-    private class ComparatorImpl implements Comparator <Document>{
-        private String key;
+    // private class ComparatorImpl implements Comparator <Document>{
+    //     private String key;
         
-        @Override
-        public int compare (Document o1, Document o2) {
-            DocumentImpl docOne = (DocumentImpl) o1;
-            DocumentImpl docTwo = (DocumentImpl) o2;
-            return docOne.wordCount(key) -docTwo.wordCount(key);
-        }
-    }
+    //     @Override
+    //     public int compare (Document o1, Document o2) {
+    //         DocumentImpl docOne = (DocumentImpl) o1;
+    //         DocumentImpl docTwo = (DocumentImpl) o2;
+    //         return docOne.wordCount(key) - docTwo.wordCount(key);
+    //     }
+    // }
 
     private class Node <Value> {
         private Value val;
@@ -47,7 +45,8 @@ public class TrieImpl <Value> implements Trie <Value> {
         private int counter;
     }
 
-    public TrieImpl() { // no arg constructor.
+    public TrieImpl() { 
+        // no arg constructor.
         this.root = null;
     }
 
@@ -85,7 +84,7 @@ public class TrieImpl <Value> implements Trie <Value> {
             }
             ArrayList <Value> copyOfXVal = (ArrayList) x.val;
             for (int i = 0; i < x.counter; i ++) {
-                if (copyOfXVal.get(i) == val) { continue; } // changed this from returning x. think it makes a difference but not sure. 
+                if (copyOfXVal.get(i) == val) { return x; } // changed this from returning x. think it makes a difference but not sure. yup it made a difference. changed it back :)
                 listOfValues.add(copyOfXVal.get(i) );
             }
             if (listOfValues.contains(val)) {
@@ -103,17 +102,8 @@ public class TrieImpl <Value> implements Trie <Value> {
         return x;
     }
 
-    /**
-     * set the comparator to be used in methods which sort values
-     * @param comparator
-     */
-    public void setComparator(Comparator<Value> comparator) {
-        // this.comparator 
-    }
-
-
     @Override
-    public List<Value> getAllSorted(String key) {
+    public List<Value> getAllSorted(String key , Comparator<Value> comparator) {
         // Make a list of all my docs, and call this method on them. My comparator should resort my list based off of frequency of the key.
         // The put method is not for key words, but entire docs are going into the trie, and eacho contain their own value. Docs that contain certain words should be added to the return list. 
         // Every time I make a doc I parse each word and add each word to the trie. Then, each word's value is a set the has docs that contain that word.
@@ -125,6 +115,12 @@ public class TrieImpl <Value> implements Trie <Value> {
             return emptyList;
         }
         List <Value> unsortedList = (ArrayList<Value>) ((Value)x.val);
+        if (unsortedList == null) {
+            ArrayList <Value> emptyList = new ArrayList <Value> ();
+            return emptyList;
+        }
+        unsortedList.sort(comparator);
+        // Collections.sort(unsortedList , comparator);
         return unsortedList;
     }
 
@@ -138,7 +134,7 @@ public class TrieImpl <Value> implements Trie <Value> {
     }
 
     @Override
-    public List<Value> getAllWithPrefixSorted(String prefix) {
+    public List<Value> getAllWithPrefixSorted(String prefix , Comparator<Value> comparator) {
         prefix = prefix.toLowerCase();
         ArrayList<Value> results = new ArrayList<Value>();
         Node x = this.get(this.root, prefix, 0);
@@ -146,13 +142,16 @@ public class TrieImpl <Value> implements Trie <Value> {
             this.collect(x, new StringBuilder(prefix), results);
         }
         ArrayList <Value> returnValue = new ArrayList <Value>(results);
+        returnValue.sort(comparator);
         return returnValue;
     }
 
-    private void collect(Node x,StringBuilder prefix, ArrayList<Value> results) {
+    private void collect(Node x, StringBuilder prefix, ArrayList<Value> results) {
         if (x.val != null) {
             for (int i = 0; i < ((ArrayList<Value>) x.val).size();i ++) {
-                results.add(((ArrayList<Value>) x.val).get(i));
+                if (results.contains(( (ArrayList<Value>) x.val).get(i))) {}
+                else {results.add(((ArrayList<Value>) x.val).get(i));}
+                //results.add(((ArrayList<Value>) x.val).get(i));
             }
         }
         for (char c = 0; c < alphabetSize; c++) {
@@ -223,8 +222,11 @@ public class TrieImpl <Value> implements Trie <Value> {
     @Override
     public Value delete(String key, Value val) {
         key = key.toLowerCase();
+        Value returnValue = null;
         String [] allWordsInKey = key.split(" ");
-        Value returnValue = (Value) deleteNode(this.root, allWordsInKey[0], 0 , val);
+        for (int i = 0; i < allWordsInKey.length; i ++) {
+            returnValue = (Value) deleteNode(this.root, allWordsInKey[i], 0 , val);
+        }
         return returnValue;
     }
 
@@ -234,9 +236,9 @@ public class TrieImpl <Value> implements Trie <Value> {
         if (d == key.length()) { 
             if (((ArrayList<Value>) x.val).contains(val)) {
                 deletedNode = val;
+                ((ArrayList<Value>) x.val).remove(val);
+                x.counter = x.counter - 1;
             }
-            ((ArrayList<Value>) x.val).remove(val);
-            x.counter = x.counter - 1;
         }
         else {
             char c = key.charAt(d);

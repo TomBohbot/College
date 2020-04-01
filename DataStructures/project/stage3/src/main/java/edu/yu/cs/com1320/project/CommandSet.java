@@ -17,7 +17,7 @@ public class CommandSet<Target> extends AbstractSet<GenericCommand<Target>> impl
      * @return
      */
     public boolean containsTarget(Target c) {
-        return this.genericCommands.contains(c);
+        return this.genericCommands.contains(new GenericCommand<>(c,null));
     }
 
     /**

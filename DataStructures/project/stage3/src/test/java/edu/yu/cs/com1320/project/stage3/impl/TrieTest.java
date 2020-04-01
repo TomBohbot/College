@@ -10,10 +10,21 @@ import edu.yu.cs.com1320.project.impl.TrieImpl;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.Comparator;
 
 public class TrieTest {
 
-    TrieImpl trie = new TrieImpl();
+    private TrieImpl trie = new TrieImpl();
+    private Comparator <Integer>  comparator = new ComparatorImpl();
+
+
+    private class ComparatorImpl implements Comparator <Integer>{
+
+        @Override
+        public int compare (Integer o1, Integer o2) {
+            return o1 - o2;
+        }
+    }
 
     @Test
     public void TestPutNoDups() {
@@ -29,7 +40,7 @@ public class TrieTest {
         testValue.add(0);
         testValue.add(6);
         testValue.add(7);
-        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she") );
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
     }
 
     @Test
@@ -43,25 +54,25 @@ public class TrieTest {
         trie.put("she" , 6);
         trie.put("she says she" , 7);
         List <Integer> testValue = new ArrayList <Integer> ();
-        assertEquals("Testing if get works" , testValue , trie.getAllSorted("fashlb") );
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("fashlb" , comparator) );
     }
 
-    // @Test
-    // public void TestPutWithDups() {
-    //     trie.put("she " , 0);
-    //     trie.put("sells" , 1);
-    //     trie.put("sea" , 2);
-    //     trie.put("shells" , 3);
-    //     trie.put("by" , 4);
-    //     trie.put("the" , 5);
-    //     trie.put("she" , 6);
-    //     trie.put("she says she" , 7);
-    //     List <Integer> testValue = new ArrayList <Integer> ();
-    //     testValue.add(7);
-    //     testValue.add(6);
-    //     testValue.add(0);
-    //     assertEquals("Testing if get works" , testValue , trie.getAllSorted("she") );
-    // }
+    @Test
+    public void TestPutWithDups() {
+        trie.put("she " , 0);
+        trie.put("sells" , 1);
+        trie.put("sea" , 2);
+        trie.put("shells" , 3);
+        trie.put("by" , 4);
+        trie.put("the" , 5);
+        trie.put("she" , 6);
+        trie.put("she says she" , 7);
+        List <Integer> testValue = new ArrayList <Integer> ();
+        testValue.add(0);
+        testValue.add(6);
+        testValue.add(7);
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
+    }
 
     @Test
     public void TestGetPrefixNoDups() {
@@ -76,11 +87,11 @@ public class TrieTest {
         trie.put("shell" , 8);
         List <Integer> testValue = new ArrayList <Integer> ();
         testValue.add(0);
+        testValue.add(3);
         testValue.add(6);
         testValue.add(7);
         testValue.add(8);
-        testValue.add(3);
-        assertEquals("Testing if get works" , testValue , trie.getAllWithPrefixSorted("sh") );
+        assertEquals("Testing if get works" , testValue , trie.getAllWithPrefixSorted("sh" , comparator) );
     }
 
     @Test
@@ -97,11 +108,34 @@ public class TrieTest {
         testValue.add(0);
         testValue.add(6);
         testValue.add(7);
-        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she") );
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
         Set <Integer> deletedVals = new HashSet<Integer>(testValue); 
         assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("she") );
-        // Set <Integer> deletedValsEmpty = new HashSet<Integer>(); 
-        // assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("she")); // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
+        List <Integer> deletedValsEmpty = new ArrayList<Integer>(); 
+        assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("she" , comparator)); // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
+    }
+
+    @Test
+    public void TestDeleteAll2() {
+
+        trie.put("Hey Im Tom" , 3);
+        trie.put("Hey Im Lenny" , 4);
+        trie.put("Hey Im Ruben" , 5);
+        trie.put("Hey Im Tania" , 6);
+        trie.put("Hey Im Maalon" , 7);
+        List <Integer> testValue = new ArrayList <Integer> ();
+        testValue.add(3);
+        testValue.add(4);
+        testValue.add(5);
+        testValue.add(6);
+        testValue.add(7);
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("Hey" , comparator) );
+        Set <Integer> deletedVals = new HashSet<Integer>(testValue); 
+        assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("Hey") );
+        List <Integer> deletedValsEmpty = new ArrayList<Integer>(); 
+        assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Hey" , comparator)); // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
+        // assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Im" , comparator)); 
+
     }
 
     @Test
@@ -118,7 +152,7 @@ public class TrieTest {
         testValue.add(0);
         testValue.add(6);
         testValue.add(7);
-        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she") );
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
         Set <Integer> deletedVals = new HashSet<Integer>(); 
         assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("hi") );
     }
@@ -137,12 +171,12 @@ public class TrieTest {
         testValue.add(0);
         testValue.add(6);
         testValue.add(7);
-        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she") );
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
         List <Integer> newTestValue = new ArrayList <Integer> ();
         newTestValue.add(0);
         newTestValue.add(7);
         assertEquals("Testing if delete works" , 6 , trie.delete("she" , 6) );
-        assertEquals("Testing getting value after deleting" , newTestValue , trie.getAllSorted("she"));
+        assertEquals("Testing getting value after deleting" , newTestValue , trie.getAllSorted("she" , comparator));
     }
 
     @Test
@@ -170,12 +204,12 @@ public class TrieTest {
         trie.put("she says she" , 7);
         List <Integer> testValue = new ArrayList <Integer> ();
         testValue.add(0);
+        testValue.add(3);
         testValue.add(6);
         testValue.add(7);
-        testValue.add(3);
-        assertEquals("Testing if get works" , testValue , trie.getAllWithPrefixSorted("sh") );
+        assertEquals("Testing if get works" , testValue , trie.getAllWithPrefixSorted("sh" , comparator) );
         Set <Integer> deletedVals = new HashSet<Integer>(testValue); 
         assertEquals("Testing if delete works" , deletedVals , trie.deleteAllWithPrefix("sh") );
-        assertEquals("Testing getting value after deleting" , null , trie.getAllSorted("she"));  // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
+        // assertEquals("Testing getting value after deleting" , null , trie.getAllSorted("she" , comparator));  // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
     }
 }

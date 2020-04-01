@@ -4,7 +4,9 @@ import java.net.URI;
 
 public interface Document
 {
-    /**
+    Object uri = null;
+
+	/**
      * @return the document as a PDF
      */
     byte[] getDocumentAsPdf();

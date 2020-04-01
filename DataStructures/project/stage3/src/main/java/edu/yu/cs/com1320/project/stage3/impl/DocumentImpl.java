@@ -25,7 +25,9 @@ public class DocumentImpl implements Document {
         private String txt;
         private byte [] inputStream;
         private int hashCode;
-        private HashTableImpl <URI , DocumentImpl> hashTableOfDocs  = new HashTableImpl <URI , DocumentImpl>  ();
+        private HashTableImpl <URI , DocumentImpl> hashTableOfDocs  = new HashTableImpl <URI , DocumentImpl>  ();  // doing stage 3 rn and have no idea why I made this in stage 1 honestly... :/
+        private HashTableImpl<String, Integer> howManyTimesAWordAppears = new HashTableImpl<String, Integer>();
+
 
     // Constructor for txt files:
     public DocumentImpl (URI uri , String txt , int hashCode) {
@@ -35,6 +37,7 @@ public class DocumentImpl implements Document {
         this.uri = uri;
         this.txt = txt;
         this.hashCode = hashCode;
+        fillHashTable(txt);
     }
 
     // Constructor for pdf files:
@@ -46,11 +49,24 @@ public class DocumentImpl implements Document {
         this.txt = txt;
         this.inputStream = inputStream;
         this.hashCode = hashCode;
+        fillHashTable(txt);
     }
 
-     /**
-     * @return the document as a PDF
-     */
+    private void fillHashTable(String txt) {
+        String parsedDocContent = parseSpecialCharacters(txt);
+        String [] allWordsInDoc = parsedDocContent.split(" ");
+        for (int i = 0; i < allWordsInDoc.length; i ++) {
+            Integer wordDups = 0;
+            if (howManyTimesAWordAppears.get(allWordsInDoc[i]) == null) {
+                wordDups = 1;
+            }
+            else {
+                wordDups = howManyTimesAWordAppears.get(allWordsInDoc[i]) + 1;
+            }
+            howManyTimesAWordAppears.put(allWordsInDoc[i] , wordDups);
+        }
+    }
+
     @Override
     public byte[] getDocumentAsPdf() {
 
@@ -125,17 +141,9 @@ public class DocumentImpl implements Document {
      */
     @Override
     public int wordCount(String word) {
+        if (word == null) {return 0; }
         word = parseSpecialCharacters(word);
-        int sameWordCount = 0;
-        String doc = getDocumentAsTxt();
-        doc = parseSpecialCharacters(doc);
-        String [] allWordsInDoc = doc.split(" ");
-        for (int i = 0; i < allWordsInDoc.length; i ++) {
-            if (allWordsInDoc[i].equals(word) ) {
-                 sameWordCount ++;
-            }
-        }
-        return sameWordCount;
+        return howManyTimesAWordAppears.get(word);
     }
 
     private String parseSpecialCharacters (String str) {
@@ -148,5 +156,5 @@ public class DocumentImpl implements Document {
 			} 
 		}
 		return parsedString;
-	}
+    }
 }

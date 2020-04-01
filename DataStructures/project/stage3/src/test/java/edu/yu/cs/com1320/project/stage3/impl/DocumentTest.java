@@ -84,12 +84,17 @@ public class DocumentTest {
     @Test
     public void testWordCount () throws URISyntaxException {
 
-        DocumentStoreImpl docStore = new DocumentStoreImpl();
         String inputStreamContent = "Sam Sam Sam .";
         InputStream inputStream = new ByteArrayInputStream(inputStreamContent.getBytes() );
         URI uri = new URI("Tom'sURI");
         DocumentImpl document = new DocumentImpl(uri, inputStreamContent, inputStreamContent.hashCode() );
         assertEquals("Checking if get word count works" ,  3 , document.wordCount("Sam"));        
+        String inputStreamContent2 = "Hey Tom, My name is TomTom. Nice to meet you Tom";
+        InputStream inputStream2 = new ByteArrayInputStream(inputStreamContent2.getBytes() );
+        URI uri2 = new URI("Tom'sURI");
+        DocumentImpl document2 = new DocumentImpl(uri2, inputStreamContent2, inputStreamContent2.hashCode() );
+        assertEquals("Checking if get word count works again" ,  2 , document2.wordCount("Tom"));        
 
     }
+
 }

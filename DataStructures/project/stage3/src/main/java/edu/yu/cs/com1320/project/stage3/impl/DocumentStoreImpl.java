@@ -13,6 +13,7 @@ import edu.yu.cs.com1320.project.stage3.Document;
 import edu.yu.cs.com1320.project.impl.StackImpl;
 import edu.yu.cs.com1320.project.GenericCommand;
 import edu.yu.cs.com1320.project.Undoable;
+import edu.yu.cs.com1320.project.CommandSet;
 import java.util.function.Function;
 import edu.yu.cs.com1320.project.impl.TrieImpl;
 
@@ -26,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,10 +37,68 @@ public class DocumentStoreImpl implements DocumentStore {
     private HashTableImpl<URI, DocumentImpl> hashTableOfDocs = new HashTableImpl<URI, DocumentImpl>();
     private int hashCodeOfStream;
     private StackImpl<Undoable> commandStack = new StackImpl<Undoable>();
-    private TrieImpl <URI> trie = new TrieImpl <URI> ();
+    private TrieImpl <DocumentImpl> trie = new TrieImpl <DocumentImpl> ();
+    private Comparator <DocumentImpl>  compareDocs = new ComparatorImpl();
+    private Comparator <DocumentImpl>  compareDocsPrefixes = new ComparatorImplPrefixes();
 
-    public DocumentStoreImpl() {
 
+    private class ComparatorImpl implements Comparator <DocumentImpl>{
+
+        @Override
+        public int compare (DocumentImpl o1, DocumentImpl o2) {
+            DocumentImpl docOne = (DocumentImpl) o1;
+            DocumentImpl docTwo = (DocumentImpl) o2;
+            return docTwo.wordCount(keyWordForKey) - docOne.wordCount(keyWordForKey);
+        }
+    }
+
+    private class ComparatorImplPrefixes implements Comparator <DocumentImpl>{
+        // private DocumentStoreImpl docStore = new DocumentStoreImpl();
+        @Override
+        public int compare (DocumentImpl o1, DocumentImpl o2) {
+            DocumentImpl docOne = (DocumentImpl) o1;
+            DocumentImpl docTwo = (DocumentImpl) o2;
+            return countPrefixes(docTwo.getDocumentAsTxt() , keyWordForKey) - countPrefixes(docOne.getDocumentAsTxt() , keyWordForKey);
+        }
+    }
+
+    public DocumentStoreImpl() { 
+        // no arg constructor
+    }
+
+    private String parseSpecialCharacters (String str) {
+		str = str.toLowerCase();
+		String parsedString = new String ();
+		for (char seekRegChar: str.toCharArray() ) {
+			int AsciiVal = (int) seekRegChar;
+			if (AsciiVal >= 48 && AsciiVal <= 57 || AsciiVal >= 97 && AsciiVal <= 122 || AsciiVal == ' ') {
+				parsedString = parsedString + seekRegChar;
+			} 
+		}
+		return parsedString;
+    }
+
+    private int countPrefixes (String docText , String prefix) {
+        if (docText == null ) {return 1;}
+        if (prefix == null ) {return 2;}
+        docText = docText.toLowerCase();
+        prefix = prefix.toLowerCase();
+        docText = parseSpecialCharacters(docText);
+        prefix = parseSpecialCharacters(prefix);
+        if (prefix == null) {return 0; }
+        char [] prefixAsChars = prefix.toCharArray();
+        int prefixLength = prefixAsChars.length;
+        int counter = 0;
+        String [] allWordsInKey = docText.split(" ");
+        for (int i = 0; i < allWordsInKey.length; i ++) {
+            if (allWordsInKey[i].length() < prefixLength) {
+                continue;
+            }
+            if (allWordsInKey[i].substring(0 , prefixLength).equals(prefix)) {
+                counter ++;
+            }
+        }
+        return counter;
     }
 
     private byte[] inputStreamToByteArray(InputStream inputStream) throws IOException {
@@ -63,12 +123,12 @@ public class DocumentStoreImpl implements DocumentStore {
             String oldDocText = oldDoc.getDocumentAsTxt();
             int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();
             Function lambda = (x) -> {
-                trie.put(oldDocText , uri);
+                trie.put(oldDocText , oldDoc);
                 hashTableOfDocs.put(uri, oldDoc);
                 return true;
             };
             commandStack.push(new GenericCommand(uri, lambda));
-            trie.delete(oldDocText, uri);
+            trie.delete(oldDocText, oldDoc);
             hashTableOfDocs.put(uri, null);
             return oldValue;
         }
@@ -77,11 +137,11 @@ public class DocumentStoreImpl implements DocumentStore {
             String oldDocText = oldDoc.getDocumentAsTxt();
             int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();
             Function lambda = (x) -> {
-                trie.put(oldDocText , uri);
+                trie.put(oldDocText , oldDoc);
                 hashTableOfDocs.put(uri, oldDoc);
                 return true;
             };
-            trie.delete(oldDocText, uri);
+            trie.delete(oldDocText, oldDoc);
             commandStack.push(new GenericCommand(uri, lambda));
             hashTableOfDocs.put(uri, null);
             return oldValue;
@@ -96,27 +156,27 @@ public class DocumentStoreImpl implements DocumentStore {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream) {
                 Function lambda = (x) -> { return true; };
                 commandStack.push(new GenericCommand(uri, lambda));
-                return hashCodeOfStream;
-            }
+                return hashCodeOfStream; }
         }
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
-                trie.delete(txt , uri);
+                trie.delete(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
                 hashTableOfDocs.put(uri, null);
-                return true;
-            };
-            trie.put(txt , uri);
+                return true; };
+            DocumentImpl doc = new DocumentImpl(uri, txt, hashCodeOfStream);
+            trie.put(txt , doc);
             commandStack.push(new GenericCommand(uri, lambda));
             hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
             return 0;
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
         Function lambda = (x) -> {
-            trie.delete(txt , uri);
+            trie.delete(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
             hashTableOfDocs.put(uri, oldValue);
-            return true;
-        };
-        trie.put(txt , uri);
+            trie.put(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
+            return true; };
+        trie.delete(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
+        trie.put(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
         commandStack.push(new GenericCommand(uri, lambda));
         hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
         return oldValue.getDocumentTextHashCode();
@@ -135,22 +195,24 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
-                trie.delete(strippedByteArray , uri);
+                trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
                 hashTableOfDocs.put(uri, null);
                 return true;
             };
-            trie.put(strippedByteArray , uri);
+            trie.put(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             commandStack.push(new GenericCommand(uri, lambda));
             hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             return 0;
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
         Function lambda = (x) -> {
-            trie.delete(strippedByteArray , uri);
+            trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             hashTableOfDocs.put(uri, oldValue);
+            trie.put(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
             return true;
         };
-        trie.put(strippedByteArray , uri);
+        trie.delete(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
+        trie.put(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
         commandStack.push(new GenericCommand(uri, lambda));
         hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
         return oldValue.getDocumentTextHashCode();
@@ -215,11 +277,22 @@ public class DocumentStoreImpl implements DocumentStore {
             return false;
         }
         Function lambda = (x) -> {
-            trie.put(doc.getDocumentAsTxt() , uri);
+            trie.put(doc.getDocumentAsTxt() , doc);
             hashTableOfDocs.put(uri, doc);
             return true;
         };
+        trie.delete(doc.getDocumentAsTxt() , doc);
         commandStack.push(new GenericCommand(uri, lambda));
+        hashTableOfDocs.put(uri, null);
+        return true;
+    }
+
+    private boolean deleteDocumentNoUndo(URI uri) {
+        DocumentImpl doc = hashTableOfDocs.get(uri);
+        if (doc == null) {
+            return false;
+        }
+        trie.delete(doc.getDocumentAsTxt() , doc);
         hashTableOfDocs.put(uri, null);
         return true;
     }
@@ -229,10 +302,16 @@ public class DocumentStoreImpl implements DocumentStore {
         if (commandStack.size() == 0) {
             throw new IllegalStateException();
         }
-        GenericCommand undoElem = (GenericCommand) commandStack.pop();
-        undoElem.undo();
+        if (commandStack.peek().getClass().getName().equals("edu.yu.cs.com1320.project.CommandSet") ) {
+            CommandSet undoSet = (CommandSet) commandStack.pop();
+            undoSet.undoAll();
+        }
+        else {
+            GenericCommand undoElem = (GenericCommand) commandStack.pop();
+            undoElem.undo();
+        }
     }
-    
+
     @Override
     public void undo(URI uri) throws IllegalStateException {
         if (commandStack.size() == 0) { throw new IllegalStateException(); }
@@ -241,13 +320,25 @@ public class DocumentStoreImpl implements DocumentStore {
         StackImpl <Undoable> tempStack = new StackImpl <Undoable>();
         // Sort through command stack, until you find the URI:
         for (int i = 0; i < commandStackSize; i ++) {
-            GenericCommand <URI> tempNode = (GenericCommand) commandStack.pop();
-            if (tempNode.getTarget().equals(uri) ){
-                tempNode.undo();
-                foundUri = true;
-                break;
+            if (commandStack.peek().getClass().getName().equals("edu.yu.cs.com1320.project.CommandSet") ) {
+                CommandSet undoSet = (CommandSet) commandStack.pop();
+                if (undoSet.containsTarget(uri) ) {
+                    undoSet.undo(uri);
+                    foundUri = true;
+                    tempStack.push(undoSet);
+                    break;
+                }
+                tempStack.push(undoSet);
             }
+            else { 
+                GenericCommand <URI> tempNode = (GenericCommand) commandStack.pop();
+                if (tempNode.getTarget().equals(uri) ){
+                    tempNode.undo();
+                    foundUri = true;
+                    break;
+                }
             tempStack.push(tempNode);
+            }
         }
         if (tempStack.size() == 0) {return;}
         // If the URI was never found:
@@ -263,16 +354,17 @@ public class DocumentStoreImpl implements DocumentStore {
         }    
     }    
 
+    private String keyWordForKey;
     @Override
     public List<String> search(String keyword) {
         keyword = keyword.toLowerCase();
+        keyWordForKey = keyword;
         // list of all URIs that correspond to keyword:
-        ArrayList <URI> listOfURIsSorted = (ArrayList) trie.getAllSorted(keyword);
+        ArrayList <DocumentImpl> listOfURIsSorted = (ArrayList) trie.getAllSorted(keyword , compareDocs);
         // make list of URIs into list of actual docs:
         ArrayList <String> returnValue = new ArrayList <String> ();
-        for (URI uri: listOfURIsSorted) {
-            DocumentImpl doc = hashTableOfDocs.get(uri);
-            // if (doc.getDocumentAsTxt() == null) { continue; }
+        for (DocumentImpl doc: listOfURIsSorted) {
+            if (doc == null) { continue; }
             String docContent = doc.getDocumentAsTxt();
             returnValue.add(docContent);
         }
@@ -282,88 +374,103 @@ public class DocumentStoreImpl implements DocumentStore {
     @Override
     public List<byte[]> searchPDFs(String keyword) {
         keyword = keyword.toLowerCase();
+        keyWordForKey = keyword;
         // list of all URIs that correspond to keyword:
-        ArrayList <URI> listOfURIsSorted = (ArrayList) trie.getAllSorted(keyword);
+        ArrayList <DocumentImpl> listOfURIsSorted = (ArrayList) trie.getAllSorted(keyword , compareDocs);
         // make list of URIs into list of actual docs:
         ArrayList <byte []> returnValue = new ArrayList <byte []> ();
-        for (URI uri: listOfURIsSorted) {
-            DocumentImpl doc = hashTableOfDocs.get(uri);
+        for (DocumentImpl doc: listOfURIsSorted) {
             byte [] docContent = doc.getDocumentAsPdf();
             returnValue.add(docContent);
         }
         return returnValue;
     }
 
-    /**
-     * Retrieve all documents whose text starts with the given prefix
-     * Documents are returned in sorted, descending order, sorted by the number of times the prefix appears in the document.
-     * Search is CASE INSENSITIVE.
-     * @param prefix
-     * @return a List of the matches. If there are no matches, return an empty list.
-     */
     @Override
     public List<String> searchByPrefix(String prefix) {
         prefix = prefix.toLowerCase();
+        keyWordForKey = prefix;
         // Get a list of all URIs that have that prefix, sorted in the correct order:
-        List <URI> sortedURIs = trie.getAllWithPrefixSorted(prefix);
+        List <DocumentImpl> sortedURIs = trie.getAllWithPrefixSorted(prefix , compareDocsPrefixes);
         // Transform URI list into a list of text documents:
         ArrayList <String> sortedTextDocs = new ArrayList <String> ();
-        for (URI uri: sortedURIs) {
-            DocumentImpl doc = hashTableOfDocs.get(uri);
+        for (DocumentImpl doc: sortedURIs) {
             String textOfDoc = doc.getDocumentAsTxt();
             sortedTextDocs.add(textOfDoc);
         }
         return sortedTextDocs;
     }
 
-    // /**
-    //  * same logic as searchByPrefix, but returns the docs as PDFs instead of as Strings
-    //  */
-    // public List<byte[]> searchPDFsByPrefix(String prefix) {
+    public List<byte[]> searchPDFsByPrefix(String prefix) {
+        prefix = prefix.toLowerCase();
+        keyWordForKey = prefix;
+        // Get a list of all URIs that have that prefix, sorted in the correct order:
+        List <DocumentImpl> sortedURIs = trie.getAllWithPrefixSorted(prefix , compareDocsPrefixes);
+        // Transform URI list into a list of text documents:
+        ArrayList <byte[]> sortedTextDocs = new ArrayList <byte[]> ();
+        for (DocumentImpl doc: sortedURIs) {
+            byte[] textOfDoc = doc.getDocumentAsPdf();
+            sortedTextDocs.add(textOfDoc);
+        }
+        return sortedTextDocs;
+    }   
 
-    // }
-
-    /**
-     * delete ALL exact matches for the given key
-     * @param key
-     * @return a Set of URIs of the documents that were deleted.
-     */
     @Override
     public Set<URI> deleteAll(String key) {
         key = key.toLowerCase();
+        keyWordForKey = key;
         // get words to delete:
-        List <URI> willDeleteNodes = trie.getAllSorted(key);
-        HashSet <URI> willDeleteNodesSet = new HashSet <URI> (willDeleteNodes);
-        // Now delete these values everywhere:
-        for (URI uri: willDeleteNodesSet) {
-            
-            DocumentImpl doc = hashTableOfDocs.get(uri);
-            String docContent = doc.getDocumentAsTxt();
-            String [] allWordsInDoc = docContent.split(" ");
-            for (int i = 0; i < allWordsInDoc.length; i ++) {
-                trie.delete(allWordsInDoc[i], uri);
-            }
-            deleteDocument(uri);
+        CommandSet <Function> commandSet = new CommandSet <> ();
+        List <DocumentImpl> willDeleteNodes = trie.getAllSorted(key , compareDocs);
+        HashSet <DocumentImpl> willDeleteNodesSet = new HashSet <DocumentImpl> (willDeleteNodes);
+        if (willDeleteNodesSet.size() == 0) {
+            Function lambda = (x) -> { return true; };
+            try { commandStack.push(new GenericCommand(new URI("str"), lambda));
+            } catch (URISyntaxException e) {}
+            HashSet <URI> emptySet = new HashSet <URI> ();
+            return emptySet;
         }
-        return willDeleteNodesSet;
+        HashSet <URI> willDeleteUris = new HashSet <URI> ();
+        // Now delete these values everywhere:
+        for (DocumentImpl doc: willDeleteNodesSet) {
+            URI uri = doc.getKey();
+            willDeleteUris.add(uri);
+            // String docContent = doc.getDocumentAsTxt();
+            String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
+            for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], doc); }
+            Function lambda = (x) -> {
+                trie.put(doc.getDocumentAsTxt() , doc);
+                hashTableOfDocs.put(uri, doc);
+                return true;
+            };
+            commandSet.addCommand(new GenericCommand(uri, lambda) );
+            hashTableOfDocs.put(doc.getKey() , null);
+            deleteDocumentNoUndo(uri);
+        }
+        commandStack.push(commandSet);
+        return willDeleteUris;
     }
 
     @Override
     public  Set<URI> deleteAllWithPrefix(String prefix) {
         prefix = prefix.toLowerCase();
+        keyWordForKey = prefix;
         // Get words to delete:
-        List <URI> willDeleteNodes = trie.getAllWithPrefixSorted(prefix);
-        HashSet <URI> willDeleteNodesSet = new HashSet <URI> (willDeleteNodes);
+        List <DocumentImpl> willDeleteNodes = trie.getAllWithPrefixSorted(prefix , compareDocsPrefixes);
+        HashSet <DocumentImpl> willDeleteNodesSet = new HashSet <DocumentImpl> (willDeleteNodes);
+        HashSet <URI> willDeleteUris = new HashSet <URI> ();
         // Node delete all those nodes:
-        for (URI uri: willDeleteNodesSet) {
-            DocumentImpl doc = hashTableOfDocs.get(uri);
+        for (DocumentImpl doc: willDeleteNodesSet) {
+            URI uri = doc.getKey();
+            willDeleteUris.add(uri);
             String docContent = doc.getDocumentAsTxt();
             String [] allWordsInDoc = docContent.split(" ");
             for (int i = 0; i < allWordsInDoc.length; i ++) {
-                trie.delete(allWordsInDoc[i], uri);
+                trie.delete(allWordsInDoc[i], doc);
             }
-            deleteDocument(uri);
+            hashTableOfDocs.put(doc.getKey() , null);
+            deleteDocumentNoUndo(uri);
         }
-        return willDeleteNodesSet;
+        return willDeleteUris;
     }
 }
