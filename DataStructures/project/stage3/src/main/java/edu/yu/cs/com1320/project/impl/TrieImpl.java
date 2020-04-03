@@ -109,6 +109,7 @@ public class TrieImpl <Value> implements Trie <Value> {
         // Every time I make a doc I parse each word and add each word to the trie. Then, each word's value is a set the has docs that contain that word.
         // have to return an empty list NOT null if there are no matches!
         key = key.toLowerCase();
+        key = parseSpecialCharacters(key);
         Node x = this.get(this.root, key, 0);
         if (x == null) {
             ArrayList <Value> emptyList = new ArrayList <Value> ();
@@ -136,6 +137,7 @@ public class TrieImpl <Value> implements Trie <Value> {
     @Override
     public List<Value> getAllWithPrefixSorted(String prefix , Comparator<Value> comparator) {
         prefix = prefix.toLowerCase();
+        prefix = parseSpecialCharacters(prefix);
         ArrayList<Value> results = new ArrayList<Value>();
         Node x = this.get(this.root, prefix, 0);
         if (x != null) {
@@ -166,10 +168,12 @@ public class TrieImpl <Value> implements Trie <Value> {
     @Override
     public Set<Value> deleteAllWithPrefix(String prefix) {
         prefix = prefix.toLowerCase();
+        prefix = parseSpecialCharacters(prefix);
         HashSet<Value> results = new HashSet<Value>();
         Node x = this.get(this.root, prefix, 0);
         if (x != null) {
             this.deletePrefixHelper(x, new StringBuilder(prefix), results);
+            x = null; // Permanently deleting this node from the trie ??
         }
         HashSet <Value> returnValue = new HashSet <Value>(results);
         return returnValue;
@@ -194,7 +198,9 @@ public class TrieImpl <Value> implements Trie <Value> {
 
     @Override
     public Set<Value> deleteAll(String key) {
+        deletedVals.clear(); // In case the method is called twice in a row, I must empty the previous time it was called.
         key = key.toLowerCase();
+        key = parseSpecialCharacters(key);
         Set returnSet = deleteAll(this.root, key, 0);
         return returnSet;
     }
@@ -204,17 +210,24 @@ public class TrieImpl <Value> implements Trie <Value> {
         if (x == null) { return null;}
         if (d == key.length()) { 
             ArrayList <Value> tempList = (ArrayList<Value>) x.val;
-            deletedVals = new HashSet<Value>(tempList); 
-            x.val = null;
-            x.counter = 0; 
+            if (tempList == null) {}
+            else {
+                deletedVals = new HashSet<Value>(tempList); 
+                x.val = null;
+                x.counter = 0; 
+            }
         }
         else {
             char c = key.charAt(d);
             Set deletedSet = this.deleteAll(x.links[c], key, d + 1);
         }
-        if (x.val != null) { return deletedVals; }
+        if (x.val != null) {
+            return deletedVals;
+        }
         for (int c = 0; c < alphabetSize; c++) {
-            if (x.links[c] != null) { return deletedVals; }//not empty
+            if (x.links[c] != null) { 
+                return deletedVals;
+            }//not empty
         }
         return null;
     }
@@ -222,6 +235,7 @@ public class TrieImpl <Value> implements Trie <Value> {
     @Override
     public Value delete(String key, Value val) {
         key = key.toLowerCase();
+        key = parseSpecialCharacters(key);
         Value returnValue = null;
         String [] allWordsInKey = key.split(" ");
         for (int i = 0; i < allWordsInKey.length; i ++) {

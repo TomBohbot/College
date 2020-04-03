@@ -160,7 +160,8 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
-                trie.delete(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
+                String [] allWordsInDoc = txt.split(" ");
+                for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, txt, hashCodeOfStream)); }
                 hashTableOfDocs.put(uri, null);
                 return true; };
             DocumentImpl doc = new DocumentImpl(uri, txt, hashCodeOfStream);
@@ -171,7 +172,9 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
         Function lambda = (x) -> {
-            trie.delete(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
+            String [] allWordsInDoc = txt.split(" ");
+            for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, txt, hashCodeOfStream)); }
+            // trie.delete(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
             hashTableOfDocs.put(uri, oldValue);
             trie.put(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
             return true; };
@@ -195,7 +198,9 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
-                trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
+                String [] allWordsInDoc = strippedByteArray.split(" ");
+                for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes)); }
+                // trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
                 hashTableOfDocs.put(uri, null);
                 return true;
             };
@@ -206,7 +211,9 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
         Function lambda = (x) -> {
-            trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
+            String [] allWordsInDoc = strippedByteArray.split(" ");
+            for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes)); }
+            // trie.delete(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             hashTableOfDocs.put(uri, oldValue);
             trie.put(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
             return true;
@@ -281,7 +288,9 @@ public class DocumentStoreImpl implements DocumentStore {
             hashTableOfDocs.put(uri, doc);
             return true;
         };
-        trie.delete(doc.getDocumentAsTxt() , doc);
+        String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
+        for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], doc); }
+        // trie.delete(doc.getDocumentAsTxt() , doc);
         commandStack.push(new GenericCommand(uri, lambda));
         hashTableOfDocs.put(uri, null);
         return true;
@@ -292,7 +301,9 @@ public class DocumentStoreImpl implements DocumentStore {
         if (doc == null) {
             return false;
         }
-        trie.delete(doc.getDocumentAsTxt() , doc);
+        String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
+        for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], doc); }
+        // trie.delete(doc.getDocumentAsTxt() , doc);
         hashTableOfDocs.put(uri, null);
         return true;
     }
@@ -456,21 +467,33 @@ public class DocumentStoreImpl implements DocumentStore {
         prefix = prefix.toLowerCase();
         keyWordForKey = prefix;
         // Get words to delete:
+        CommandSet <Function> commandSet = new CommandSet <> ();
         List <DocumentImpl> willDeleteNodes = trie.getAllWithPrefixSorted(prefix , compareDocsPrefixes);
         HashSet <DocumentImpl> willDeleteNodesSet = new HashSet <DocumentImpl> (willDeleteNodes);
+        if (willDeleteNodesSet.size() == 0) {
+            Function lambda = (x) -> { return true; };
+            try { commandStack.push(new GenericCommand(new URI("str"), lambda));
+            } catch (URISyntaxException e) {}
+            HashSet <URI> emptySet = new HashSet <URI> ();
+            return emptySet;
+        }
         HashSet <URI> willDeleteUris = new HashSet <URI> ();
         // Node delete all those nodes:
         for (DocumentImpl doc: willDeleteNodesSet) {
             URI uri = doc.getKey();
             willDeleteUris.add(uri);
-            String docContent = doc.getDocumentAsTxt();
-            String [] allWordsInDoc = docContent.split(" ");
-            for (int i = 0; i < allWordsInDoc.length; i ++) {
-                trie.delete(allWordsInDoc[i], doc);
-            }
+            String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
+            for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], doc); }
+            Function lambda = (x) -> {
+                trie.put(doc.getDocumentAsTxt() , doc);
+                hashTableOfDocs.put(uri, doc);
+                return true;
+            };
+            commandSet.addCommand(new GenericCommand(uri, lambda) );
             hashTableOfDocs.put(doc.getKey() , null);
             deleteDocumentNoUndo(uri);
         }
+        commandStack.push(commandSet);
         return willDeleteUris;
     }
 }

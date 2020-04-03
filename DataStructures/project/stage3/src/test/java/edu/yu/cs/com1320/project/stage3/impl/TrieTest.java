@@ -122,7 +122,7 @@ public class TrieTest {
         trie.put("Hey Im Lenny" , 4);
         trie.put("Hey Im Ruben" , 5);
         trie.put("Hey Im Tania" , 6);
-        trie.put("Hey Im Maalon" , 7);
+        trie.put("Hey I Maalon" , 7);
         List <Integer> testValue = new ArrayList <Integer> ();
         testValue.add(3);
         testValue.add(4);
@@ -131,10 +131,13 @@ public class TrieTest {
         testValue.add(7);
         assertEquals("Testing if get works" , testValue , trie.getAllSorted("Hey" , comparator) );
         Set <Integer> deletedVals = new HashSet<Integer>(testValue); 
+        HashSet <Integer> deletedValsEmptySet = new HashSet<Integer>(); 
         assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("Hey") );
+        deletedVals.remove(7);
+        assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("Im") );
         List <Integer> deletedValsEmpty = new ArrayList<Integer>(); 
-        assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Hey" , comparator)); // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!!
-        // assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Im" , comparator)); 
+        assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Hey" , comparator)); // NEED TO FIX THIS PROBLEM. DELETE UNECESSARY NODES!! FIXED! :)
+        // assertEquals("Testing getting docs after deleting all docs" , deletedValsEmpty , trie.getAllSorted("Im" , comparator)); // This is wrong, it should return values, so im ALLLL GOOD
 
     }
 

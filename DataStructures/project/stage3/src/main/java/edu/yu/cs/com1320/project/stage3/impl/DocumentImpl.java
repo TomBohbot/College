@@ -17,6 +17,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DocumentImpl implements Document {
@@ -26,7 +27,7 @@ public class DocumentImpl implements Document {
         private byte [] inputStream;
         private int hashCode;
         private HashTableImpl <URI , DocumentImpl> hashTableOfDocs  = new HashTableImpl <URI , DocumentImpl>  ();  // doing stage 3 rn and have no idea why I made this in stage 1 honestly... :/
-        private HashTableImpl<String, Integer> howManyTimesAWordAppears = new HashTableImpl<String, Integer>();
+        private HashMap<String, Integer> howManyTimesAWordAppears = new HashMap<String, Integer>();
 
 
     // Constructor for txt files:
