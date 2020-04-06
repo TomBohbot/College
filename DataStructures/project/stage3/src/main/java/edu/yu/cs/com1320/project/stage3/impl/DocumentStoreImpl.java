@@ -78,7 +78,7 @@ public class DocumentStoreImpl implements DocumentStore {
 		return parsedString;
     }
 
-    private int countPrefixes (String docText , String prefix) {
+    private int countPrefixes (String docText , String prefix) { // line count is good
         if (docText == null ) {return 0;}
         if (prefix == null ) {return 0;}
         docText = docText.toLowerCase();
@@ -112,7 +112,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return byteArrayStream.toByteArray();
     }
 
-    private int ifNull(InputStream input, URI uri, DocumentFormat format) throws IOException {
+    private int ifNull(InputStream input, URI uri, DocumentFormat format) throws IOException { // line count is good
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> { return true; };
             commandStack.push(new GenericCommand(uri, lambda));
@@ -149,7 +149,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return 0;
     }
 
-    private int putText(byte[] streamAsBytes, URI uri) throws IOException {
+    private int putText(byte[] streamAsBytes, URI uri) throws IOException { // line count is good
         String txt = new String(streamAsBytes);
         hashCodeOfStream = txt.hashCode();
         if (hashTableOfDocs.get(uri) != null) {
@@ -185,7 +185,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return oldValue.getDocumentTextHashCode();
     }
 
-    private int putPDF(byte[] streamAsBytes, URI uri) throws IOException {
+    private int putPDF(byte[] streamAsBytes, URI uri) throws IOException { // line count is good
         PDFTextStripper pdfStripper = new PDFTextStripper();
         String strippedByteArray = pdfStripper.getText(PDDocument.load(streamAsBytes)).trim();
         hashCodeOfStream = strippedByteArray.hashCode();
@@ -225,7 +225,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return oldValue.getDocumentTextHashCode();
     }
 
-    protected Document getDocument(URI uri) {
+    protected Document getDocument(URI uri) { // line count is good
         if (hashTableOfDocs.get(uri) == null) {
             return null;
         }
@@ -233,7 +233,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     @Override
-    public int putDocument(InputStream input, URI uri, DocumentFormat format) {
+    public int putDocument(InputStream input, URI uri, DocumentFormat format) { // line count is good
         try {
             if (uri == null || format == null) {
                 throw new IllegalArgumentException();
@@ -255,7 +255,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     @Override
-    public byte[] getDocumentAsPdf(URI uri) {
+    public byte[] getDocumentAsPdf(URI uri) { // line count is good
         if (hashTableOfDocs.get(uri) == null || uri == null) {
             return null;
         }
@@ -264,7 +264,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     @Override
-    public String getDocumentAsTxt(URI uri) {
+    public String getDocumentAsTxt(URI uri) { // line count is good
         if (hashTableOfDocs.get(uri) == null) {
             return null;
         }
@@ -276,7 +276,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     @Override
-    public boolean deleteDocument(URI uri) {
+    public boolean deleteDocument(URI uri) { // line count is good
         DocumentImpl doc = hashTableOfDocs.get(uri);
         if (doc == null) {
             Function lambda = (x) -> { return true; };
@@ -337,32 +337,25 @@ public class DocumentStoreImpl implements DocumentStore {
                     undoSet.undo(uri);
                     foundUri = true;
                     tempStack.push(undoSet);
-                    break;
-                }
-                tempStack.push(undoSet);
-            }
+                    break; }
+                tempStack.push(undoSet); }
             else { 
                 GenericCommand <URI> tempNode = (GenericCommand) commandStack.pop();
                 if (tempNode.getTarget().equals(uri) ){
                     tempNode.undo();
                     foundUri = true;
-                    break;
-                }
-            tempStack.push(tempNode);
-            }
-        }
-        if (tempStack.size() == 0) {return;}
+                    break; }
+            tempStack.push(tempNode);   }  }
+        if (tempStack.size() == 0) { return; }
         // If the URI was never found:
         if (commandStack.size() == 0 && foundUri == false) {
             for (int i = 0; i < tempStack.size(); i ++) { commandStack.push(tempStack.pop() ); }
-            throw new IllegalStateException();
-        }
+            throw new IllegalStateException(); }
         // If the URI was found:
         for (int i = 0; i < commandStackSize; i ++) {
             foundUri = false;
             commandStack.push(tempStack.pop() );
-            if (tempStack.size() == 0) { break; }
-        }    
+            if (tempStack.size() == 0) { break; }   }    
     }    
 
     private String keyWordForKey;
@@ -427,7 +420,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }   
 
     @Override
-    public Set<URI> deleteAll(String key) {
+    public Set<URI> deleteAll(String key) { // line count is good
         key = key.toLowerCase();
         keyWordForKey = key;
         // get words to delete:
@@ -463,7 +456,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     @Override
-    public  Set<URI> deleteAllWithPrefix(String prefix) {
+    public  Set<URI> deleteAllWithPrefix(String prefix) { // line count is good
         prefix = prefix.toLowerCase();
         keyWordForKey = prefix;
         // Get words to delete:
