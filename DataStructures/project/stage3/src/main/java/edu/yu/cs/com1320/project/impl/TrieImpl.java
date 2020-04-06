@@ -26,18 +26,17 @@ public class TrieImpl <Value> implements Trie <Value> {
     private Node root; // root of trie
     private ArrayList <Value> listAtValue;
     private ArrayList <Document> listOfValuesAsDoc;
-    // private Comparator <Document>  compareDocs = new ComparatorImpl();
+    private Comparator <Document>  compareDocs = new ComparatorImpl();
+    private String keyWordForKey;
 
-    // private class ComparatorImpl implements Comparator <Document>{
-    //     private String key;
-        
-    //     @Override
-    //     public int compare (Document o1, Document o2) {
-    //         DocumentImpl docOne = (DocumentImpl) o1;
-    //         DocumentImpl docTwo = (DocumentImpl) o2;
-    //         return docOne.wordCount(key) - docTwo.wordCount(key);
-    //     }
-    // }
+    private class ComparatorImpl implements Comparator <Document>{        
+        @Override
+        public int compare (Document o1, Document o2) {
+            DocumentImpl docOne = (DocumentImpl) o1;
+            DocumentImpl docTwo = (DocumentImpl) o2;
+            return docTwo.wordCount(keyWordForKey) - docOne.wordCount(keyWordForKey);
+        }
+    }
 
     private class Node <Value> {
         private Value val;
@@ -165,6 +164,18 @@ public class TrieImpl <Value> implements Trie <Value> {
         }
     }
 
+    private List<Value> checkIfShouldDeleteNode (String prefix) {
+        prefix = prefix.toLowerCase();
+        prefix = parseSpecialCharacters(prefix);
+        ArrayList<Value> results = new ArrayList<Value>();
+        Node x = this.get(this.root, prefix, 0);
+        if (x != null) {
+            this.collect(x, new StringBuilder(prefix), results);
+        }
+        ArrayList <Value> returnValue = new ArrayList <Value>(results);
+        return returnValue;
+    }
+
     @Override
     public Set<Value> deleteAllWithPrefix(String prefix) {
         prefix = prefix.toLowerCase();
@@ -222,6 +233,9 @@ public class TrieImpl <Value> implements Trie <Value> {
             Set deletedSet = this.deleteAll(x.links[c], key, d + 1);
         }
         if (x.val != null) {
+            if (checkIfShouldDeleteNode(key).size() == 0) {
+                x = null;
+            }
             return deletedVals;
         }
         for (int c = 0; c < alphabetSize; c++) {
@@ -258,7 +272,12 @@ public class TrieImpl <Value> implements Trie <Value> {
             char c = key.charAt(d);
             Value repeat = this.deleteNode(x.links[c], key, d + 1 , val);
         }
-        if (x.val != null) { return deletedNode; }
+        if (x.val != null) { 
+            if (checkIfShouldDeleteNode(key).size() == 0) {
+                x = null;
+            }
+            return deletedNode; 
+        }
         for (int c = 0; c < alphabetSize; c++) {
             if (x.links[c] != null) { return deletedNode; }//not empty
         }

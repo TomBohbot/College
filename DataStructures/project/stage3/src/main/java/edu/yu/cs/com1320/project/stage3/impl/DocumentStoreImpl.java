@@ -79,8 +79,8 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private int countPrefixes (String docText , String prefix) {
-        if (docText == null ) {return 1;}
-        if (prefix == null ) {return 2;}
+        if (docText == null ) {return 0;}
+        if (prefix == null ) {return 0;}
         docText = docText.toLowerCase();
         prefix = prefix.toLowerCase();
         docText = parseSpecialCharacters(docText);

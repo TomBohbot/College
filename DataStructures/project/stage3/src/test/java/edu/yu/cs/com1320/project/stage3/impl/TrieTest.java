@@ -161,6 +161,25 @@ public class TrieTest {
     }
 
     @Test
+    public void TestDeleteAllGotNothing1() {
+        trie.put("she " , 0);
+        trie.put("sells" , 1);
+        trie.put("sea" , 2);
+        trie.put("shells" , 3);
+        trie.put("by" , 4);
+        trie.put("the" , 5);
+        trie.put("she" , 6);
+        trie.put("she says she" , 7);
+        List <Integer> testValue = new ArrayList <Integer> ();
+        testValue.add(0);
+        testValue.add(6);
+        testValue.add(7);
+        assertEquals("Testing if get works" , testValue , trie.getAllSorted("she" , comparator) );
+        Set <Integer> deletedVals = new HashSet<Integer>(); 
+        assertEquals("Testing if delete works" , deletedVals , trie.deleteAll("fvaHJ,") );
+    }
+
+    @Test
     public void TestDeleteSingleNode() {
         trie.put("she" , 0);
         trie.put("sells" , 1);
