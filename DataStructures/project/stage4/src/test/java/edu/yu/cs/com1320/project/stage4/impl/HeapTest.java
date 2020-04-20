@@ -210,7 +210,101 @@ public class HeapTest {
         assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
         docStore.setMaxDocumentCount(2);
         testList.remove(inputStreamContentOne);
-        // assertEquals("Testing if array index is correct", testList, docStore.search("Hey") );
+        assertEquals("Testing if array index is correct", testList, docStore.search("Hey") );
         assertEquals("Testing if array index is correct", testList.size() , docStore.search("Hey").size() );
-    } // this test fails sometimes bc docOne and docTwo will end up getting the same lastUsedTime. Fixed it by just looking at size instead of actual contents of the list. 
+    }
+
+    @Test
+    public void getDocumentAsTxtAndAsPdf() throws URISyntaxException {
+        DocumentStoreImpl docStore = new DocumentStoreImpl();
+        long min = Long.MIN_VALUE;
+        String inputStreamContentOne = "Hey, I'm Lenny";
+        InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
+        URI uriOne = new URI("Lenny's_URI");
+        DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
+        String inputStreamContentTwo = "Hey, I'm Ruben";
+        InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
+        URI uriTwo = new URI("Ruben's_URI");
+        DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
+        String inputStreamContentThree = "Hey, I'm Tom";
+        InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
+        URI uriThree = new URI("Tom's_URI");
+        DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
+        docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
+        docStore.getDocumentAsTxt(uriOne);
+        docStore.getDocumentAsTxt(uriTwo);
+        docStore.setMaxDocumentCount(2);
+        ArrayList <String> testList = new ArrayList <String> ();
+        testList.add(inputStreamContentOne);
+        testList.add(inputStreamContentTwo);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+        docStore.getDocumentAsPdf(uriOne);
+        testList.remove(inputStreamContentTwo);
+        docStore.setMaxDocumentCount(1);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+    }
+
+    @Test
+    public void searchTextAndPdfDocuments() throws URISyntaxException {
+        DocumentStoreImpl docStore = new DocumentStoreImpl();
+        long min = Long.MIN_VALUE;
+        String inputStreamContentOne = "Hey, I'm Lenny";
+        InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
+        URI uriOne = new URI("Lenny's_URI");
+        DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
+        String inputStreamContentTwo = "Hey, I' Ruben";
+        InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
+        URI uriTwo = new URI("Ruben's_URI");
+        DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
+        String inputStreamContentThree = "Hey, I'm Tom";
+        InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
+        URI uriThree = new URI("Tom's_URI");
+        DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
+        docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
+        docStore.search("Im");
+        docStore.setMaxDocumentCount(2);
+        ArrayList <String> testList = new ArrayList <String> ();
+        testList.add(inputStreamContentOne);
+        testList.add(inputStreamContentThree);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+        docStore.searchPDFs("Lenny");
+        testList.remove(inputStreamContentThree);
+        docStore.setMaxDocumentCount(1);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+    }
+
+    @Test
+    public void searchTextAndPdfDocumentsByPrefix() throws URISyntaxException {
+        DocumentStoreImpl docStore = new DocumentStoreImpl();
+        long min = Long.MIN_VALUE;
+        String inputStreamContentOne = "Hey, I'm Lenny";
+        InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
+        URI uriOne = new URI("Lenny's_URI");
+        DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
+        String inputStreamContentTwo = "Hy, I' Ruben";
+        InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
+        URI uriTwo = new URI("Ruben's_URI");
+        DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
+        String inputStreamContentThree = "Hey, I'm Tom";
+        InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
+        URI uriThree = new URI("Tom's_URI");
+        DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
+        docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
+        docStore.searchByPrefix("He");
+        docStore.setMaxDocumentCount(2);
+        ArrayList <String> testList = new ArrayList <String> ();
+        testList.add(inputStreamContentOne);
+        testList.add(inputStreamContentThree);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+        docStore.searchPDFsByPrefix("L");
+        testList.remove(inputStreamContentThree);
+        docStore.setMaxDocumentCount(1);
+        assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
+    }
 }

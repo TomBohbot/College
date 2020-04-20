@@ -74,7 +74,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private void setCurrentTimeInMillis () {
-        timeInMillisecs = System.currentTimeMillis();
+        timeInMillisecs = System.nanoTime();
     }
 
     private String parseSpecialCharacters (String str) {
@@ -134,7 +134,7 @@ public class DocumentStoreImpl implements DocumentStore {
             String oldDocText = oldDoc.getDocumentAsTxt();
             int oldValue = hashTableOfDocs.get(uri).getDocumentTextHashCode();
             Function lambda = (x) -> {
-                oldDoc.setLastUseTime(System.currentTimeMillis() );
+                oldDoc.setLastUseTime(System.nanoTime() );
                 heap.insert(oldDoc);
                 trie.put(oldDocText , oldDoc);
                 hashTableOfDocs.put(uri, oldDoc);
@@ -172,7 +172,7 @@ public class DocumentStoreImpl implements DocumentStore {
         hashCodeOfStream = txt.hashCode();
         if (hashTableOfDocs.get(uri) != null) {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream) {
-                hashTableOfDocs.get(uri).setLastUseTime(System.currentTimeMillis() );
+                hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime() );
                 heap.reHeapify(hashTableOfDocs.get(uri)); // confirm that it should be updated for duplicate docs.. I posted this question on Piazza.
                 Function lambda = (x) -> { return true; };
                 commandStack.push(new GenericCommand(uri, lambda));
@@ -189,7 +189,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 hashTableOfDocs.put(uri, null);
                 return true; };
             DocumentImpl doc = new DocumentImpl(uri, txt, hashCodeOfStream);
-            doc.setLastUseTime(System.currentTimeMillis());
+            doc.setLastUseTime(System.nanoTime());
             heap.insert(doc);
             trie.put(txt , doc);
             commandStack.push(new GenericCommand(uri, lambda));
@@ -203,7 +203,7 @@ public class DocumentStoreImpl implements DocumentStore {
             hashTableOfDocs.get(uri).setLastUseTime(min);
             heap.reHeapify(hashTableOfDocs.get(uri));
             heap.removeMin();
-            oldValue.setLastUseTime(System.currentTimeMillis());
+            oldValue.setLastUseTime(System.nanoTime());
             heap.insert(oldValue);
             String [] allWordsInDoc = txt.split(" ");
             for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, txt, hashCodeOfStream)); }
@@ -213,11 +213,13 @@ public class DocumentStoreImpl implements DocumentStore {
         oldValue.setLastUseTime(min);
         heap.reHeapify(oldValue);
         heap.removeMin();
+        // String [] allWordsInDoc = hashTableOfDocs.get(uri).getDocumentAsTxt().split(" ");
+        // for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes)); }
         trie.delete(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
         trie.put(txt , new DocumentImpl(uri, txt, hashCodeOfStream));
         commandStack.push(new GenericCommand(uri, lambda));
         hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
-        hashTableOfDocs.get(uri).setLastUseTime(System.currentTimeMillis());
+        hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime());
         heap.insert(hashTableOfDocs.get(uri) );
         return oldValue.getDocumentTextHashCode();
     }
@@ -228,7 +230,7 @@ public class DocumentStoreImpl implements DocumentStore {
         hashCodeOfStream = strippedByteArray.hashCode();
         if (hashTableOfDocs.get(uri) != (null)) {
             if (hashTableOfDocs.get(uri).getDocumentTextHashCode() == hashCodeOfStream) {
-                hashTableOfDocs.get(uri).setLastUseTime(System.currentTimeMillis() );
+                hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime() );
                 heap.reHeapify(hashTableOfDocs.get(uri)); // confirm that it should be updated for duplicate docs.. I posted this question on Piazza.
                 Function lambda = (x) -> { return true; };
                 commandStack.push(new GenericCommand(uri, lambda));
@@ -247,7 +249,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 return true;
             };
             DocumentImpl doc = new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes);
-            doc.setLastUseTime(System.currentTimeMillis());
+            doc.setLastUseTime(System.nanoTime());
             heap.insert(doc);
             trie.put(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             commandStack.push(new GenericCommand(uri, lambda));
@@ -258,10 +260,10 @@ public class DocumentStoreImpl implements DocumentStore {
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
         Function lambda = (x) -> {
-            oldValue.setLastUseTime(min);
-            heap.reHeapify(oldValue);
+            hashTableOfDocs.get(uri).setLastUseTime(min);
+            heap.reHeapify(hashTableOfDocs.get(uri));
             heap.removeMin();
-            oldValue.setLastUseTime(System.currentTimeMillis());
+            oldValue.setLastUseTime(System.nanoTime());
             heap.insert(oldValue);
             String [] allWordsInDoc = strippedByteArray.split(" ");
             for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes)); }
@@ -269,12 +271,15 @@ public class DocumentStoreImpl implements DocumentStore {
             trie.put(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
             return true;
         };
-        hashTableOfDocs.get(uri).setLastUseTime(System.currentTimeMillis());
-        heap.reHeapify(hashTableOfDocs.get(uri) );
+        oldValue.setLastUseTime(min);
+        heap.reHeapify(oldValue);
+        heap.removeMin();
         trie.delete(hashTableOfDocs.get(uri).getDocumentAsTxt() , hashTableOfDocs.get(uri));
         trie.put(strippedByteArray , new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
         commandStack.push(new GenericCommand(uri, lambda));
         hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
+        hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime());
+        heap.insert(hashTableOfDocs.get(uri) );
         return oldValue.getDocumentTextHashCode();
     }
 
@@ -283,7 +288,7 @@ public class DocumentStoreImpl implements DocumentStore {
             return null;
         }
         DocumentImpl doc = hashTableOfDocs.get(uri);
-        doc.setLastUseTime(System.currentTimeMillis() );
+        doc.setLastUseTime(System.nanoTime() );
         heap.reHeapify(doc);
         return hashTableOfDocs.get(uri);
     }
@@ -316,7 +321,7 @@ public class DocumentStoreImpl implements DocumentStore {
             return null;
         }
         DocumentImpl obj = hashTableOfDocs.get(uri);
-        obj.setLastUseTime(System.currentTimeMillis() );
+        obj.setLastUseTime(System.nanoTime() );
         heap.reHeapify(obj);
         return obj.getDocumentAsPdf();
     }
@@ -327,11 +332,11 @@ public class DocumentStoreImpl implements DocumentStore {
             return null;
         }
         String text = hashTableOfDocs.get(uri).getDocumentAsTxt();
-        if (text == null) {
-            return null;
-        }
+        // if (text == null) {
+        //     return null;
+        // }
         DocumentImpl doc = hashTableOfDocs.get(uri);
-        doc.setLastUseTime(System.currentTimeMillis() );
+        doc.setLastUseTime(System.nanoTime() );
         heap.reHeapify(doc);
         return text;
     }
@@ -345,7 +350,7 @@ public class DocumentStoreImpl implements DocumentStore {
             return false;
         }
         Function lambda = (x) -> {
-            doc.setLastUseTime(System.currentTimeMillis() );
+            doc.setLastUseTime(System.nanoTime() );
             heap.insert(doc);
             trie.put(doc.getDocumentAsTxt() , doc);
             hashTableOfDocs.put(uri, doc);
@@ -477,7 +482,7 @@ public class DocumentStoreImpl implements DocumentStore {
             if (doc == null) { continue; }
             String docContent = doc.getDocumentAsTxt();
             returnValue.add(docContent);
-            doc.setLastUseTime(System.currentTimeMillis() );
+            doc.setLastUseTime(System.nanoTime() );
             heap.reHeapify(doc);
         }
         return returnValue;
@@ -494,7 +499,7 @@ public class DocumentStoreImpl implements DocumentStore {
         for (DocumentImpl doc: listOfURIsSorted) {
             byte [] docContent = doc.getDocumentAsPdf();
             returnValue.add(docContent);
-            doc.setLastUseTime(System.currentTimeMillis() );
+            doc.setLastUseTime(System.nanoTime() );
             heap.reHeapify(doc);
         }
         return returnValue;
@@ -511,7 +516,7 @@ public class DocumentStoreImpl implements DocumentStore {
         for (DocumentImpl doc: sortedURIs) {
             String textOfDoc = doc.getDocumentAsTxt();
             sortedTextDocs.add(textOfDoc);
-            doc.setLastUseTime(System.currentTimeMillis() );
+            doc.setLastUseTime(System.nanoTime() );
             heap.reHeapify(doc);
         }
         return sortedTextDocs;
@@ -527,7 +532,7 @@ public class DocumentStoreImpl implements DocumentStore {
         for (DocumentImpl doc: sortedURIs) {
             byte[] textOfDoc = doc.getDocumentAsPdf();
             sortedTextDocs.add(textOfDoc);
-            doc.setLastUseTime(System.currentTimeMillis() );
+            doc.setLastUseTime(System.nanoTime() );
             heap.reHeapify(doc);
         }
         return sortedTextDocs;
