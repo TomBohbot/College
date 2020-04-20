@@ -2,7 +2,7 @@ package edu.yu.cs.com1320.project.stage4;
 
 import java.net.URI;
 
-public interface Document
+public interface Document extends Comparable<Document>
 {
     /**
      * @return the document as a PDF
