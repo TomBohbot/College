@@ -409,13 +409,13 @@ public class DocumentStoreImpl implements DocumentStore {
                     undoSet.remove(uri);
                     foundUri = true;
                     tempStack.push(undoSet);
-                    break; }
+                    continue; }
                 tempStack.push(undoSet); }
             else { 
                 GenericCommand <URI> tempNode = (GenericCommand) commandStack.pop();
                 if (tempNode.getTarget().equals(uri) ){
                     foundUri = true;
-                    break;  }
+                    continue;  }
             tempStack.push(tempNode);   }  }
         if (tempStack.size() == 0) { return; }
         // If the URI was never found:
