@@ -1,13 +1,8 @@
 package edu.yu.cs.com1320.project.impl;
 
 /**
- * "Trie Implementation Code" Stage 3
+ * Stage 4:
  * @author Tom Bohbot
- * Things Left to do:
- * 1) Delete Leaf Nodes after deleting values.      think im done :/
- * 2) Make the comparator to return a sorted list.  DONE
- * 3) Exclude and special characters.               DONE
- * 4) Get rid of the queue.                         DONE
  */
 
 import edu.yu.cs.com1320.project.Trie;

@@ -1,9 +1,8 @@
 package edu.yu.cs.com1320.project.stage4.impl;
 
-/** "Document Store Implementation" Stage 31
-*
+/**
+* Stage 4:
 * @author Tom Bohbot
-*
 */
 
 import edu.yu.cs.com1320.project.stage4.Document;

@@ -138,6 +138,8 @@ public class DocumentStoreImpl implements DocumentStore {
                 heap.insert(oldDoc);
                 trie.put(oldDocText , oldDoc);
                 hashTableOfDocs.put(uri, oldDoc);
+                documentCount = documentCount + 1;
+                bytesCount = bytesCount + getBytesPerDocument(oldDoc);
                 return true;
             };
             commandStack.push(new GenericCommand(uri, lambda));
@@ -186,6 +188,8 @@ public class DocumentStoreImpl implements DocumentStore {
                 heap.removeMin();
                 String [] allWordsInDoc = txt.split(" ");
                 for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, txt, hashCodeOfStream)); }
+                documentCount = documentCount - 1;
+                bytesCount = bytesCount - getBytesPerDocument(hashTableOfDocs.get(uri));
                 hashTableOfDocs.put(uri, null);
                 return true; };
             DocumentImpl doc = new DocumentImpl(uri, txt, hashCodeOfStream);
@@ -245,6 +249,8 @@ public class DocumentStoreImpl implements DocumentStore {
                 heap.removeMin();
                 String [] allWordsInDoc = strippedByteArray.split(" ");
                 for (int i = 0; i < allWordsInDoc.length; i ++) { trie.delete(allWordsInDoc[i], new DocumentImpl(uri, strippedByteArray, hashCodeOfStream , streamAsBytes)); }
+                documentCount = documentCount - 1;
+                bytesCount = bytesCount - getBytesPerDocument(hashTableOfDocs.get(uri));
                 hashTableOfDocs.put(uri, null);
                 return true;
             };
@@ -354,6 +360,8 @@ public class DocumentStoreImpl implements DocumentStore {
             heap.insert(doc);
             trie.put(doc.getDocumentAsTxt() , doc);
             hashTableOfDocs.put(uri, doc);
+            documentCount = documentCount + 1;
+            bytesCount = bytesCount + getBytesPerDocument(doc);
             return true;
         };
         String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
@@ -564,6 +572,8 @@ public class DocumentStoreImpl implements DocumentStore {
             Function lambda = (x) -> {
                 trie.put(doc.getDocumentAsTxt() , doc);
                 hashTableOfDocs.put(uri, doc);
+                documentCount = documentCount + 1;
+                bytesCount = bytesCount + getBytesPerDocument(doc);
                 return true;
             };
             commandSet.addCommand(new GenericCommand(uri, lambda) );
@@ -599,6 +609,8 @@ public class DocumentStoreImpl implements DocumentStore {
             Function lambda = (x) -> {
                 trie.put(doc.getDocumentAsTxt() , doc);
                 hashTableOfDocs.put(uri, doc);
+                documentCount = documentCount + 1;
+                bytesCount = bytesCount + getBytesPerDocument(doc);
                 return true;
             };
             commandSet.addCommand(new GenericCommand(uri, lambda) );
@@ -639,10 +651,6 @@ public class DocumentStoreImpl implements DocumentStore {
         int bytesPerPDF = bytesArrayPDF.length;
         int bytesPerDoc = bytesPerText + bytesPerPDF;
         return bytesPerDoc;
-    }
-
-    private void setBytesCount (int bytesPerDocument) {
-        this.bytesCount = this.bytesCount + bytesPerDocument;
     }
 
     private int getMaxDocumentCount () {

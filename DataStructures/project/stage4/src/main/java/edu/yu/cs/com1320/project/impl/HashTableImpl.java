@@ -1,7 +1,7 @@
 package edu.yu.cs.com1320.project.impl;
 
 /** 
- * Stage 2:
+ * Stage 4:
  * HashTable Implementation Code=
  * @author Tom Bohbot
  */

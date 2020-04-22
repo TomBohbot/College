@@ -17,7 +17,7 @@ public abstract class MinHeap<E extends Comparable>
     protected int count;
     protected Map<E,Integer> elementsToArrayIndex = new HashMap <E , Integer> ();; //used to store the index in the elements array
 
-    public abstract void reHeapify(E element);
+    public abstract E reHeapify(E element);
     protected abstract int getArrayIndex(E element);
 
     protected abstract void doubleArraySize();
@@ -56,17 +56,17 @@ public abstract class MinHeap<E extends Comparable>
     protected void swap(int i, int j) {
         E temp = this.elements[i];
         this.elements[i] = this.elements[j];
-        this.elements[j] = temp;   
+        this.elements[j] = temp;
         swapArrayIndex(this.elements[i], this.elements[j]);
     }
 
     protected void swapArrayIndex (E i , E j) {
         Integer oldI = elementsToArrayIndex.get(i);
         Integer oldJ = elementsToArrayIndex.get(j);
-        elementsToArrayIndex.remove(i);
-        elementsToArrayIndex.remove(j);
-        elementsToArrayIndex.put(i , oldJ);
-        elementsToArrayIndex.put(j , oldI);
+        elementsToArrayIndex.replace(i , oldJ);
+        elementsToArrayIndex.replace(j , oldI);
+        // elementsToArrayIndex.put(i , oldJ);
+        // elementsToArrayIndex.put(j , oldI);
     }
 
 
@@ -76,10 +76,10 @@ public abstract class MinHeap<E extends Comparable>
      */
     protected  void upHeap(int k)
     {
-        while (k > 1 && this.isGreater(k - 1, k))
+        while (k > 1 && this.isGreater(k/2, k))
         {
-            this.swap(k, k - 1);
-            k = k - 1;
+            this.swap(k, k /2);
+            k = k /2;
         }
     }
 
