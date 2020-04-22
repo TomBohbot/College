@@ -140,6 +140,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 hashTableOfDocs.put(uri, oldDoc);
                 documentCount = documentCount + 1;
                 bytesCount = bytesCount + getBytesPerDocument(oldDoc);
+                deleteDueToMemoryLimit();
                 return true;
             };
             commandStack.push(new GenericCommand(uri, lambda));
@@ -180,7 +181,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 commandStack.push(new GenericCommand(uri, lambda));
                 return hashCodeOfStream; }
         }
-        deleteDueToMemoryLimit();
+        // deleteDueToMemoryLimit();
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
                 hashTableOfDocs.get(uri).setLastUseTime(min);
@@ -200,6 +201,7 @@ public class DocumentStoreImpl implements DocumentStore {
             hashTableOfDocs.put(uri, doc);
             documentCount ++;
             bytesCount = bytesCount + getBytesPerDocument(doc);
+            deleteDueToMemoryLimit();
             return 0;
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
@@ -225,6 +227,7 @@ public class DocumentStoreImpl implements DocumentStore {
         hashTableOfDocs.put(uri, new DocumentImpl(uri, txt, hashCodeOfStream));
         hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime());
         heap.insert(hashTableOfDocs.get(uri) );
+        deleteDueToMemoryLimit();
         return oldValue.getDocumentTextHashCode();
     }
 
@@ -241,7 +244,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 return hashCodeOfStream;
             }
         }
-        deleteDueToMemoryLimit();
+        // deleteDueToMemoryLimit();
         if (hashTableOfDocs.get(uri) == null) {
             Function lambda = (x) -> {
                 hashTableOfDocs.get(uri).setLastUseTime(min);
@@ -262,6 +265,7 @@ public class DocumentStoreImpl implements DocumentStore {
             hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
             documentCount ++;
             bytesCount = bytesCount + getBytesPerDocument(doc);
+            deleteDueToMemoryLimit();
             return 0;
         }
         DocumentImpl oldValue = hashTableOfDocs.get(uri);
@@ -286,6 +290,7 @@ public class DocumentStoreImpl implements DocumentStore {
         hashTableOfDocs.put(uri, new DocumentImpl(uri, strippedByteArray, hashCodeOfStream, streamAsBytes));
         hashTableOfDocs.get(uri).setLastUseTime(System.nanoTime());
         heap.insert(hashTableOfDocs.get(uri) );
+        deleteDueToMemoryLimit();
         return oldValue.getDocumentTextHashCode();
     }
 
@@ -362,6 +367,7 @@ public class DocumentStoreImpl implements DocumentStore {
             hashTableOfDocs.put(uri, doc);
             documentCount = documentCount + 1;
             bytesCount = bytesCount + getBytesPerDocument(doc);
+            deleteDueToMemoryLimit();
             return true;
         };
         String [] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
@@ -574,6 +580,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 hashTableOfDocs.put(uri, doc);
                 documentCount = documentCount + 1;
                 bytesCount = bytesCount + getBytesPerDocument(doc);
+                deleteDueToMemoryLimit();
                 return true;
             };
             commandSet.addCommand(new GenericCommand(uri, lambda) );
@@ -611,6 +618,7 @@ public class DocumentStoreImpl implements DocumentStore {
                 hashTableOfDocs.put(uri, doc);
                 documentCount = documentCount + 1;
                 bytesCount = bytesCount + getBytesPerDocument(doc);
+                deleteDueToMemoryLimit();
                 return true;
             };
             commandSet.addCommand(new GenericCommand(uri, lambda) );

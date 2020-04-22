@@ -41,7 +41,6 @@ public class MinHeapImpl <E> extends MinHeap {
     upHeap(index);
     downHeap(index);
     return;
-
     // if (element.getClass().getName().equals("edu.yu.cs.com1320.project.stage4.impl.DocumentImpl") ){
     //     reheapDocument(element);
     //     return elements [0];
