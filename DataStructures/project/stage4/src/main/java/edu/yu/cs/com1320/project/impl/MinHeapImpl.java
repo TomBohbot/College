@@ -35,12 +35,12 @@ public class MinHeapImpl <E> extends MinHeap {
     }
 
     @Override
-    public Comparable reHeapify(Comparable element) {
+    public void reHeapify(Comparable element) {
 
     int index = getArrayIndex(element);
     upHeap(index);
     downHeap(index);
-    return elements[1];
+    return;
 
     // if (element.getClass().getName().equals("edu.yu.cs.com1320.project.stage4.impl.DocumentImpl") ){
     //     reheapDocument(element);

@@ -17,7 +17,7 @@ public abstract class MinHeap<E extends Comparable>
     protected int count;
     protected Map<E,Integer> elementsToArrayIndex = new HashMap <E , Integer> ();; //used to store the index in the elements array
 
-    public abstract E reHeapify(E element);
+    public abstract void reHeapify(E element);
     protected abstract int getArrayIndex(E element);
 
     protected abstract void doubleArraySize();
