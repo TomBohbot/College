@@ -6,6 +6,7 @@ package edu.yu.cs.com1320.project.stage4.impl;
  */
 
 import edu.yu.cs.com1320.project.impl.MinHeapImpl;
+import edu.yu.cs.com1320.project.stage4.Document;
 import edu.yu.cs.com1320.project.stage4.impl.DocumentImpl;
 import edu.yu.cs.com1320.project.stage4.impl.DocumentStoreImpl;
 import edu.yu.cs.com1320.project.stage4.DocumentStore;
@@ -21,16 +22,16 @@ import java.util.ArrayList;
 public class HeapTest {
 
     MinHeapImpl<Integer> minHeap = new MinHeapImpl<Integer>();
-    MinHeapImpl<DocumentImpl> minHeapOfDocs = new MinHeapImpl<DocumentImpl>();
+    MinHeapImpl<Document> minHeapOfDocs = new MinHeapImpl<Document>();
 
     @Test
     public void testInsert() {
         minHeap.insert(85);
         minHeap.insert(2);
         minHeap.insert(1);
-        // assertEquals("Testing if correct amount of items are currently in the heap", 1, minHeap.removeMin());
-        // assertEquals("Testing if correct amount of items are currently in the heap", 2, minHeap.removeMin());
-        // assertEquals("Testing if correct amount of items are currently in the heap", 85, minHeap.removeMin());
+        assertEquals("Testing if correct amount of items are currently in the heap", 1, (int) minHeap.removeMin());
+        assertEquals("Testing if correct amount of items are currently in the heap", 2, (int) minHeap.removeMin());
+        assertEquals("Testing if correct amount of items are currently in the heap", 85, (int) minHeap.removeMin());
     }
 
     @Test
