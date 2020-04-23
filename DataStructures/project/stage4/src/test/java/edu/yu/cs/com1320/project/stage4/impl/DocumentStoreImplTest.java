@@ -7,6 +7,7 @@ import edu.yu.cs.com1320.project.stage4.impl.DocumentImpl;
 
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
