@@ -462,8 +462,8 @@ public class HeapTest {
         testList.remove(inputStreamContentThree);
         docStore.undo();
         assertEquals("Checking if delete all works, and worked witht he heap" , testList , docStore.search("Hey") );
-        testList.remove(inputStreamContentTwo);
-        docStore.undo();
+        // testList.remove(inputStreamContentTwo);
+        // docStore.undo();
         // assertEquals("Checking if delete all works, and worked witht he heap" , testList , docStore.search("Hey") );
     }
 
