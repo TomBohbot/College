@@ -171,7 +171,6 @@ public class DocumentImpl implements Document {
 
     @Override
     public int compareTo(Document o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return (int) (this.getLastUseTime() - o.getLastUseTime() );
     }
 }
