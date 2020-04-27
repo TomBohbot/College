@@ -557,6 +557,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return sortedTextDocs;
     }
 
+    @Override
     public List<byte[]> searchPDFsByPrefix(String prefix) {
         prefix = prefix.toLowerCase();
         keyWordForKey = prefix;
