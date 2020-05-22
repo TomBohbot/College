@@ -111,7 +111,7 @@ public class TestBTree {
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/catcat/hi/tom/lenny/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/catcat/hi/tom/lenny/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -137,7 +137,7 @@ public class TestBTree {
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/bannana/hi/tom/lenny/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/bannana/hi/tom/lenny/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -146,7 +146,7 @@ public class TestBTree {
 
     @Test 
     public void doesFileReallyExist () throws URISyntaxException {
-        File file = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5");
+        File file = new File (System.getProperty("user.dir"));
         DocumentStoreImpl docStore = new DocumentStoreImpl (file);
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
@@ -167,7 +167,7 @@ public class TestBTree {
         docStore.setMaxDocumentCount(2);
         // assertEquals ("Testing initial get after memory limit" , inputStreamContentOne , docStore.getDocumentAsTxt(uriOne) );
         // docStore.setMaxDocumentCount(1);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/iceCream/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/iceCream/hi/tom/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -176,10 +176,10 @@ public class TestBTree {
 
     @Test 
     public void makeSureCorrectFilesAreMovedToDiscAndRemoved () throws URISyntaxException {
-        File file = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5");
-        File fileOne = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/iceCream/hi/tom/Lenny's_URI.json");
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/iceCream/hi/tom/Ruben's_URI.json");
-        File fileThree = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/iceCream/hi/tom/Tom's_URI.json");
+        File file = new File (System.getProperty("user.dir"));
+        File fileOne = new File (System.getProperty("user.dir") + "/iceCream/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/iceCream/hi/tom/Ruben's_URI.json");
+        File fileThree = new File (System.getProperty("user.dir") + "/iceCream/hi/tom/Tom's_URI.json");
         DocumentStoreImpl docStore = new DocumentStoreImpl (file);
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
@@ -242,10 +242,10 @@ public class TestBTree {
 
     @Test 
     public void deletedFilesRemovedFromDisk () throws URISyntaxException {
-        File file = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5");
-        File fileOne = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Lenny's_URI.json");
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Ruben's_URI.json");
-        File fileThree = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Tom's_URI.json");
+        File file = new File (System.getProperty("user.dir"));
+        File fileOne = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Ruben's_URI.json");
+        File fileThree = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Tom's_URI.json");
         DocumentStoreImpl docStore = new DocumentStoreImpl (file);
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
@@ -313,10 +313,10 @@ public class TestBTree {
 
     @Test 
     public void deleteAllTest () throws URISyntaxException {
-        File file = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5");
-        File fileOne = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Lenny's_URI.json");
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Ruben's_URI.json");
-        File fileThree = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Tom's_URI.json");
+        File file = new File (System.getProperty("user.dir"));
+        File fileOne = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Ruben's_URI.json");
+        File fileThree = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Tom's_URI.json");
         DocumentStoreImpl docStore = new DocumentStoreImpl (file);
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
@@ -359,10 +359,10 @@ public class TestBTree {
 
     @Test 
     public void putDuplicateDocMovedToDisk () throws URISyntaxException {
-        File file = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5");
-        File fileOne = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Lenny's_URI.json");
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Ruben's_URI.json");
-        File fileThree = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/KITKAT/hi/tom/Tom's_URI.json");
+        File file = new File (System.getProperty("user.dir"));
+        File fileOne = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Ruben's_URI.json");
+        File fileThree = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Tom's_URI.json");
         DocumentStoreImpl docStore = new DocumentStoreImpl (file);
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );

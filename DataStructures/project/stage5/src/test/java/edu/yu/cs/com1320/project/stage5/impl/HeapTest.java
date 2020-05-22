@@ -213,7 +213,7 @@ public class HeapTest {
         testList.add(inputStreamContentThree);
         assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/hi/tom/lenny/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/hi/tom/lenny/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -286,7 +286,7 @@ public class HeapTest {
         // docStore.setMaxDocumentCount(1);
         // assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -323,7 +323,7 @@ public class HeapTest {
         // docStore.setMaxDocumentCount(1);
         // assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
@@ -549,7 +549,7 @@ public class HeapTest {
         // docStore.setMaxDocumentCount(1);
         // assertEquals("Testing if array index is correct", 1 , docStore.searchPDFsByPrefix("L").size() );
         docStore.setMaxDocumentCount(2);
-        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/hi/tom/hi/rben/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/hi/tom/hi/rben/Lenny's_URI.json");
         assertEquals ("testing if file really exists" , true , fileTwo.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsTxt(uriOne);
