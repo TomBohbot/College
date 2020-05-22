@@ -337,7 +337,6 @@ public class DocumentStoreImpl implements DocumentStore {
                 UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
                 objForHeap.setLastUseTime(bTreeOfDocs.get(uri).getLastUseTime());
                 heap.reHeapify(objForHeap); // confirm that it should be updated for duplicate docs.. I posted this
-                                            // question on Piazza.
                 Function lambda = (x) -> {
                     return true;
                 };
@@ -384,7 +383,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private int putDuplicateUriPdfDocument(URI uri, String strippedByteArray, int hashCodeOfStream,
-            byte[] streamAsBytes) {
+        byte[] streamAsBytes) {
         DocumentImpl oldValue = bTreeOfDocs.get(uri);
         oldValue.setLastUseTime(min);
         UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
@@ -517,15 +516,17 @@ public class DocumentStoreImpl implements DocumentStore {
             trie.delete(allWordsInDoc[i], uri);
         }
         commandStack.push(new GenericCommand(uri, lambda));
-        doc.setLastUseTime(min);
-        UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
-        objForHeap.setLastUseTime(min);
-        heap.reHeapify(objForHeap);
-        heap.removeMin();
-        bTreeOfObj.put(uri, null);
+        if (!setOfDeletedDocs.contains(uri) ) {
+            doc.setLastUseTime(min);
+            UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
+            objForHeap.setLastUseTime(min);
+            heap.reHeapify(objForHeap);
+            heap.removeMin();
+            bTreeOfObj.put(uri, null);
+            documentCount = documentCount - 1;
+            bytesCount = bytesCount - getBytesPerDocument(doc);
+        }
         bTreeOfDocs.put(uri, null);
-        documentCount = documentCount - 1;
-        bytesCount = bytesCount - getBytesPerDocument(doc);
         return true;
     }
 
@@ -538,15 +539,17 @@ public class DocumentStoreImpl implements DocumentStore {
         for (int i = 0; i < allWordsInDoc.length; i++) {
             trie.delete(allWordsInDoc[i], uri);
         }
-        doc.setLastUseTime(min);
-        UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
-        objForHeap.setLastUseTime(min);
-        heap.reHeapify(objForHeap);
-        heap.removeMin();
-        bTreeOfObj.put(uri, null);
+        if (!setOfDeletedDocs.contains(uri) ) {
+            doc.setLastUseTime(min);
+            UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
+            objForHeap.setLastUseTime(min);
+            heap.reHeapify(objForHeap);
+            heap.removeMin();
+            bTreeOfObj.put(uri, null);
+            documentCount = documentCount - 1;
+            bytesCount = bytesCount - getBytesPerDocument(doc);
+        }
         bTreeOfDocs.put(uri, null);
-        documentCount = documentCount - 1;
-        bytesCount = bytesCount - getBytesPerDocument(doc);
         return true;
     }
 
@@ -775,8 +778,7 @@ public class DocumentStoreImpl implements DocumentStore {
             };
             try {
                 commandStack.push(new GenericCommand(new URI("str"), lambda));
-            } catch (URISyntaxException e) {
-            }
+            } catch (URISyntaxException e) {}
             HashSet<URI> emptySet = new HashSet<URI>();
             return emptySet;
         }
@@ -803,13 +805,15 @@ public class DocumentStoreImpl implements DocumentStore {
                 bTreeOfDocs.put(uri, doc);
                 return true;
             };
-            doc.setLastUseTime(min);
-            UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
-            objForHeap.setLastUseTime(min);
-            heap.reHeapify(objForHeap);
-            heap.removeMin();
-            documentCount = documentCount - 1;
-            bytesCount = bytesCount - getBytesPerDocument(doc);
+            if (!setOfDeletedDocs.contains(uri) ) {
+                doc.setLastUseTime(min);
+                UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
+                objForHeap.setLastUseTime(min);
+                heap.reHeapify(objForHeap);
+                heap.removeMin();
+                documentCount = documentCount - 1;
+                bytesCount = bytesCount - getBytesPerDocument(doc);
+            }
             commandSet.addCommand(new GenericCommand(uri, lambda));
             bTreeOfDocs.put(doc.getKey(), null);
         }
@@ -860,13 +864,15 @@ public class DocumentStoreImpl implements DocumentStore {
             };
             commandSet.addCommand(new GenericCommand(uri, lambda));
             bTreeOfDocs.put(doc.getKey(), null);
-            doc.setLastUseTime(min);
-            UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
-            objForHeap.setLastUseTime(min);
-            heap.reHeapify(objForHeap);
-            heap.removeMin();
-            documentCount = documentCount - 1;
-            bytesCount = bytesCount - getBytesPerDocument(doc);
+            if (!setOfDeletedDocs.contains(uri) ) {
+                doc.setLastUseTime(min);
+                UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
+                objForHeap.setLastUseTime(min);
+                heap.reHeapify(objForHeap);
+                heap.removeMin();
+                documentCount = documentCount - 1;
+                bytesCount = bytesCount - getBytesPerDocument(doc);
+            }
         }
         commandStack.push(commandSet);
         return willDeleteUris;
@@ -881,7 +887,7 @@ public class DocumentStoreImpl implements DocumentStore {
             try {
                 bTreeOfDocs.moveToDisk(uri);
             } catch (Exception e) { }
-            deleteUndoDueToMemory(doc.getKey());
+            deleteUndoDueToMemory(doc.getKey() );
             documentCount = documentCount - 1;
             bytesCount = bytesCount - getBytesPerDocument(doc);
             setOfDeletedDocs.add(uri);

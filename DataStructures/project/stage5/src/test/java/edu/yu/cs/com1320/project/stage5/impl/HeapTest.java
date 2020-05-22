@@ -14,6 +14,7 @@ import edu.yu.cs.com1320.project.stage5.DocumentStore;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -212,9 +213,11 @@ public class HeapTest {
         testList.add(inputStreamContentThree);
         assertEquals("Testing if array index is correct", testList , docStore.search("Hey") );
         docStore.setMaxDocumentCount(2);
-        testList.remove(inputStreamContentOne);
-        // assertEquals("Testing if array index is correct", testList, docStore.search("Hey") );
-        assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
+        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/hi/tom/lenny/Lenny's_URI.json");
+        assertEquals ("testing if file really exists" , true , fileTwo.exists() );
+        docStore.setMaxDocumentCount(10);
+        docStore.getDocumentAsTxt(uriOne);
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
     }
 
     @Test
@@ -223,15 +226,15 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("/bannana/hi/tom/lenny/Lenny's_URI");
+        URI uriOne = new URI("/catfish/hi/tom/lenny/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I'm Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("/bannana/hi/tom/lenny/Ruben's_URI");
+        URI uriTwo = new URI("/catfish/hi/tom/lenny/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("/bannana/hi/tom/lenny/Tom's_URI");
+        URI uriThree = new URI("/catfish/hi/tom/lenny/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
@@ -250,6 +253,11 @@ public class HeapTest {
         testList.remove(inputStreamContentThree);
         docStore.setMaxDocumentCount(1);
         assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
+        docStore.setMaxDocumentCount(10);
+        docStore.setMaxDocumentBytes(10000000);
+        docStore.getDocumentAsTxt(uriOne);
+        docStore.getDocumentAsTxt(uriThree);
+        docStore.getDocumentAsTxt(uriTwo);
     }
 
     @Test
@@ -258,25 +266,31 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
-        docStore.search("Im");
+        // docStore.search("Im");
+        // docStore.setMaxDocumentCount(2);
+        // assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
+        // docStore.searchPDFs("Lenny");
+        // docStore.setMaxDocumentCount(1);
+        // assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
         docStore.setMaxDocumentCount(2);
-        assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
-        docStore.searchPDFs("Lenny");
-        docStore.setMaxDocumentCount(1);
-        assertEquals("Testing if array index is correct", 3 , docStore.search("Hey").size() );
+        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
+        assertEquals ("testing if file really exists" , true , fileTwo.exists() );
+        docStore.setMaxDocumentCount(10);
+        docStore.getDocumentAsTxt(uriOne);
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
     }
 
     @Test
@@ -285,29 +299,35 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hy, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
-        docStore.searchByPrefix("He");
+        // docStore.searchByPrefix("He");
+        // docStore.setMaxDocumentCount(2);
+        // ArrayList <String> testList = new ArrayList <String> ();
+        // testList.add(inputStreamContentOne);
+        // testList.add(inputStreamContentThree);
+        // assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
+        // docStore.searchPDFsByPrefix("L");
+        // testList.remove(inputStreamContentThree);
+        // docStore.setMaxDocumentCount(1);
+        // assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
         docStore.setMaxDocumentCount(2);
-        ArrayList <String> testList = new ArrayList <String> ();
-        testList.add(inputStreamContentOne);
-        testList.add(inputStreamContentThree);
-        assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
-        docStore.searchPDFsByPrefix("L");
-        testList.remove(inputStreamContentThree);
-        docStore.setMaxDocumentCount(1);
-        assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
+        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
+        assertEquals ("testing if file really exists" , true , fileTwo.exists() );
+        docStore.setMaxDocumentCount(10);
+        docStore.getDocumentAsTxt(uriOne);
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
     }
 
     @Test
@@ -316,15 +336,15 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
@@ -343,6 +363,12 @@ public class HeapTest {
         docStore.undo();
         testList.remove(inputStreamContentOne);
         assertEquals("Search after undoing first document" , testList , docStore.search("Hey") );
+        // docStore.setMaxDocumentCount(2);
+        // File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/edu.yu.cs/com1320/txt/Lenny's_URI.json");
+        // assertEquals ("testing if file really exists" , true , fileTwo.exists() );
+        // docStore.setMaxDocumentCount(10);
+        // docStore.getDocumentAsTxt(uriOne);
+        // assertEquals ("testing if file really exists" , false , fileTwo.exists() );
     }
 
 
@@ -352,15 +378,15 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
@@ -395,15 +421,15 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
@@ -437,15 +463,15 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("http://edu.yu.cs/com1320/txt/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hey, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("http://edu.yu.cs/com1320/txt/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey hey hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("http://edu.yu.cs/com1320/txt/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
@@ -499,28 +525,34 @@ public class HeapTest {
         long min = Long.MIN_VALUE;
         String inputStreamContentOne = "Hey, I'm Lenny";
         InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
-        URI uriOne = new URI("Lenny's_URI");
+        URI uriOne = new URI("/hi/tom/hi/rben/Lenny's_URI");
         DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
         String inputStreamContentTwo = "Hy, I' Ruben";
         InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
-        URI uriTwo = new URI("Ruben's_URI");
+        URI uriTwo = new URI("/hi/tom/hi/rben/Ruben's_URI");
         DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
         String inputStreamContentThree = "Hey, I'm Tom";
         InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
-        URI uriThree = new URI("Tom's_URI");
+        URI uriThree = new URI("/hi/tom/hi/rben/Tom's_URI");
         DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
         docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
         docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
-        docStore.searchByPrefix("He");
-        docStore.setMaxDocumentBytes(1000);
-        ArrayList <String> testList = new ArrayList <String> ();
-        testList.add(inputStreamContentOne);
-        testList.add(inputStreamContentThree);
-        assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
-        docStore.searchPDFsByPrefix("L");
-        testList.remove(inputStreamContentThree);
-        docStore.setMaxDocumentCount(1);
-        assertEquals("Testing if array index is correct", 1 , docStore.searchPDFsByPrefix("L").size() );
+        // docStore.searchByPrefix("He");
+        // docStore.setMaxDocumentBytes(1000);
+        // ArrayList <String> testList = new ArrayList <String> ();
+        // testList.add(inputStreamContentOne);
+        // testList.add(inputStreamContentThree);
+        // assertEquals("Testing if array index is correct", 2 , docStore.search("Hey").size() );
+        // docStore.searchPDFsByPrefix("L");
+        // testList.remove(inputStreamContentThree);
+        // docStore.setMaxDocumentCount(1);
+        // assertEquals("Testing if array index is correct", 1 , docStore.searchPDFsByPrefix("L").size() );
+        docStore.setMaxDocumentCount(2);
+        File fileTwo = new File ("/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5" + "/hi/tom/hi/rben/Lenny's_URI.json");
+        assertEquals ("testing if file really exists" , true , fileTwo.exists() );
+        docStore.setMaxDocumentCount(10);
+        docStore.getDocumentAsTxt(uriOne);
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
     }
 }

@@ -475,6 +475,12 @@ public class DocumentStoreImplTest {
         assertNull("uri2 should've been pushed out of memory when uri4 was inserted",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
+
+        store.setMaxDocumentCount(10);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
     /**
@@ -500,11 +506,17 @@ public class DocumentStoreImplTest {
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
         //uri2 should've been pushed out of memory
         assertNull("uri2 should still be in memory",store.getDocument(this.uri2));
+
+        store.setMaxDocumentCount(10);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
-    /**
-     * test undo after going over max doc count
-     */
+    // /**
+    //  * test undo after going over max doc count
+    //  */
     @Test
     public void stage4TestUndoAfterMaxDocCount() {
         DocumentStoreImpl store = new DocumentStoreImpl();
@@ -528,6 +540,12 @@ public class DocumentStoreImplTest {
         assertNull("uri4 should be gone due to the undo",store.getDocument(this.uri4));
         assertNotNull("uri2 should still be in memory",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
+
+        store.setMaxDocumentCount(10);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
 
@@ -547,6 +565,13 @@ public class DocumentStoreImplTest {
         assertNull("uri2 should've been pushed out of memory when uri4 was inserted",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
+
+        store.setMaxDocumentCount(10);
+        store.setMaxDocumentBytes(1000000);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
     /**
@@ -572,6 +597,13 @@ public class DocumentStoreImplTest {
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
         //uri2 should've been pushed out of memory
         assertNull("uri2 should still be in memory",store.getDocument(this.uri2));
+
+        store.setMaxDocumentCount(10);
+        store.setMaxDocumentBytes(1000000);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
     /**
@@ -600,6 +632,13 @@ public class DocumentStoreImplTest {
         assertNull("uri4 should be gone due to the undo",store.getDocument(this.uri4));
         assertNotNull("uri2 should still be in memory",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
+
+        store.setMaxDocumentCount(10);
+        store.setMaxDocumentBytes(1000000);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
     /**
@@ -619,6 +658,13 @@ public class DocumentStoreImplTest {
         assertNull("uri2 should've been pushed out of memory when uri4 was inserted",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
+
+        store.setMaxDocumentCount(10);
+        store.setMaxDocumentBytes(1000000);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 
     /**
@@ -638,5 +684,12 @@ public class DocumentStoreImplTest {
         assertNull("uri2 should've been pushed out of memory when uri4 was inserted",store.getDocument(this.uri2));
         assertNotNull("uri3 should still be in memory",store.getDocument(this.uri3));
         assertNotNull("uri4 should still be in memory",store.getDocument(this.uri4));
+
+        store.setMaxDocumentCount(10);
+        store.setMaxDocumentBytes(1000000);
+        store.getDocumentAsPdf(this.uri1);
+        store.getDocumentAsPdf(this.uri2);
+        store.getDocumentAsPdf(this.uri3);
+        store.getDocumentAsPdf(this.uri4);
     }
 }

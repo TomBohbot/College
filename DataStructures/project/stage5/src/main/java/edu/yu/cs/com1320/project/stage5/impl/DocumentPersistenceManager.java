@@ -43,15 +43,37 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
     private File baseDir;
 
     public DocumentPersistenceManager(File baseDir) {
+        if (baseDir == null) {
+            File newBaseDir = new File (System.getProperty("user.dir") );
+            baseDir = newBaseDir;
+        }
         this.baseDir = baseDir;
     }
 
     @Override
     public void serialize(URI uri, DocumentImpl val) throws IOException {
         JsonElement elem = lambda.serialize(val, val.getClass(), context);
-        moveToDisk(elem , uri);
-        bTree.put(uri, elem);
+        try {
+            URI genericUri = makeFileGeneric(uri);
+            moveToDisk(elem , genericUri);
+            bTree.put(genericUri, elem);
+        } catch (URISyntaxException e) { }
+
     }
+
+    private URI makeFileGeneric (URI uri) throws URISyntaxException {
+        String uriAsString = uri.toString();
+		String newUri = "";
+		for (char letter: uriAsString.toCharArray() ) {
+			String letterAsString = Character.toString(letter);
+            if (letterAsString.equals(File.separator) ) { 
+                letterAsString = File.separator; 
+            }
+			newUri = newUri + letterAsString;
+        }
+        URI returnUri = new URI (newUri);
+		return returnUri;
+	}
 
     @Override
     public DocumentImpl deserialize(URI uri) throws IOException {
@@ -71,7 +93,9 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
         uriAsString = uriAsString.substring(uriAsString.indexOf("//")+1) + ".json";
         if (baseDir == null) {
             String filePath = System.getProperty("user.dir") + uriAsString;
-            FileWriter file = new FileWriter(filePath);
+            File mkDirs = new File (filePath);
+            mkDirs.getParentFile().mkdirs();
+            FileWriter file = new FileWriter(mkDirs);
             file.write(txt);
             file.close();
             uriToFilePath.put(uri , filePath);
@@ -94,13 +118,36 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
         }
         String filePath = uriToFilePath.get(uri);
         File file = new File (filePath);
-        file.delete();
+        // file.delete();
+        deleteEmptyDirectory(filePath);
     }
 
+    private void deleteEmptyDirectory (String filePath) {
+        File file = new File (filePath);
+        if (file.delete() == false) {
+            return;
+        }
+        String newFilePath = parseOneSlash(filePath);
+        deleteEmptyDirectory(newFilePath);
+    }
 
-
-
-
+    private String parseOneSlash (String uri) {
+		int countSlashes = 0;
+		for (char letter: uri.toCharArray() ) {
+			String letterAsString = Character.toString(letter);
+			if (letterAsString.equals(File.separator) ) { countSlashes ++; }
+		}
+		int deleteSlash = countSlashes;
+		int countSlashesAgain = 0;
+		String newUri = "";
+		for (char letter: uri.toCharArray() ) {
+			String letterAsString = Character.toString(letter);
+			if (letterAsString.equals(File.separator) ) { countSlashesAgain ++; }
+			if (countSlashesAgain == deleteSlash) { break; }
+			newUri = newUri + letterAsString;
+		}
+		return newUri;
+	}
 
     JsonSerializer lambda = new JsonSerializer<DocumentImpl>() {
         @Override
