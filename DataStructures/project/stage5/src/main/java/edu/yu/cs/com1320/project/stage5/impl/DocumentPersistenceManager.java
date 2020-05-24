@@ -230,14 +230,14 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
     }
 
 
-    public static void main(final String[] args) throws URISyntaxException, IOException {
-        URI uri = new URI("https://www.yu.edu/documents/doc1");
-        String txt = "Hey Im Tom";
-        String baseDirDirectory = "/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5";
-        DocumentImpl doc = new DocumentImpl (uri , txt , txt.hashCode() );
-        File file = new File (baseDirDirectory);
-        DocumentPersistenceManager manager = new DocumentPersistenceManager (file);
-        manager.serialize(uri, doc);
-        manager.deserialize(uri);
-    }
+    // public static void main(final String[] args) throws URISyntaxException, IOException {
+    //     URI uri = new URI("https://www.yu.edu/documents/doc1");
+    //     String txt = "Hey Im Tom";
+    //     String baseDirDirectory = "/Users/tombohbot/TomsGit/BohbotTom/DataStructures/project/stage5";
+    //     DocumentImpl doc = new DocumentImpl (uri , txt , txt.hashCode() );
+    //     File file = new File (baseDirDirectory);
+    //     DocumentPersistenceManager manager = new DocumentPersistenceManager (file);
+    //     manager.serialize(uri, doc);
+    //     manager.deserialize(uri);
+    // }
 }

@@ -39,7 +39,7 @@ import java.util.Set;
 public class DocumentStoreImpl implements DocumentStore {
 
     private File filePath;
-    private BTreeImpl<URI, DocumentImpl> bTreeOfDocs = new BTreeImpl<URI, DocumentImpl>(filePath);
+    private BTreeImpl<URI, DocumentImpl> bTreeOfDocs = new BTreeImpl<URI, DocumentImpl>();
     private int hashCodeOfStream;
     private StackImpl<Undoable> commandStack = new StackImpl<Undoable>();
     private TrieImpl<URI> trie = new TrieImpl<URI>();

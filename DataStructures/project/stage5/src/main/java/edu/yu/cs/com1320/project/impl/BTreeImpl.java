@@ -82,11 +82,11 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
         this.leftMostExternalNode = this.root;
     }
 
-    public BTreeImpl(File baseDir) {
-        this.root = new Node(0);
-        this.leftMostExternalNode = this.root;
-        this.baseDir = baseDir;
-    }
+    // public BTreeImpl(File baseDir) {
+    //     this.root = new Node(0);
+    //     this.leftMostExternalNode = this.root;
+    //     this.baseDir = baseDir;
+    // }
 
     PersistenceManager<Key, Value> persistenceManager;
 
