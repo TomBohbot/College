@@ -38,7 +38,8 @@ import java.util.Set;
 
 public class DocumentStoreImpl implements DocumentStore {
 
-    private BTreeImpl<URI, DocumentImpl> bTreeOfDocs = new BTreeImpl<URI, DocumentImpl>();
+    private File filePath;
+    private BTreeImpl<URI, DocumentImpl> bTreeOfDocs = new BTreeImpl<URI, DocumentImpl>(filePath);
     private int hashCodeOfStream;
     private StackImpl<Undoable> commandStack = new StackImpl<Undoable>();
     private TrieImpl<URI> trie = new TrieImpl<URI>();
@@ -52,7 +53,6 @@ public class DocumentStoreImpl implements DocumentStore {
     private int documentCount;
     private int bytesCount;
     private HashMap<URI, UriAndLastUseTime> bTreeOfObj = new HashMap<URI, UriAndLastUseTime>();
-    private File filePath = new File(System.getProperty("user.dir"));
     private HashSet <URI> setOfDeletedDocs = new HashSet <URI> ();
 
     private class UriAndLastUseTime implements Comparable<UriAndLastUseTime> {
@@ -82,8 +82,8 @@ public class DocumentStoreImpl implements DocumentStore {
         }
     }
 
+    
     private class ComparatorImpl implements Comparator<URI> {
-
         @Override
         public int compare(URI o1, URI o2) {
             DocumentImpl docOne = (DocumentImpl) bTreeOfDocs.get(o1);
@@ -117,6 +117,7 @@ public class DocumentStoreImpl implements DocumentStore {
         this.min = System.nanoTime();
         // DocumentPersistenceManager <URI , DocumentImpl> pm = new
         // DocumentPersistenceManager <URI , DocumentImpl> (baseDir);
+        this.filePath = new File(System.getProperty("user.dir") );
         setBTree();
         bTreeOfDocs.setPersistenceManager(new DocumentPersistenceManager(filePath));
     }

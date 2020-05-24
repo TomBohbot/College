@@ -47,7 +47,9 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
             File newBaseDir = new File (System.getProperty("user.dir") );
             baseDir = newBaseDir;
         }
-        this.baseDir = baseDir;
+        else {
+            this.baseDir = baseDir;
+        }
     }
 
     @Override
@@ -55,6 +57,7 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
         JsonElement elem = lambda.serialize(val, val.getClass(), context);
         try {
             URI genericUri = makeFileGeneric(uri);
+            String filePath = uri.toString();
             moveToDisk(elem , genericUri);
             bTree.put(genericUri, elem);
         } catch (URISyntaxException e) { }

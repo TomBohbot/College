@@ -348,6 +348,7 @@ public class TestBTree {
         assertEquals ("initial 1" , false , fileOne.exists() );
         assertEquals ("initial 2" , true , fileTwo.exists() );
         assertEquals ("initial 3" , false , fileThree.exists() );
+        assertTrue ("initial 3" , fileOne.exists() ^ fileTwo.exists() ^ fileThree.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsPdf(uriOne);
         docStore.getDocumentAsPdf(uriTwo);
@@ -399,8 +400,5 @@ public class TestBTree {
         assertEquals ("testing if file really exists" , false , fileOne.exists() );
         assertEquals ("testing if file really exists" , false , fileTwo.exists() );
         assertEquals ("testing if file really exists" , false , fileThree.exists() );
-    }
-
-
-    
+    }  
 }
