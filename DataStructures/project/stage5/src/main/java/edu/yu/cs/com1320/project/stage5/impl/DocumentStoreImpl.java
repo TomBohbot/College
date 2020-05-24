@@ -321,8 +321,6 @@ public class DocumentStoreImpl implements DocumentStore {
             if (setOfDeletedDocs.contains(uri) ) {
                 documentCount = documentCount + 1;
             }
-                
-
             oldValue.setLastUseTime(System.nanoTime());
             UriAndLastUseTime objForHeapLambdaNew = new UriAndLastUseTime(uri, oldValue.getLastUseTime());
             heap.insert(objForHeapLambdaNew);
@@ -431,6 +429,9 @@ public class DocumentStoreImpl implements DocumentStore {
                 heap.removeMin();
                 // bTreeOfObj.put(uri, null);
                 bytesCount = bytesCount - getBytesPerDocument(bTreeOfDocs.get(uri));
+            }
+            if (setOfDeletedDocs.contains(uri) ) {
+                documentCount = documentCount + 1;
             }
             oldValue.setLastUseTime(System.nanoTime());
             UriAndLastUseTime objForHeapLambdaNew = new UriAndLastUseTime(uri, oldValue.getLastUseTime());
