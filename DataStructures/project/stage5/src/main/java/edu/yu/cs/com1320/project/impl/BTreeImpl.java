@@ -141,9 +141,7 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
 
     @Override
     public Value put(Key key, Value value) {
-        if (key == null) {
-            throw new IllegalArgumentException("The key cannot be null");
-        }
+        if (key == null) { throw new IllegalArgumentException("The key cannot be null"); }
         Entry alreadyThere = this.get(this.root, key, this.height);
         if (alreadyThere != null) {
             if (alreadyThere.val == null) {
@@ -154,8 +152,7 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
                         return deletedDoc;
                     } catch (NullPointerException e) {
                         alreadyThere.val = value;
-                        return null;
-                    }
+                        return null; }
 				} catch (IOException e) {}
             }
             Value oldValue = (Value) alreadyThere.getValue();
@@ -164,9 +161,7 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
         }
         Node newNode = this.put(this.root, key, value, this.height);
         this.n++;
-        if (newNode == null) {
-            return null;
-        }
+        if (newNode == null) { return null; }
         Node newRoot = new Node(2);
         newRoot.entries[0] = new Entry(this.root.entries[0].key, null, this.root);
         newRoot.entries[1] = new Entry(newNode.entries[0].key, null, newNode);
@@ -205,9 +200,7 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
         Entry newEntry = new Entry(key, val, null);
         if (height == 0) {
             for (j = 0; j < currentNode.entryCount; j++) {
-                if (less(key, currentNode.entries[j].key)) {
-                    break;
-                }
+                if (less(key, currentNode.entries[j].key)) {  break; }
             }
         }
         // internal node
@@ -218,9 +211,7 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
                     // increment j (j++) after the call so that a new entry created by a split
                     // will be inserted in the next slot
                     Node newNode = this.put(currentNode.entries[j++].child, key, val, height - 1);
-                    if (newNode == null) {
-                        return null;
-                    }
+                    if (newNode == null) { return null; }
                     newEntry.key = newNode.entries[0].key;
                     newEntry.val = null;
                     newEntry.child = newNode;
@@ -229,17 +220,12 @@ public class BTreeImpl<Key extends Comparable<Key>, Value> implements BTree<Key,
             }
         }
         // shift entries over one place to make room for new entry
-        for (int i = currentNode.entryCount; i > j; i--) {
-            currentNode.entries[i] = currentNode.entries[i - 1];
-        }
+        for (int i = currentNode.entryCount; i > j; i--) { currentNode.entries[i] = currentNode.entries[i - 1]; }
         // add new entry
         currentNode.entries[j] = newEntry;
         currentNode.entryCount++;
-        if (currentNode.entryCount < max) {
-            return null;
-        } else {
-            return this.split(currentNode, height);
-        }
+        if (currentNode.entryCount < max) { return null; }
+         else { return this.split(currentNode, height); }
     }
 
     @Override

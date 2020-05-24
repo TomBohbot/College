@@ -96,7 +96,7 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
         uriAsString = uriAsString.substring(uriAsString.indexOf("//")+1) + ".json";
         if (baseDir == null) {
             String filePath = System.getProperty("user.dir") + uriAsString;
-            File mkDirs = new File (filePath);
+            File mkDirs = new File (baseDir , uriAsString);
             mkDirs.getParentFile().mkdirs();
             FileWriter file = new FileWriter(mkDirs);
             file.write(txt);
@@ -106,7 +106,7 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
         else {
             String baseDirAsString = baseDir.toString();
             String filePath = baseDirAsString + uriAsString;
-            File mkDirs = new File (filePath);
+            File mkDirs = new File (baseDir , uriAsString);
             mkDirs.getParentFile().mkdirs();
             FileWriter file = new FileWriter(mkDirs);
             file.write(txt);

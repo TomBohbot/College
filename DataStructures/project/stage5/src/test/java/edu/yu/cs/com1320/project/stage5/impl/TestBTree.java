@@ -348,7 +348,53 @@ public class TestBTree {
         assertEquals ("initial 1" , false , fileOne.exists() );
         assertEquals ("initial 2" , true , fileTwo.exists() );
         assertEquals ("initial 3" , false , fileThree.exists() );
-        assertTrue ("initial 3" , fileOne.exists() ^ fileTwo.exists() ^ fileThree.exists() );
+        assertTrue ("initial 3" , fileOne.exists() ^ fileTwo.exists() ^ fileThree.exists() ); // this is bc they're all given same time so any of them could be deleted from disk
+        docStore.setMaxDocumentCount(10);
+        docStore.getDocumentAsPdf(uriOne);
+        docStore.getDocumentAsPdf(uriTwo);
+        docStore.getDocumentAsPdf(uriThree);
+        assertEquals ("testing if file really exists" , false , fileOne.exists() );
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
+        assertEquals ("testing if file really exists" , false , fileThree.exists() );
+    }
+
+    @Test 
+    public void putNull () throws URISyntaxException {
+        File file = new File (System.getProperty("user.dir"));
+        File fileOne = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Lenny's_URI.json");
+        File fileTwo = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Ruben's_URI.json");
+        File fileThree = new File (System.getProperty("user.dir") + "/KITKAT/hi/tom/Tom's_URI.json");
+        DocumentStoreImpl docStore = new DocumentStoreImpl (file);
+        String inputStreamContentOne = "Hey, I'm Lenny";
+        InputStream inputStreamOne = new ByteArrayInputStream(inputStreamContentOne.getBytes() );
+        URI uriOne = new URI("/KITKAT/hi/tom/Lenny's_URI");
+        DocumentImpl documentOne = new DocumentImpl(uriOne, inputStreamContentOne, inputStreamContentOne.hashCode() );
+        String inputStreamContentTwo = "Hy, I'm Ruben";
+        InputStream inputStreamTwo = new ByteArrayInputStream(inputStreamContentTwo.getBytes() );
+        URI uriTwo = new URI("/KITKAT/hi/tom/Ruben's_URI");
+        DocumentImpl documentTwo = new DocumentImpl(uriTwo, inputStreamContentTwo, inputStreamContentTwo.hashCode() );
+        String inputStreamContentThree = "Hey, I'm Tom";
+        InputStream inputStreamThree = new ByteArrayInputStream(inputStreamContentThree.getBytes() );
+        URI uriThree = new URI("/KITKAT/hi/tom/Tom's_URI");
+        DocumentImpl documentThree = new DocumentImpl(uriThree, inputStreamContentThree, inputStreamContentThree.hashCode() );
+        docStore.putDocument(inputStreamOne, uriOne, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamTwo, uriTwo, DocumentStore.DocumentFormat.TXT);
+        docStore.putDocument(inputStreamThree, uriThree, DocumentStore.DocumentFormat.TXT);
+        assertEquals ("testing if file really exists" , false , fileOne.exists() );
+        assertEquals ("testing if file really exists" , false , fileTwo.exists() );
+        assertEquals ("testing if file really exists" , false , fileThree.exists() );
+        docStore.setMaxDocumentCount(2);
+        assertEquals ("initial 1" , true , fileOne.exists() );
+        assertEquals ("initial 2" , false , fileTwo.exists() );
+        assertEquals ("initial 3" , false , fileThree.exists() );
+        docStore.putDocument(null , uriOne, DocumentStore.DocumentFormat.TXT);
+        assertEquals ("initial 1" , false , fileOne.exists() );
+        assertEquals ("initial 2" , false , fileTwo.exists() );
+        assertEquals ("initial 3" , false , fileThree.exists() );
+        docStore.undo(); //BIG BUG WHEN I CALL UNDO AFTER DELETING EVERYTHING
+        assertEquals ("initial 1" , false , fileOne.exists() );
+        assertEquals ("initial 2" , true , fileTwo.exists() );
+        assertEquals ("initial 3" , false , fileThree.exists() );
         docStore.setMaxDocumentCount(10);
         docStore.getDocumentAsPdf(uriOne);
         docStore.getDocumentAsPdf(uriTwo);
