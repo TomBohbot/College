@@ -454,7 +454,7 @@ public class DocumentStoreImpl implements DocumentStore {
         return oldValue.getDocumentTextHashCode();
     }
 
-    public Document getDocument(URI uri) { // line count is good
+    protected Document getDocument(URI uri) { // line count is good
         if (setOfDeletedDocs.contains(uri) ){
             return null;
         }
