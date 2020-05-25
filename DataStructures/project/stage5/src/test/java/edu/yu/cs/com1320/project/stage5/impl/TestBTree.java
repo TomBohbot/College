@@ -849,7 +849,5 @@ public class TestBTree {
         assertEquals ("testing if file really exists" , false , fileOne.exists() );
         assertEquals ("testing if file really exists" , false , fileTwo.exists() );
         assertEquals ("testing if file really exists" , false , fileThree.exists() );
-    }  
-
-    
+    }     
 }

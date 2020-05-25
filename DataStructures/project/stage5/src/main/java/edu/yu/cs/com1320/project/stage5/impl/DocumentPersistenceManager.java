@@ -35,7 +35,7 @@ import edu.yu.cs.com1320.project.stage5.impl.DocumentImpl;
  *   2) 
  * 
  */
-public class DocumentPersistenceManager implements PersistenceManager<URI, DocumentImpl> {
+public class DocumentPersistenceManager implements PersistenceManager<URI, Document> {
 
     private HashMap <URI, JsonElement> bTree = new HashMap<URI, JsonElement>();
     private HashMap <URI , String> uriToFilePath = new HashMap <URI , String>();
@@ -53,7 +53,7 @@ public class DocumentPersistenceManager implements PersistenceManager<URI, Docum
     }
 
     @Override
-    public void serialize(URI uri, DocumentImpl val) throws IOException {
+    public void serialize(URI uri, Document val) throws IOException {
         JsonElement elem = lambda.serialize(val, val.getClass(), context);
         try {
             URI genericUri = makeFileGeneric(uri);

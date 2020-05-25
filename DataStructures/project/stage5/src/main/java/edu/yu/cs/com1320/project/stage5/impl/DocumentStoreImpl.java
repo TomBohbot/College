@@ -39,7 +39,7 @@ import java.util.Set;
 public class DocumentStoreImpl implements DocumentStore {
 
     private File filePath;
-    private BTreeImpl<URI, DocumentImpl> bTreeOfDocs = new BTreeImpl<URI, DocumentImpl>();
+    private BTreeImpl<URI, Document> bTreeOfDocs = new BTreeImpl<URI, Document>();
     private int hashCodeOfStream;
     private StackImpl<Undoable> commandStack = new StackImpl<Undoable>();
     private TrieImpl<URI> trie = new TrieImpl<URI>();
@@ -196,7 +196,7 @@ public class DocumentStoreImpl implements DocumentStore {
             return 0;
         }
         if (format == DocumentStore.DocumentFormat.PDF || format == DocumentStore.DocumentFormat.TXT) {
-            DocumentImpl oldDoc = bTreeOfDocs.get(uri);
+            DocumentImpl oldDoc =  (DocumentImpl) bTreeOfDocs.get(uri);
             // addBackToBtree(uri , oldDoc);
             String oldDocText = oldDoc.getDocumentAsTxt();
             int oldValue = bTreeOfDocs.get(uri).getDocumentTextHashCode();
@@ -290,7 +290,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private int putDuplicateTextDocument(URI uri, String txt) { // linc ount is good stage 5
-        DocumentImpl oldValue = bTreeOfDocs.get(uri);
+        DocumentImpl oldValue = (DocumentImpl) bTreeOfDocs.get(uri);
         if (!setOfDeletedDocs.contains(uri) ) {
             oldValue.setLastUseTime(min);
             UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
@@ -402,7 +402,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private int putDuplicateUriPdfDocument(URI uri, String strippedByteArray, int hashCodeOfStream, byte[] streamAsBytes) { // linc ount is good stage 5
-        DocumentImpl oldValue = bTreeOfDocs.get(uri);
+        DocumentImpl oldValue = (DocumentImpl) bTreeOfDocs.get(uri);
         if (!setOfDeletedDocs.contains(uri) ) {
             oldValue.setLastUseTime(min);
             UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
@@ -454,14 +454,14 @@ public class DocumentStoreImpl implements DocumentStore {
         return oldValue.getDocumentTextHashCode();
     }
 
-    protected Document getDocument(URI uri) { // line count is good
+    public Document getDocument(URI uri) { // line count is good
         if (setOfDeletedDocs.contains(uri) ){
             return null;
         }
         if (bTreeOfDocs.get(uri) == null) {
             return null;
         }
-        DocumentImpl doc = bTreeOfDocs.get(uri);
+        DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
         return bTreeOfDocs.get(uri);
     }
 
@@ -492,7 +492,7 @@ public class DocumentStoreImpl implements DocumentStore {
         if (bTreeOfDocs.get(uri) == null || uri == null) {
             return null;
         }
-        DocumentImpl obj = bTreeOfDocs.get(uri);
+        DocumentImpl obj = (DocumentImpl) bTreeOfDocs.get(uri);
         addBackToBtree(uri , obj);
         obj.setLastUseTime(System.nanoTime());
         UriAndLastUseTime objForHeap = bTreeOfObj.get(uri);
@@ -506,7 +506,7 @@ public class DocumentStoreImpl implements DocumentStore {
         if (bTreeOfDocs.get(uri) == null) {
             return null;
         }
-        DocumentImpl doc = bTreeOfDocs.get(uri);
+        DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
         String text = doc.getDocumentAsTxt();
         addBackToBtree(uri , doc);
         doc.setLastUseTime(System.nanoTime());
@@ -518,7 +518,7 @@ public class DocumentStoreImpl implements DocumentStore {
 
     @Override
     public boolean deleteDocument(URI uri) { // linc ount is good stage 5
-        DocumentImpl doc = bTreeOfDocs.get(uri);
+        DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
         if (doc == null) {
             Function lambda = (x) -> {
                 return true;
@@ -558,7 +558,7 @@ public class DocumentStoreImpl implements DocumentStore {
     }
 
     private boolean deleteDocumentNoUndo(URI uri) {
-        DocumentImpl doc = bTreeOfDocs.get(uri);
+        DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
         if (doc == null) {
             return false;
         }
@@ -693,7 +693,7 @@ public class DocumentStoreImpl implements DocumentStore {
             if (uri == null) {
                 continue;
             }
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             addBackToBtree(uri , doc);
             String docContent = doc.getDocumentAsTxt();
             returnValue.add(docContent);
@@ -714,7 +714,7 @@ public class DocumentStoreImpl implements DocumentStore {
         // make list of URIs into list of actual docs:
         ArrayList<byte[]> returnValue = new ArrayList<byte[]>();
         for (URI uri : listOfURIsSorted) {
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             addBackToBtree(uri , doc);
             byte[] docContent = doc.getDocumentAsPdf();
             returnValue.add(docContent);
@@ -735,7 +735,7 @@ public class DocumentStoreImpl implements DocumentStore {
         // Transform URI list into a list of text documents:
         ArrayList<String> sortedTextDocs = new ArrayList<String>();
         for (URI uri : sortedURIs) {
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             addBackToBtree(uri , doc);
             String textOfDoc = doc.getDocumentAsTxt();
             sortedTextDocs.add(textOfDoc);
@@ -756,7 +756,7 @@ public class DocumentStoreImpl implements DocumentStore {
         // Transform URI list into a list of text documents:
         ArrayList<byte[]> sortedTextDocs = new ArrayList<byte[]>();
         for (URI uri : sortedURIs) {
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             addBackToBtree(uri , doc);
             byte[] textOfDoc = doc.getDocumentAsPdf();
             sortedTextDocs.add(textOfDoc);
@@ -786,7 +786,7 @@ public class DocumentStoreImpl implements DocumentStore {
         // Now delete these values everywhere:
         long nanoTimeForDeletedSet = System.nanoTime();
         for (URI uri : willDeleteNodesSet) {
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc =  (DocumentImpl) bTreeOfDocs.get(uri);
             willDeleteUris.add(uri);
             // String docContent = doc.getDocumentAsTxt();
             String[] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
@@ -842,7 +842,7 @@ public class DocumentStoreImpl implements DocumentStore {
         // Node delete all those nodes:
         long nanoTimeForDeletedSet = System.nanoTime();
         for (URI uri : willDeleteNodesSet) {
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             willDeleteUris.add(uri);
             String[] allWordsInDoc = doc.getDocumentAsTxt().split(" ");
             for (int i = 0; i < allWordsInDoc.length; i++) { trie.delete(allWordsInDoc[i], uri);}
@@ -872,11 +872,11 @@ public class DocumentStoreImpl implements DocumentStore {
             UriAndLastUseTime heapObj = heap.removeMin();
             URI uri = heapObj.getUri();
             // bTreeOfObj.put(uri, null);
-            DocumentImpl doc = bTreeOfDocs.get(uri);
+            DocumentImpl doc = (DocumentImpl) bTreeOfDocs.get(uri);
             try {
                 bTreeOfDocs.moveToDisk(uri);
             } catch (Exception e) { }
-            deleteUndoDueToMemory(doc.getKey() );
+            // deleteUndoDueToMemory(doc.getKey() );
             documentCount = documentCount - 1;
             bytesCount = bytesCount - getBytesPerDocument(doc);
             setOfDeletedDocs.add(uri);
@@ -884,19 +884,20 @@ public class DocumentStoreImpl implements DocumentStore {
         return deletedDocs;
     }
 
-    private boolean addBackToBtree (URI uri , DocumentImpl doc) {
+    private boolean addBackToBtree (URI uri , Document document) {
         /**
-         * @return returns true if it was added back and false if it was already in BTree.
+         * @return returns true if it was added back and false if it was already in
+         *         BTree.
          */
-        if (setOfDeletedDocs.contains(uri) ) {
+        if (setOfDeletedDocs.contains(uri)) {
             // this means that the set was deleted.
             documentCount = documentCount + 1;
-            bytesCount = bytesCount + getBytesPerDocument(doc);   
-            deleteDueToMemoryLimit();    
-            UriAndLastUseTime objForHeap = new UriAndLastUseTime(uri, doc.getLastUseTime());
+            bytesCount = bytesCount + getBytesPerDocument(document);
+            deleteDueToMemoryLimit();
+            UriAndLastUseTime objForHeap = new UriAndLastUseTime(uri, document.getLastUseTime());
             bTreeOfObj.put(uri, objForHeap);
             heap.insert(objForHeap);
-            bTreeOfDocs.put(uri , doc);
+            bTreeOfDocs.put(uri, document);
             setOfDeletedDocs.remove(uri);
             return true;
         }
@@ -911,9 +912,9 @@ public class DocumentStoreImpl implements DocumentStore {
         return bytesCount;
     }
 
-    private int getBytesPerDocument (DocumentImpl doc) {
-        byte[] bytesArrayText = doc.getDocumentAsTxt().getBytes();
-        byte[] bytesArrayPDF = doc.getDocumentAsPdf();
+    private int getBytesPerDocument (Document document) {
+        byte[] bytesArrayText = document.getDocumentAsTxt().getBytes();
+        byte[] bytesArrayPDF = document.getDocumentAsPdf();
         int bytesPerText = bytesArrayText.length;
         int bytesPerPDF = bytesArrayPDF.length;
         int bytesPerDoc = bytesPerText + bytesPerPDF;
