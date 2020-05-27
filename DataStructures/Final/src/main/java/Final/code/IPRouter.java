@@ -61,9 +61,9 @@ public class IPRouter {
                 portCount = portCount - 1;
                 deleteRulePrivate(oldAddress);
             }
-            if (cidrToBits.equals(oldAddress) ) {
-                throw new IllegalArgumentException();
-            }
+            // if (cidrToBits.equals(oldAddress) ) {    // muted out per Piazza post 496
+            //     throw new IllegalArgumentException();
+            // }
         }
         portCount ++;
         trie.put(cidrToBits, port);
