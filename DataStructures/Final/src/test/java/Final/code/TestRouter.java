@@ -88,7 +88,6 @@ public class TestRouter
         catch (FileNotFoundException e) { throw new RuntimeException("Bad routes file name. Tests aborted"); }
         IPAddress address = new IPAddress("24.96.0.0");
         int res = this.router.getRoute(address);
-        System.out.println(address);
         assertEquals(20, res);
     }
 
@@ -510,6 +509,18 @@ public class TestRouter
         assertEquals ("Is 4 in cache" , addressFour , array[0] );
         assertEquals ("Is 5 in cache" , addressFive , array[1] );
         assertEquals ("Is 2 in cache" , addressTwo , array[2] );
+    }
+
+    @Test
+    public void tripleConflicts () { // this test is proof that I return the longest prefix, even if shorter prefixes also match.
+        IPRouter router = new IPRouter(21, 3);
+        router.addRule("24.0.0.0/8" , 10);
+        router.addRule("24.0.0.0/9" , 20);
+        router.addRule("24.64.0.0/10" , 4);
+        router.addRule("24.91.0.0/16", 6);
+        router.addRule("24.98.0.0/15", 7);
+        IPAddress address = new IPAddress("24.96.0.0/16");
+        assertEquals ("Is 4 a match?" , 4 , router.getRoute(address) );
     }
 
 
