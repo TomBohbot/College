@@ -12,8 +12,8 @@ import java.io.*;
 /**
  * The test class TestRouter.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Tom Bohbot
+ * @version May 26, 2020
  */
 public class TestRouter
 {
@@ -498,17 +498,17 @@ public class TestRouter
         router.getRoute(addressOne);
         router.getRoute(addressTwo);
         router.getRoute(addressThree);
-        IPAddress [] array = router.dumpCache();
-        assertEquals ("Is 3 in cache" , addressThree , array[0] );
-        assertEquals ("Is 2 in cache" , addressTwo , array[1] );
-        assertEquals ("Is 1 in cache" , addressOne , array[2] );
+        String [] array = router.dumpCache();
+        assertEquals ("Is 3 in cache" , addressThree.toCIDR() , array[0] );
+        assertEquals ("Is 2 in cache" , addressTwo.toCIDR() , array[1] );
+        assertEquals ("Is 1 in cache" , addressOne.toCIDR() , array[2] );
         router.getRoute(addressTwo);
         router.getRoute(addressFive);
         router.getRoute(addressFour);
         array = router.dumpCache();
-        assertEquals ("Is 4 in cache" , addressFour , array[0] );
-        assertEquals ("Is 5 in cache" , addressFive , array[1] );
-        assertEquals ("Is 2 in cache" , addressTwo , array[2] );
+        assertEquals ("Is 4 in cache" , addressFour.toCIDR() , array[0] );
+        assertEquals ("Is 5 in cache" , addressFive.toCIDR() , array[1] );
+        assertEquals ("Is 2 in cache" , addressTwo.toCIDR() , array[2] );
     }
 
     @Test

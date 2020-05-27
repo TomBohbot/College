@@ -5,7 +5,6 @@ import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Iterator;
 /**
- * Write a description of class IPAddress here.
  * 
  * @author Van Kelly
  * @version 0.1

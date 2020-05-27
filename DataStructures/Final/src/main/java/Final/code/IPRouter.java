@@ -129,21 +129,15 @@ public class IPRouter {
      * as an array of IP Addresses.  Return a zero length array if the cache is empty
      * 
      */
-    IPAddress[] dumpCache() {
+    String[] dumpCache() {
         // put your code here
         if (this.cacheSize == 0 || cacheCounter == 0) {
-            IPAddress [] emptyArray = new IPAddress [0];
+            String [] emptyArray = new String [0];
             return emptyArray;
         }
         // your code goes here
-        IPAddress [] array = new IPAddress [this.cacheSize];
         String [] arrayAsString = routeCache.dumpQueue();
-        for (int i = 0; i < arrayAsString.length; i ++) {
-            String cidr = arrayAsString[i];
-            IPAddress address = new IPAddress(cidr);
-            array[i] = address;
-        }
-        return array;
+        return arrayAsString;
     }
     
     /**

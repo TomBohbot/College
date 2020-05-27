@@ -1,5 +1,11 @@
 package Final.code;
 
+/**
+ * 
+ * @author Tom Bohbot 
+ * @version May 26, 2020
+ */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -68,7 +74,7 @@ public class BitVectorTrie<Value> {
         if (map.get(port) != null && map.get(port) != key ) {
             // throw new IllegalArgumentException(); // muted this out bc Kelly said in Piazza that throwing an exception in either (exculusive or) trie class put() or IPRouter class addRule(param) is satisfactory.
         }
-        if (key == null) {
+        if (key == null && map.get(port) != null) { // per piazza post 499.
             throw new IllegalArgumentException();
         }
         if (port == null) {

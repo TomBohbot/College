@@ -2,10 +2,9 @@ package Final.code;
 
 import java.util.BitSet;
 /**
- * Write a description of class BitVector here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tom Bohbot 
+ * @version May 26, 2020
  */
 public class BitVector
 {
