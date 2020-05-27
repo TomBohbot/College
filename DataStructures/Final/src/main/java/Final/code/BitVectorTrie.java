@@ -66,7 +66,7 @@ public class BitVectorTrie<Value> {
     ****************************************************/
     public void put(BitVector key, Value port) {
         if (map.get(port) != null && map.get(port) != key ) {
-            // throw new IllegalArgumentException();
+            // throw new IllegalArgumentException(); // muted this out bc Kelly said in Piazza that throwing an exception in either (exculusive or) trie class put() or IPRouter class addRule(param) is satisfactory.
         }
         if (key == null) {
             throw new IllegalArgumentException();
@@ -102,7 +102,7 @@ public class BitVectorTrie<Value> {
     ****************************************************/
     public void delete(BitVector key) {
         if (!bigMap.containsKey(key) ) {
-            // throw new IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
         root = delete(root, key, 0);
         if (root == null) {

@@ -34,7 +34,7 @@ public class TestRouter
     @Before
     public void setUp()
     {
-       this.router = new IPRouter(8,4); 
+       this.router = new IPRouter(21,4); 
         try {
             router.loadRoutes("routes1.txt");
         }
@@ -79,6 +79,16 @@ public class TestRouter
         catch (FileNotFoundException e) { throw new RuntimeException("Bad routes file name. Tests aborted"); }
         IPAddress address = new IPAddress("24.24.24.24");
         int res = this.router.getRoute(address);
+        assertEquals(20, res);
+    }
+
+    @Test
+    public void usingTextFirstOne() {
+        try { router.loadRoutes("routes2.txt"); }
+        catch (FileNotFoundException e) { throw new RuntimeException("Bad routes file name. Tests aborted"); }
+        IPAddress address = new IPAddress("24.96.0.0");
+        int res = this.router.getRoute(address);
+        System.out.println(address);
         assertEquals(20, res);
     }
 
@@ -471,6 +481,35 @@ public class TestRouter
         assertEquals ("Is 4 in cache" , addressFour.toCIDR() , array[0] );
         assertEquals ("Is 5 in cache" , addressFive.toCIDR() , array[1] );
         assertEquals ("Is 2 in cache" , addressTwo.toCIDR() , array[2] );
+    }
+
+    @Test
+    public void emptyDumpFromIPRouter() {
+        IPRouter router = new IPRouter(21, 3);
+        IPAddress addressOne = new IPAddress("11.11.11.11");
+        IPAddress addressTwo = new IPAddress("22.22.22.22");
+        IPAddress addressThree = new IPAddress("33.33.33.33");
+        IPAddress addressFour = new IPAddress("44.44.44.44");
+        IPAddress addressFive = new IPAddress("55.55.55.55");
+        router.addRule(addressOne.toCIDR(), 1);
+        router.addRule(addressTwo.toCIDR(), 2);
+        router.addRule(addressThree.toCIDR(), 3);
+        router.addRule(addressFour.toCIDR(), 4);
+        router.addRule(addressFive.toCIDR(), 5);
+        router.getRoute(addressOne);
+        router.getRoute(addressTwo);
+        router.getRoute(addressThree);
+        IPAddress [] array = router.dumpCache();
+        assertEquals ("Is 3 in cache" , addressThree , array[0] );
+        assertEquals ("Is 2 in cache" , addressTwo , array[1] );
+        assertEquals ("Is 1 in cache" , addressOne , array[2] );
+        router.getRoute(addressTwo);
+        router.getRoute(addressFive);
+        router.getRoute(addressFour);
+        array = router.dumpCache();
+        assertEquals ("Is 4 in cache" , addressFour , array[0] );
+        assertEquals ("Is 5 in cache" , addressFive , array[1] );
+        assertEquals ("Is 2 in cache" , addressTwo , array[2] );
     }
 
 

@@ -20,6 +20,7 @@ public class IPRouter {
     private HashMap <IPAddress , Integer> bigMap = new HashMap <IPAddress , Integer> ();
     private RouteCache routeCache;
     private int cacheCounter;
+    private int portCount; // counts how many ports are currently used.
 
     /** Router constructor
      * @param nPorts    the number of output ports, numbered 0 ... nPorts-1.  Pseudo-port -1 is 
@@ -47,16 +48,24 @@ public class IPRouter {
         // "finish this (1 or 2 lines)" Kelly
         // convert prefix to bits and then insert to trie:
         // so in the trie i want to be comparing the prefix which is the key, but returning the value which is the port. don't really care what the content of the port is then.
+        if (port >= this.nPorts) {
+            throw new IllegalArgumentException();
+        }
+        if (portCount >= nPorts) {
+            throw new IllegalArgumentException();
+        }
         IPAddress cidrToBits = new IPAddress(prefix);
         if (map.get(port) != null) {
             IPAddress oldAddress = map.get(port);
             if (cidrToBits.size() > oldAddress.size() ) {
+                portCount = portCount - 1;
                 deleteRulePrivate(oldAddress);
             }
             if (cidrToBits.equals(oldAddress) ) {
                 throw new IllegalArgumentException();
             }
         }
+        portCount ++;
         trie.put(cidrToBits, port);
         bigMap.put(cidrToBits , port);
         map.put(port , cidrToBits);
