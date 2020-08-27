@@ -68,15 +68,15 @@ public class SearchWithATweak {
             if (mid < newList.get(mid) ){ high = mid - 1; }
             else if (mid > newList.get(mid) ){ low = mid + 1; }
             else { 
-                // Must Verify that this is the earliest match:
-                while (mid != 0 && newList.get(mid - 1) == mid - 1) {
-                    if (mid == 0) {
-                        return mid;
-                    }
-                    mid -= 1;
-                }
+                // Must Verify that this is the earliest match: 
+                // Muting out following code per Piazza Question 10:
+                // while (mid != 0 && newList.get(mid - 1) == mid - 1) {
+                //     if (mid == 0) {
+                //         return mid;
+                //     }
+                //     mid -= 1;
+                // }
                 return mid; 
-
             }
         }
         return -1;

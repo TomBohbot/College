@@ -198,7 +198,7 @@ public class SearchWithATweakTest {
     list.add(2);
     list.add(3);
     list.add(4);
-    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 0);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 2);
    }
 
    @Test
@@ -222,4 +222,15 @@ public class SearchWithATweakTest {
     list.add(8);
     assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);
    }
+
+   @Test
+   public void verifyEarliestMatch() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(1);
+    list.add(2);
+    list.add(2);
+    list.add(2);
+    list.add(3);
+    assertEquals(SearchWithATweak.findFirstInstance(list , 2) , 1);
+}
 }
