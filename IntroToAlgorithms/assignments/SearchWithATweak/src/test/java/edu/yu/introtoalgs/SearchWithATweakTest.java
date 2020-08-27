@@ -200,4 +200,26 @@ public class SearchWithATweakTest {
     list.add(4);
     assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 0);
    }
+
+   @Test
+   public void test1() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(-4);
+    list.add(-2);
+    list.add(0);
+    list.add(2);
+    list.add(4);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 4);
+   }
+
+   @Test
+   public void test2() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(-4);
+    list.add(-2);
+    list.add(0);
+    list.add(2);
+    list.add(8);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);
+   }
 }
