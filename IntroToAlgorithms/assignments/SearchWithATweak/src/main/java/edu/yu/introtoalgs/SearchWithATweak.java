@@ -26,23 +26,24 @@ public class SearchWithATweak {
     */
     public static int findFirstInstance (final List<Integer> list , final int key) {
         // The following code is O(logn):
+        if (list == null) {
+            return -1;
+        }
         ArrayList <Integer> newList = (ArrayList <Integer>) list;
         int low = 0;
         int high = newList.size() - 1;
+        int returnValue = -1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
             if (key < newList.get(mid) ){ high = mid - 1; }
             else if (key > newList.get(mid) ){ low = mid + 1; }
             else { 
-                // In the case of duplicates:
-                while (mid != 0 && newList.get(mid - 1) == key) {
-                    if (mid == 0) {
-                        return mid;
-                    }
-                    mid -= 1;
-                }
-                return mid;
+                returnValue = mid;
+                high = mid - 1;
             }
+        }
+        if (returnValue != -1) {
+            return returnValue;
         }
         return -1;
     }
@@ -60,6 +61,9 @@ public class SearchWithATweak {
     */
    public static int elementEqualToItsIndex (final List <Integer> list) {
         // The following code is O(logn):
+        if (list == null) {
+            return -1;
+        }
         ArrayList <Integer> newList = (ArrayList <Integer>) list;
         int low = 0;
         int high = newList.size() - 1;
@@ -81,6 +85,26 @@ public class SearchWithATweak {
         }
         return -1;
    }
+
+//    private static int oldFindFirstInstance (final List<Integer> list , final int key) {
+//     // The following code is O(logn):
+//     ArrayList <Integer> newList = (ArrayList <Integer>) list;
+//     int low = 0;
+//     int high = newList.size() - 1;
+//     while (low <= high) {
+//         int mid = low + (high - low) / 2;
+//         if (key < newList.get(mid) ){ high = mid - 1; }
+//         else if (key > newList.get(mid) ){ low = mid + 1; }
+//         else { 
+//             // In the case of duplicates: Does this change the run time?
+//             while (mid != 0 && newList.get(mid - 1) == key) {
+//                 mid -= 1;
+//             }
+//             return mid;
+//         }
+//     }
+//     return -1;
+// }
 
 //     private static int findFirstInstanceBruteForce (final List<Integer> list , final int key) {
 //         // The following code is O(n):

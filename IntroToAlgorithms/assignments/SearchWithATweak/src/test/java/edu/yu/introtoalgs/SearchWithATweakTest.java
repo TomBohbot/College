@@ -232,5 +232,40 @@ public class SearchWithATweakTest {
     list.add(2);
     list.add(3);
     assertEquals(SearchWithATweak.findFirstInstance(list , 2) , 1);
-}
+    }
+
+    @Test
+    public void emptyList() {
+        ArrayList <Integer> list = new ArrayList <>();
+        assertEquals(SearchWithATweak.findFirstInstance(list , 2) , -1);
+     }
+
+     @Test
+    public void emptyList2() {
+        ArrayList <Integer> list = new ArrayList <>();
+        assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);
+     }
+
+     @Test
+     public void nullList() {
+        ArrayList <Integer> list = null;
+        assertEquals(SearchWithATweak.findFirstInstance(list , 2) , -1);
+      }
+
+     @Test
+     public void nullList2() {
+        ArrayList <Integer> list = null;
+        assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);
+      }
+
+      @Test
+      public void verifyEarliestMatch1() {
+       ArrayList <Integer> list = new ArrayList <>();
+       list.add(2);
+       list.add(2);
+       list.add(2);
+       list.add(2);
+       list.add(2);
+       assertEquals(SearchWithATweak.findFirstInstance(list , 2) , 0);
+       }
 }
