@@ -406,6 +406,34 @@ public class SearchWithATweakTest {
     }
 
     @Test
+    public void onlyRepeatsZero() {
+        ArrayList <Integer> list = new ArrayList <>();
+        list.add(0);
+        list.add(0);
+        list.add(0);
+        list.add(0);
+        list.add(0);
+        list.add(0);
+        assertEquals(SearchWithATweak.findFirstInstance(list , 100) , -1);     
+        assertEquals(SearchWithATweak.findFirstInstance(list , 0) , 0);
+        assertEquals(SearchWithATweak.findFirstInstance(list , 22) , -1);       
+    }
+
+    @Test
+    public void onlyRepeatsNegative() {
+        ArrayList <Integer> list = new ArrayList <>();
+        list.add(-25);
+        list.add(-25);
+        list.add(-25);
+        list.add(-25);
+        list.add(-25);
+        list.add(-25);
+        assertEquals(SearchWithATweak.findFirstInstance(list , 100) , -1);     
+        assertEquals(SearchWithATweak.findFirstInstance(list , -25) , 0);
+        assertEquals(SearchWithATweak.findFirstInstance(list , 22) , -1);       
+    }
+
+    @Test
     public void emptyListFirstMethod() {
         ArrayList <Integer> list = new ArrayList <>();     
         assertEquals(SearchWithATweak.findFirstInstance(list , -10) , -1);      
@@ -431,21 +459,33 @@ public void regListMethod2() {
     assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 2);     
 }
 
+// @Test
+// public void regListDupsMethodTwo() {
+//     ArrayList <Integer> list = new ArrayList <>();
+//     list.add(-2);
+//     list.add(0);
+//     list.add(2);
+//     list.add(2);
+//     list.add(5);
+//     list.add(5);
+//     list.add(8);
+//     list.add(8);
+//     assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 2 || SearchWithATweak.elementEqualToItsIndex(list) == 5);     
+// }
+
 @Test
-public void regListDupsMethodTwo() {
+public void regListDupsMethodThree() {
     ArrayList <Integer> list = new ArrayList <>();
-    list.add(-2);
     list.add(0);
     list.add(2);
-    list.add(2);
+    list.add(3);
+    list.add(4);
     list.add(5);
-    list.add(5);
+    list.add(6);
+    list.add(7);
     list.add(8);
-    list.add(8);
-    assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 2 || SearchWithATweak.elementEqualToItsIndex(list) == 5);     
+    assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 2 || SearchWithATweak.elementEqualToItsIndex(list) == 0);     
 }
-
-
 
 @Test
 public void regListInverseMethodTwo() {
@@ -461,42 +501,66 @@ public void regListInverseMethodTwo() {
     assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 5);
 }
 
-// @Test
-// public void regListDupsInverseMethodTwo() {
-//     ArrayList <Integer> list = new ArrayList <>();
-//     list.add(25);
-//     list.add(25);
-//     list.add(15);
-//     list.add(15);
-//     list.add(5);
-//     list.add(5);
-//     list.add(-10);
-//     list.add(-10);
-//     assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 5);      
-// }
+@Test
+public void regListInverseMethodThree() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(25);
+    list.add(24);
+    list.add(15);
+    list.add(14);
+    list.add(13);
+    list.add(11);
+    list.add(10);
+    list.add(7);
+    assertTrue(SearchWithATweak.elementEqualToItsIndex(list) == 7);
+}
 
 @Test
 public void onlyRepeatsBadPaths() {
     ArrayList <Integer> list = new ArrayList <>();
-    list.add(25);
-    list.add(25);
-    list.add(25);
-    list.add(25);
-    list.add(25);
-    list.add(25);
+    list.add(-1);
+    list.add(-1);
+    list.add(-1);
+    list.add(-1);
+    list.add(-1);
+    list.add(-1);
     assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);     
 }
 
 @Test
 public void onlyRepeatshappyPaths() {
     ArrayList <Integer> list = new ArrayList <>();
-    list.add(3);
-    list.add(3);
-    list.add(3);
-    list.add(3);
-    list.add(3);
-    list.add(3);
-    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 3);     
+    list.add(0);
+    list.add(0);
+    list.add(0);
+    list.add(0);
+    list.add(0);
+    list.add(0);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 0);     
+}
+
+@Test
+public void onlyRepeatshappyPathsOne() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(5);
+    list.add(5);
+    list.add(5);
+    list.add(5);
+    list.add(5);
+    list.add(5);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 5);     
+}
+
+@Test
+public void onlyRepeatshappyPathsTwo() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(6);
+    list.add(6);
+    list.add(6);
+    list.add(6);
+    list.add(6);
+    list.add(6);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);     
 }
 
 @Test
@@ -509,6 +573,8 @@ public void emptyListSecondMethod() {
 public void nullSecondMethod() {
     assertEquals(SearchWithATweak.findFirstInstance(null , -10) , -1);      
 }
+
+
 
 
 }

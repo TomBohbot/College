@@ -1,7 +1,6 @@
 package edu.yu.introtoalgs;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * SearchWithATweak
