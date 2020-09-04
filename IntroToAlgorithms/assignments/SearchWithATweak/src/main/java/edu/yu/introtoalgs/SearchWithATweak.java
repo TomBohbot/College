@@ -30,12 +30,15 @@ public class SearchWithATweak {
         }
         int lastElem = list.size() - 1;
         if (list.get(0) < list.get(lastElem) ) {
-            return ascendingList(list, key);
+            // this method is O(logn) because as it resembles binary search.
+            return ascendingList(list, key); 
         }
         else if (list.get(0) > list.get(lastElem) ) {
+            // this method is O(logn) because as it resembles binary search.
             return descendingList(list, key);
         }
         else if (list.get(0) == key) {
+            // this is constant time.
             return 0;
         }
         else {
@@ -44,6 +47,7 @@ public class SearchWithATweak {
     }
 
     private static int ascendingList (final List<Integer> list , final int key) {
+        // this method is O(logn) because as it resembles binary search.
         int low = 0;
         int high = list.size() - 1;
         int returnValue = -1;
@@ -52,6 +56,7 @@ public class SearchWithATweak {
             if (key < list.get(mid) ){ high = mid - 1; }
             else if (key > list.get(mid) ){ low = mid + 1; }
             else { 
+                // instead of returning, I let it keep looping through O(logn) times so that the first instance is ensured.
                 returnValue = mid;
                 high = mid - 1;
             }
@@ -63,6 +68,7 @@ public class SearchWithATweak {
     }
 
     private static int descendingList (final List<Integer> list , final int key) {
+        // this method is O(logn) because as it resembles binary search.
         int low = 0;
         int high = list.size() - 1;
         int returnValue = -1;
@@ -71,6 +77,7 @@ public class SearchWithATweak {
             if (key < list.get(mid) ){ low = mid + 1; }
             else if (key > list.get(mid) ){ high = mid - 1; }
             else { 
+                // instead of returning, I let it keep looping through O(logn) times so that the first instance is ensured.
                 returnValue = mid;
                 high = mid - 1;
             }
@@ -99,12 +106,18 @@ public class SearchWithATweak {
         }
         int lastElem = list.size() - 1;
         if (list.get(0) < list.get(lastElem) ) {
+            // this method is O(logn) because as it resembles binary search.
             return equalToIndexAsceding(list);
         }
         else if (list.get(0) > list.get(lastElem) ) {
+            // this method is O(logn) because as it resembles binary search.
             return equalToIndexDescending(list);
         }
-        else if (list.get(0) <= lastElem) {
+        else if (list.get(0) <= lastElem && lastElem >= 0) {
+            /** If the elem in the array is less than the array size and greater than zero,
+             *  one of the indexes are certain to be equal to it's element, since all 
+             *  the elements in the array are the same.
+             */ 
             return list.get(0);
         }
         else {
@@ -113,6 +126,7 @@ public class SearchWithATweak {
    }
 
    private static int equalToIndexAsceding (final List <Integer> list) {
+        // this method is O(logn) because as it resembles binary search.
         int low = 0;
         int high = list.size() - 1;
         while (low <= high) {
@@ -127,6 +141,7 @@ public class SearchWithATweak {
    }
 
    private static int equalToIndexDescending (final List <Integer> list) {
+        // this method is O(logn) because as it resembles binary search.
         int low = 0;
         int high = list.size() - 1;
         while (low <= high) {
