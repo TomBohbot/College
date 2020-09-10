@@ -63,22 +63,22 @@ public class EstimateSecretAlgorithmsClient {
 
     public static void main (final String [] args) {
         EstimateSecretAlgorithmsClient obj = new EstimateSecretAlgorithmsClient();
-        // System.out.println("Algorithm 1:");
-        // for (int i = 1; true; i *= 2) { 
-        //     System.out.println("time: " + obj.doubleAlgorithmOne(i) + "      " + "n: " + i); 
-        // }
+        System.out.println("Algorithm 1:");
+        for (int i = 1; i <= 8192; i *= 2) { 
+            System.out.println("time: " + obj.doubleAlgorithmOne(i) + "      " + "n: " + i); 
+        }
         System.out.println("Algorithm 2:");
-        for (int i = 256; true; i *= 2) {
+        for (int i = 256; i <= 2684354568L; i *= 2) {
             System.out.println("time: " + obj.doubleAlgorithmTwo(i) + "      " + "n: " + i); 
         }     
-        // System.out.println("Algorithm 3:");
-        // for (int i = 1; true; i *= 2) {
-        //     System.out.println("time: " + obj.doubleAlgorithmThree(i) + "      " + "n: " + i); 
-        // }
-        // System.out.println("Algorithm 4:");
-        // for (int i = 1; true; i = i * 2) {
-        //     System.out.println("time: " + obj.doubleAlgorithmFour(i) + "      " + "n: " + i); 
-        // }
+        System.out.println("Algorithm 3:");
+        for (int i = 1; i <= 524288; i *= 2) {
+            System.out.println("time: " + obj.doubleAlgorithmThree(i) + "      " + "n: " + i); 
+        }
+        System.out.println("Algorithm 4:");
+        for (int i = 1; i <= 134217728; i = i * 2) {
+            System.out.println("time: " + obj.doubleAlgorithmFour(i) + "      " + "n: " + i); 
+        }
     }
     
 }
