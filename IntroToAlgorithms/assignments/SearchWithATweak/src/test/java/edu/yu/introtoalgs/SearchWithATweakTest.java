@@ -303,7 +303,26 @@ public class SearchWithATweakTest {
      list.add(1);
      assertEquals(SearchWithATweak.findFirstInstance(list , 2) , 3);
      }
+
+     @Test
+     public void oneElem() {
+      ArrayList <Integer> list = new ArrayList <>();
+      list.add(6);
+      assertEquals(SearchWithATweak.findFirstInstance(list , 0) , -1);
+      assertEquals(SearchWithATweak.findFirstInstance(list , 6) , 0);
+      assertEquals(SearchWithATweak.findFirstInstance(list , 10) , -1);
+      }
 //------------------------------------------------------------------------------------------------------------
+
+    @Test
+    public void oneElemSecondMethod() {
+    ArrayList <Integer> list = new ArrayList <>();
+    list.add(6);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , -1);
+    list.clear();
+    list.add(0);
+    assertEquals(SearchWithATweak.elementEqualToItsIndex(list) , 0);
+    }
 
     @Test
     public void regList() {
