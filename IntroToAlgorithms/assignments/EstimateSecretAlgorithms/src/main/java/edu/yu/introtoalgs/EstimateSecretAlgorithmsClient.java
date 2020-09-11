@@ -9,11 +9,6 @@ package edu.yu.introtoalgs;
 
 public class EstimateSecretAlgorithmsClient {
 
-    private int prevOne;
-    private int prevTwo;
-    private int prevThree;
-    private int prevFour;
-
     private static double doubleAlgorithmOne (int n) {
         SecretAlgorithm1 algOne = new SecretAlgorithm1 ();
         algOne.setup(n);
@@ -23,26 +18,26 @@ public class EstimateSecretAlgorithmsClient {
     }
 
     private static double doubleAlgorithmTwo (int n) {
-        SecretAlgorithm2 algOne = new SecretAlgorithm2 ();
-        algOne.setup(n);
+        SecretAlgorithm2 algTwo = new SecretAlgorithm2 ();
+        algTwo.setup(n);
         Stopwatch stopwatch = new Stopwatch();
-        algOne.execute();
+        algTwo.execute();
         return stopwatch.elapsedTime();
     }
 
     private static double doubleAlgorithmThree (int n) {
-        SecretAlgorithm3 algOne = new SecretAlgorithm3 ();
-        algOne.setup(n);
+        SecretAlgorithm3 algThree = new SecretAlgorithm3 ();
+        algThree.setup(n);
         Stopwatch stopwatch = new Stopwatch();
-        algOne.execute();
+        algThree.execute();
         return stopwatch.elapsedTime();
     }
 
     private static double doubleAlgorithmFour (int n) {
-        SecretAlgorithm4 algOne = new SecretAlgorithm4 ();
-        algOne.setup(n);
+        SecretAlgorithm4 algFour = new SecretAlgorithm4 ();
+        algFour.setup(n);
         Stopwatch stopwatch = new Stopwatch();
-        algOne.execute();
+        algFour.execute();
         return stopwatch.elapsedTime();
     }
 
@@ -60,7 +55,6 @@ public class EstimateSecretAlgorithmsClient {
         }    
     } 
 
-
     public static void main (final String [] args) {
         EstimateSecretAlgorithmsClient obj = new EstimateSecretAlgorithmsClient();
         System.out.println("Algorithm 1:");
@@ -68,7 +62,7 @@ public class EstimateSecretAlgorithmsClient {
             System.out.println("time: " + obj.doubleAlgorithmOne(i) + "      " + "n: " + i); 
         }
         System.out.println("Algorithm 2:");
-        for (int i = 256; i <= 2684354568L; i *= 2) {
+        for (int i = 2048; i <= 268435456; i *= 2) {
             System.out.println("time: " + obj.doubleAlgorithmTwo(i) + "      " + "n: " + i); 
         }     
         System.out.println("Algorithm 3:");
@@ -80,5 +74,4 @@ public class EstimateSecretAlgorithmsClient {
             System.out.println("time: " + obj.doubleAlgorithmFour(i) + "      " + "n: " + i); 
         }
     }
-    
 }
