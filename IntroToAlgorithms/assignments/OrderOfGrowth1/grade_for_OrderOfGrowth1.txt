@@ -1,0 +1,7 @@
+Assignment OrderOfGrowth1 [BohbotTom]: 10/10
+
+good work!
+
+Pulled files on Fri Sep 18 10:36:23 EDT 2020
+Latest commit of student files ....
+Latest commit of IntroToAlgorithms/assignments/OrderOfGrowth1/OrderOfGrowth1.pdf was on: Fri Sep 18 01:47:49 2020
