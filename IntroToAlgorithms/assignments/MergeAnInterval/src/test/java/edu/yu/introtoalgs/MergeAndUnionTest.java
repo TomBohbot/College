@@ -18,7 +18,6 @@ import java.util.*;
 
 public class MergeAndUnionTest {
 
-    private MergeAnInterval obj = new MergeAnInterval();
     private HashSet <Interval> intervals = new HashSet <Interval>();
 
     public HashSet<Interval> fillIntervals () {
