@@ -13,6 +13,7 @@ import java.io.*;
 
 import edu.yu.introtoalgs.MergeAnInterval;
 import edu.yu.introtoalgs.MergeAnInterval.Interval;
+
 import java.util.*;
 
 
@@ -52,10 +53,14 @@ public class MergeAndUnionTest {
         Interval newIntervalOne = new Interval(25 , 26);  
         // Making expected return value:
         HashSet <Interval> testInterval = new HashSet <Interval>();
-        testInterval = intervals;
+        testInterval.add (new Interval (0 , 2) );
+        testInterval.add (new Interval (3 , 4) );
+        testInterval.add (new Interval (7 , 10) );
+        testInterval.add (new Interval (12 , 18) );
+        testInterval.add (new Interval (19 , 20) );
         testInterval.add(newIntervalOne);
         //Test Case 1:
-        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
         intervals.clear();
     }
 
@@ -143,6 +148,35 @@ public class MergeAndUnionTest {
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
         intervals.clear();
+    }
+
+    @Test
+    public void leffTestOne() {
+        intervals.add(new Interval(3 , 4) );
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval(3 , 4) );
+        testInterval.add(new Interval(0 , 2) );
+        Interval newIntervalOne = new Interval(0 , 2);
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+    }
+
+    @Test
+    public void leffTestTwo() {
+        intervals.add(new Interval(1 , 4) );
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval(0 , 4) );
+        Interval newIntervalOne = new Interval(0 , 2);
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+    }
+
+    @Test
+    public void leffTestThree() {
+        intervals.add(new Interval(1 , 2) );
+        intervals.add(new Interval(3 , 4) );
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval(0 , 4) );
+        Interval newIntervalOne = new Interval(0 , 3);
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
     }
 
 }

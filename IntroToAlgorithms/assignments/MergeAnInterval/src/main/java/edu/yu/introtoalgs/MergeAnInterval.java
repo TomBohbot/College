@@ -1,4 +1,10 @@
 package edu.yu.introtoalgs;
+
+/**
+ * @author Tom Bohbot
+ * @version October 29, 2020
+ * MergeAnInterval Assignment - Intro To Algorithms
+ */
 import java.util.*;
 
 public class MergeAnInterval {
@@ -38,20 +44,23 @@ public class MergeAnInterval {
    * interval(s), to preseve the "disjointedness" property.
    */
 
-  private static HashSet <Interval> iterateThrough = new HashSet <Interval>();; // imagine this assignment as the calendar example.
+  private static HashSet <Interval> iterateThrough = new HashSet <Interval>();
 
 
   public static Set<Interval> merge (final Set<Interval> intervals, Interval newInterval) {
     boolean hasMerged = false;
-    HashSet <Interval> calendar = (HashSet<Interval>) intervals; // imagine this assignment as the calendar example.
-    // This is to avoid a compile time issue:
-    for (Interval interval : intervals) {
+    // make a copy of intervals so that I can modify a set initially set to final:
+    HashSet <Interval> calendar = (HashSet<Interval>) intervals; 
+    // This is to avoid a compile time issue: O(n) operation
+    for (Interval interval : intervals) { 
       iterateThrough.add(interval);
     }
+    // Constant Operations:
     if (intervals.size() == 0) {
       calendar.add(newInterval);
       return calendar;
     }
+    // loop through intervals to check if merges must be made. O(n) operation. In loop are only O(1) operations, potentially amortized O(n) ops.
     for (Interval interval : iterateThrough) {
       int beginning = interval.left;
       int end = interval.right;
@@ -59,46 +68,39 @@ public class MergeAnInterval {
       if (newInterval.left >= beginning && newInterval.right <= end) {
         return intervals;
       }
-      // If Right end is included in interval:
+      // If right end is included in interval:
       if (newInterval.right >= beginning && newInterval.right <= end) {
-        if (newInterval.left >= beginning) {
-          newInterval = interval;
-        }
         // a merge must take place:
         if (newInterval.left < beginning) {
           calendar.remove(interval);
-          if (hasMerged == true) {
-            calendar.remove(newInterval); // testing w this.
-          }
-          hasMerged = true;
+          if (hasMerged == true) { calendar.remove(newInterval); }
           Interval updateLeftSide = new Interval(newInterval.left , end);
           calendar.add(updateLeftSide);
           newInterval = updateLeftSide;
+          hasMerged = true;
         }
       }
       // If left end is included in interval:
       if (newInterval.left >= beginning && newInterval.left <= end) {
-        if (newInterval.right <= end) {
-          newInterval = interval;
-          // return intervals;
-        }
         if (newInterval.right > end) {
           calendar.remove(interval);
-          if (hasMerged == true) {
-            calendar.remove(newInterval); // testing w this.
-          }
-          hasMerged = true;
+          if (hasMerged == true) { calendar.remove(newInterval); }
           Interval updateRightSide = new Interval(beginning , newInterval.right);
           calendar.add(updateRightSide);
           newInterval = updateRightSide;
+          hasMerged = true;
         }
       }
-      // If new Interval swallows old interval:
+      // If new interval swallows old interval:
       if (newInterval.left <= beginning && newInterval.right >= end) {
         calendar.remove(interval);
         calendar.add(newInterval);
         hasMerged = true;
       }
+    }
+    // If a new interval must be added b/c it does not intersect:
+    if (hasMerged == false) {
+      calendar.add(newInterval);
     }
     // printOut(calendar);
     return calendar;
