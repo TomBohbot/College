@@ -1,5 +1,14 @@
 Assignment DrillComparingOrdersOfGrowth-1 [BohbotTom]: 9.5/10
 
+take #2
+
+Marking your answer for question 3.4 (n log n) correct after realizing that you worked
+in base 10.  However, doesn't change your grade based on rubric (best 5/6 in section 3).
+
+
+
+take #1
+
 very good work!
 
 Pulled files on Fri Sep 25 10:03:44 EDT 2020
@@ -59,6 +68,6 @@ the result within an hour
 1)
 2)
 3)
-4)X (My answer: 9 x 10^{11}, i don't quite follow your answer)
+4)
 5)
 6)
