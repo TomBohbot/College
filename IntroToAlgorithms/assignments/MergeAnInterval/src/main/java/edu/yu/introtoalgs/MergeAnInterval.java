@@ -43,14 +43,14 @@ public class MergeAnInterval {
    * and the new interval, merging the new interval if necessary into existing
    * interval(s), to preseve the "disjointedness" property.
    */
-
-  private static HashSet <Interval> iterateThrough = new HashSet <Interval>();
-
-
   public static Set<Interval> merge (final Set<Interval> intervals, Interval newInterval) {
+    if(intervals == null || newInterval == null) {
+      throw new IllegalArgumentException("Input cannot be null.");
+    }
     boolean hasMerged = false;
     // make a copy of intervals so that I can modify a set initially set to final:
     HashSet <Interval> calendar = (HashSet<Interval>) intervals; 
+    HashSet <Interval> iterateThrough = new HashSet <Interval>();
     // This is to avoid a compile time issue: O(n) operation
     for (Interval interval : intervals) { 
       iterateThrough.add(interval);

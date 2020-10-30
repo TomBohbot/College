@@ -30,18 +30,43 @@ public class MergeAndUnionTest {
         return intervals;
     }
 
+    @Test (expected = IllegalArgumentException.class)
+	public void nullSet () {
+        intervals = null;
+        Interval newIntervalOne = new Interval(1 , 2); 
+        MergeAnInterval.merge(intervals, newIntervalOne); 
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+	public void nullInterval () {
+		intervals = fillIntervals();
+        Interval newIntervalOne = null;
+        MergeAnInterval.merge(intervals, newIntervalOne); 
+        intervals.clear();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void nullParamaters () {
+		intervals = null;
+        Interval newIntervalOne = null;
+        MergeAnInterval.merge(intervals, newIntervalOne); 
+    }
+    
     @Test
-    public void findFirstInstanceDoesExist() {
+    public void findFirstInstanceDoesExist() { // confirm this one..
         // filling intervals set:
         intervals = fillIntervals();
         // Making the new Interval:
         Interval newIntervalOne = new Interval(1 , 2);  
         // Making expected return value:
         HashSet <Interval> testInterval = new HashSet <Interval>();
-        testInterval = intervals;
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (3 , 4) );
+        testInterval.add(new Interval (7 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
         //Test Case 1:
-        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
         intervals.clear();
     }
 
