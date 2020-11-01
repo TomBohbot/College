@@ -28,8 +28,12 @@ public class MergeAnInterval {
 
     @Override
     public int compareTo(Interval o) {
+      int left = o.left;
+      if (this.left < left) {
+        return -1;
+      }
       // TODO Auto-generated method stub
-      return 0;
+      return 1;
     }
 
     // fill in the rest yourself!
@@ -102,8 +106,11 @@ public class MergeAnInterval {
     if (hasMerged == false) {
       calendar.add(newInterval);
     }
-    // printOut(calendar);
-    return calendar;
+    // Sorting the return variable: O(nlogn)
+    LinkedList <Interval> sortedCalendar = new LinkedList <Interval> (calendar);
+    Collections.sort(sortedCalendar);
+    LinkedHashSet finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
+    return finalSortedCalendar;
   }
 
   // private static void printOut (HashSet <MergeAnInterval.Interval> calendar) {
