@@ -52,7 +52,8 @@ public class MergeAnInterval {
       }
       return false;
     }
-    // @Override 
+    
+    @Override 
     public int hashCode () {
       return this.left;
     }
