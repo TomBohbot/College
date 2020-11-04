@@ -120,6 +120,27 @@ public class MergeAndUnionTest {
         testInterval.add(new Interval (19 , 20) );
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
+        intervals.clear();
+    }
+
+    @Test
+    public void addAnIntervalInMiddle() {
+        // filling intervals set:
+        intervals = fillIntervals();
+        // Making the new Interval:
+        Interval newIntervalOne = new Interval(5 , 6);  
+        // Making expected return value:
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (3 , 4) );
+        testInterval.add(new Interval (5 , 6) );
+        testInterval.add(new Interval (7 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        //Test Case 1:
+        assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         intervals.clear();
     }
 
@@ -139,6 +160,7 @@ public class MergeAndUnionTest {
         testInterval.add(newIntervalOne);
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         intervals.clear();
     }
 
@@ -168,6 +190,7 @@ public class MergeAndUnionTest {
         //Test Case 1:
         LinkedHashSet <Interval> returnedSet = (LinkedHashSet <Interval>) MergeAnInterval.merge(intervals, newIntervalOne);
         assertEquals("Testing if first union works" , testInterval.size() , returnedSet.size() );
+        assertEquals("Testing if first union works" , testInterval , returnedSet );
         // Test Case 2:
         // for (Interval interval : returnedSet) {
             
@@ -191,17 +214,15 @@ public class MergeAndUnionTest {
         // Making the new Interval:
         Interval newIntervalOne = new Interval(9 , 13);  
         // Making expected return value:
+        Interval returnedInterval = new Interval(7 , 18);  
         HashSet <Interval> testInterval = new HashSet <Interval>();
         testInterval.add(intervalOne);
         testInterval.add(intervalTwo);
-        testInterval.add(newIntervalOne);
+        testInterval.add(returnedInterval);
         testInterval.add(intervalFive);
         //Test Case 1:
-        // assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
-        // assertTrue("Testing if first union works" , testInterval.equals(MergeAnInterval.merge(intervals, newIntervalOne) ) );
-        // assertTrue("Testing if first union works" , testInterval.equals(testIntervalTwo) );
-        // test code works, just having problem comparing sets :/
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         intervals.clear();
     }
 
@@ -212,23 +233,29 @@ public class MergeAndUnionTest {
         // Making the new Interval:
         Interval newIntervalOne = new Interval(1 , 9);  
         // Making expected return value:
+        Interval returnedIntervalOne = new Interval(0 , 10);  
         HashSet <Interval> testInterval = new HashSet <Interval>();
         Interval intervalFour = new Interval (12 , 18);
         Interval intervalFive = new Interval (19 , 20);
-        testInterval.add(newIntervalOne);
+        testInterval.add(returnedIntervalOne);
         testInterval.add(intervalFour);
         testInterval.add(intervalFive);
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         Interval newIntervalTwo = new Interval(12 , 30);  
+        // Interval returnedIntervalTwo = new Interval(12 , 30);  
         testInterval.clear();
-        testInterval.add(newIntervalOne);
+        testInterval.add(returnedIntervalOne);
         testInterval.add(newIntervalTwo);
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalTwo).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalTwo) );
         Interval newIntervalThree = new Interval(3 , 1000);  
+        Interval returnIntervalThree = new Interval(0 , 1000);  
         testInterval.clear();
-        testInterval.add(newIntervalThree);
+        testInterval.add(returnIntervalThree);
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalThree).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalThree) );
         intervals.clear();
     }
 
@@ -243,6 +270,7 @@ public class MergeAndUnionTest {
         testInterval.add(newIntervalOne);
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         intervals.clear();
     }
 
@@ -252,11 +280,13 @@ public class MergeAndUnionTest {
         intervals = fillIntervals();
         // Making the new Interval:
         Interval newIntervalOne = new Interval(1 , 19);  
+        Interval returnIntervalOne = new Interval(0 , 20);  
         // Making expected return value:
         HashSet <Interval> testInterval = new HashSet <Interval>();
-        testInterval.add(newIntervalOne);
+        testInterval.add(returnIntervalOne);
         //Test Case 1:
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
         intervals.clear();
     }
 
@@ -268,6 +298,7 @@ public class MergeAndUnionTest {
         testInterval.add(new Interval(0 , 2) );
         Interval newIntervalOne = new Interval(0 , 2);
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
     }
 
     @Test
@@ -277,6 +308,7 @@ public class MergeAndUnionTest {
         testInterval.add(new Interval(0 , 4) );
         Interval newIntervalOne = new Interval(0 , 2);
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
     }
 
     @Test
@@ -287,6 +319,7 @@ public class MergeAndUnionTest {
         testInterval.add(new Interval(0 , 4) );
         Interval newIntervalOne = new Interval(0 , 3);
         assertEquals("Testing if first union works" , testInterval.size() , MergeAnInterval.merge(intervals, newIntervalOne).size() );
+        assertEquals("Testing if first union works" , testInterval , MergeAnInterval.merge(intervals, newIntervalOne) );
     }
 
 }

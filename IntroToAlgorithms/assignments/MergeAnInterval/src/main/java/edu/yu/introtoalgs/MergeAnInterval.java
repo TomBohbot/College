@@ -37,7 +37,6 @@ public class MergeAnInterval {
 
     @Override 
     public boolean equals (Object that) {
-      System.out.println("HII");
       if (this == that) {
         return true;
       }
@@ -54,9 +53,9 @@ public class MergeAnInterval {
       return false;
     }
     // @Override 
-    // public int hashCode () {
-    //   return Objects.hash(isbn);
-    // }
+    public int hashCode () {
+      return this.left;
+    }
     // fill in the rest yourself!
   } // Interval class
 
