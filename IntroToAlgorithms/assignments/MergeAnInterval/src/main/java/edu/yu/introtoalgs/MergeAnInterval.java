@@ -32,10 +32,31 @@ public class MergeAnInterval {
       if (this.left < left) {
         return -1;
       }
-      // TODO Auto-generated method stub
       return 1;
     }
 
+    @Override 
+    public boolean equals (Object that) {
+      System.out.println("HII");
+      if (this == that) {
+        return true;
+      }
+      if (that == null) {
+        return false;
+      }
+      if (this.getClass() != that.getClass() ) {
+        return false;
+      }
+      Interval thatInterval = (Interval) that;
+      if (thatInterval.left == this.left && thatInterval.right == this.right) {
+        return true;
+      }
+      return false;
+    }
+    // @Override 
+    // public int hashCode () {
+    //   return Objects.hash(isbn);
+    // }
     // fill in the rest yourself!
   } // Interval class
 
@@ -51,6 +72,9 @@ public class MergeAnInterval {
     if(intervals == null || newInterval == null) {
       throw new IllegalArgumentException("Input cannot be null.");
     }
+    if (newInterval.left >= newInterval.right) {
+      throw new IllegalArgumentException("left side must be less than right side.");
+    }
     boolean hasMerged = false;
     // make a copy of intervals so that I can modify a set initially set to final:
     HashSet <Interval> calendar = (HashSet<Interval>) intervals; 
@@ -58,6 +82,9 @@ public class MergeAnInterval {
     // This is to avoid a compile time issue: O(n) operation
     for (Interval interval : intervals) { 
       iterateThrough.add(interval);
+      if (interval.left >= interval.right) {
+        throw new IllegalArgumentException("left side must be less than right side.");
+      }
     }
     // Constant Operations:
     if (intervals.size() == 0) {

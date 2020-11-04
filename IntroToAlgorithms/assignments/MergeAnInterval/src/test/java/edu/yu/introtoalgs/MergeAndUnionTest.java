@@ -50,6 +50,59 @@ public class MergeAndUnionTest {
 		intervals = null;
         Interval newIntervalOne = null;
         MergeAnInterval.merge(intervals, newIntervalOne); 
+        intervals.clear();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void illegalNewInterval () {
+		intervals = fillIntervals();
+        Interval newIntervalOne = new Interval (2 , 1);
+        MergeAnInterval.merge(intervals, newIntervalOne); 
+        intervals.clear();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void illegalNewIntervalTwo () {
+		intervals = fillIntervals();
+        Interval newIntervalOne = new Interval (2 , 2);
+        MergeAnInterval.merge(intervals, newIntervalOne); 
+        intervals.clear();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void illegalSetOfIntervals () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (3 , 4) );
+        testInterval.add(new Interval (11 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval (0 , 2);
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void illegalSetOfIntervalsTwo () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (9 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval (0 , 2);
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void IllegalIntervalsEverywhere () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (9 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval (8 , 2);
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
     }
     
     @Test
@@ -91,6 +144,38 @@ public class MergeAndUnionTest {
 
     @Test
     public void mergeOneSet() {
+        // Instantiaing intervals:
+        Interval intervalOne = new Interval (0 , 2);
+        Interval intervalTwo = new Interval (3 , 4);
+        Interval intervalThree = new Interval (7 , 10);
+        Interval intervalFour = new Interval (12 , 18);
+        Interval intervalFive = new Interval (19 , 20);
+        // filling intervals set:
+        intervals.add(intervalOne);
+        intervals.add(intervalTwo);
+        intervals.add(intervalThree);
+        intervals.add(intervalFour);
+        intervals.add(intervalFive);      
+        // Making the new Interval:
+        Interval newIntervalOne = new Interval(9 , 13);  
+        Interval returnedNewInterval = new Interval(7 , 18);
+        // Making expected return value:
+        LinkedHashSet <Interval> testInterval = new LinkedHashSet <Interval>();
+        testInterval.add(intervalOne);
+        testInterval.add(intervalTwo);
+        testInterval.add(returnedNewInterval);
+        testInterval.add(intervalFive);
+        //Test Case 1:
+        LinkedHashSet <Interval> returnedSet = (LinkedHashSet <Interval>) MergeAnInterval.merge(intervals, newIntervalOne);
+        assertEquals("Testing if first union works" , testInterval.size() , returnedSet.size() );
+        // Test Case 2:
+        // for (Interval interval : returnedSet) {
+            
+        // }
+    }
+
+    @Test
+    public void mergeOneSetUnsorted() {
         // Instantiaing intervals:
         Interval intervalOne = new Interval (0 , 2);
         Interval intervalTwo = new Interval (3 , 4);
