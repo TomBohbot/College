@@ -139,12 +139,4 @@ public class MergeAnInterval {
     LinkedHashSet finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
     return finalSortedCalendar;
   }
-
-  // private static void printOut (HashSet <MergeAnInterval.Interval> calendar) {
-  //   for (Interval interval : calendar) {
-  //     System.out.println("This is left Interval " + interval.left);
-  //     System.out.println("This is right Interval " + interval.right);
-  //     System.out.println(" ");
-  //   }
-  // }
 }

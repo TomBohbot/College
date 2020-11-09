@@ -1,9 +1,10 @@
-/**
- * The test class SearchWithATweak.
- * @author  Tom Bohbot
- * @version August 26, 2020
- */
+package edu.yu.introtoalgs;
 
+/**
+ * Testing MergeAnInterval.
+ * @author  Tom Bohbot
+ * @version November 8, 2020
+ */
 
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -188,13 +189,9 @@ public class MergeAndUnionTest {
         testInterval.add(returnedNewInterval);
         testInterval.add(intervalFive);
         //Test Case 1:
-        LinkedHashSet <Interval> returnedSet = (LinkedHashSet <Interval>) MergeAnInterval.merge(intervals, newIntervalOne);
+        HashSet <Interval> returnedSet = (HashSet <Interval>) MergeAnInterval.merge(intervals, newIntervalOne);
         assertEquals("Testing if first union works" , testInterval.size() , returnedSet.size() );
         assertEquals("Testing if first union works" , testInterval , returnedSet );
-        // Test Case 2:
-        // for (Interval interval : returnedSet) {
-            
-        // }
     }
 
     @Test
