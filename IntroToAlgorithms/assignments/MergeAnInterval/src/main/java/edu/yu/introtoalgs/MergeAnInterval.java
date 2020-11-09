@@ -75,9 +75,6 @@ public class MergeAnInterval {
     if (newInterval.left >= newInterval.right) {
       throw new IllegalArgumentException("left side must be less than right side.");
     }
-    if (newInterval.left < 0) {
-      throw new IllegalArgumentException("Interval cannot have negative numbers per Piazza post 91.");
-    }
     boolean hasMerged = false;
     // make a copy of intervals so that I can modify a set initially set to final:
     HashSet <Interval> calendar = (HashSet<Interval>) intervals; 
@@ -87,9 +84,6 @@ public class MergeAnInterval {
       iterateThrough.add(interval);
       if (interval.left >= interval.right) {
         throw new IllegalArgumentException("left side must be less than right side.");
-      }
-      if (interval.left < 0){
-        throw new IllegalArgumentException("Interval cannot have negative numbers per Piazza post 91.");
       }
     }
     // Constant Operations:
@@ -142,7 +136,9 @@ public class MergeAnInterval {
     // Sorting the return variable: O(nlogn) Sorting is unnessary per Piazza post Question 90, so muting out following code. 
     // LinkedList <Interval> sortedCalendar = new LinkedList <Interval> (calendar);
     // Collections.sort(sortedCalendar);
-    // LinkedHashSet finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
+    // LinkedHashSet <Interval> finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
     return calendar;
   }
+
+
 }

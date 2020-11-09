@@ -106,11 +106,11 @@ public class MergeAndUnionTest {
         MergeAnInterval.merge(testInterval, newIntervalOne); 
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test 
 	public void negInterval () {
         HashSet <Interval> testInterval = new HashSet <Interval>();
         testInterval.add(new Interval (0 , 2) );
-        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (4 , 6) );
         testInterval.add(new Interval (9 , 10) );
         testInterval.add(new Interval (12 , 18) );
         testInterval.add(new Interval (19 , 20) );
@@ -118,11 +118,11 @@ public class MergeAndUnionTest {
         MergeAnInterval.merge(testInterval, newIntervalOne); 
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test 
 	public void negIntervalSet () {
         HashSet <Interval> testInterval = new HashSet <Interval>();
         testInterval.add(new Interval (-1 , 2) );
-        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (4 , 6) );
         testInterval.add(new Interval (9 , 10) );
         testInterval.add(new Interval (12 , 18) );
         testInterval.add(new Interval (19 , 20) );
@@ -130,16 +130,40 @@ public class MergeAndUnionTest {
         MergeAnInterval.merge(testInterval, newIntervalOne); 
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test 
 	public void negIntervalSeBoth () {
         HashSet <Interval> testInterval = new HashSet <Interval>();
-        testInterval.add(new Interval (-1 , 2) );
-        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (-10 , -8) );
+        testInterval.add(new Interval (4 , 6) );
         testInterval.add(new Interval (9 , 10) );
         testInterval.add(new Interval (12 , 18) );
         testInterval.add(new Interval (19 , 20) );
-        Interval newIntervalOne = new Interval(-1 , 2); 
-        MergeAnInterval.merge(testInterval, newIntervalOne); 
+        Interval newIntervalOne = new Interval(-6 , 1); 
+        HashSet <Interval> compareInterval = new HashSet <Interval>();
+        compareInterval.add(new Interval (-10 , -8) );
+        compareInterval.add(new Interval (-6 , 1) );
+        compareInterval.add(new Interval (4 , 6) );
+        compareInterval.add(new Interval (9 , 10) );
+        compareInterval.add(new Interval (12 , 18) );
+        compareInterval.add(new Interval (19 , 20) );
+        HashSet <Interval> testOneInterval = (HashSet <Interval>) MergeAnInterval.merge(testInterval, newIntervalOne);
+        assertEquals("Testing if first union works" , compareInterval , testOneInterval);
+        // Test 2:
+        Interval newIntervalTwo = new Interval(-4 , 13); 
+        compareInterval.clear();
+        compareInterval.add(new Interval (-10 , -8) );
+        compareInterval.add(new Interval (-6 , 18) );
+        compareInterval.add(new Interval (19 , 20) );
+        HashSet <Interval> testTwoInterval = (HashSet <Interval>) MergeAnInterval.merge(testOneInterval, newIntervalTwo);
+        assertEquals("Testing if first union works" , compareInterval , testTwoInterval);
+        // Test 3: Nothing same interval added:
+        assertEquals("Testing if first union works" , compareInterval , MergeAnInterval.merge(testOneInterval, newIntervalTwo));
+        // Test 4:
+        compareInterval.clear();
+        Interval newIntervalThree = new Interval (-100 , 100);
+        compareInterval.add(new Interval (-100 , 100) );
+        HashSet <Interval> testFourInterval = (HashSet <Interval>) MergeAnInterval.merge(testOneInterval, newIntervalThree);
+        assertEquals("Testing if first union works" , compareInterval , testFourInterval);
     }
     
     @Test
