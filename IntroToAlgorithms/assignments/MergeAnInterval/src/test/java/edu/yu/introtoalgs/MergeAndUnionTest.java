@@ -105,6 +105,42 @@ public class MergeAndUnionTest {
         Interval newIntervalOne = new Interval (8 , 2);
         MergeAnInterval.merge(testInterval, newIntervalOne); 
     }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void negInterval () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (0 , 2) );
+        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (9 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval(-1 , 2); 
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void negIntervalSet () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (-1 , 2) );
+        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (9 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval(0 , 2); 
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+	public void negIntervalSeBoth () {
+        HashSet <Interval> testInterval = new HashSet <Interval>();
+        testInterval.add(new Interval (-1 , 2) );
+        testInterval.add(new Interval (4 , 4) );
+        testInterval.add(new Interval (9 , 10) );
+        testInterval.add(new Interval (12 , 18) );
+        testInterval.add(new Interval (19 , 20) );
+        Interval newIntervalOne = new Interval(-1 , 2); 
+        MergeAnInterval.merge(testInterval, newIntervalOne); 
+    }
     
     @Test
     public void findFirstInstanceDoesExist() { // confirm this one..
@@ -261,7 +297,7 @@ public class MergeAndUnionTest {
         // filling intervals set:
         intervals = fillIntervals();
         // Making the new Interval:
-        Interval newIntervalOne = new Interval(-1 , 1000);  
+        Interval newIntervalOne = new Interval(0 , 1000);  
         // Making expected return value:
         HashSet <Interval> testInterval = new HashSet <Interval>();
         testInterval.add(newIntervalOne);
