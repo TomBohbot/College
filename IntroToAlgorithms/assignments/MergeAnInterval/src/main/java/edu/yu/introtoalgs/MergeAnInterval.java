@@ -81,10 +81,13 @@ public class MergeAnInterval {
     HashSet <Interval> iterateThrough = new HashSet <Interval>();
     // This is to avoid a compile time issue: O(n) operation
     for (Interval interval : intervals) { 
-      iterateThrough.add(interval);
+      if (interval == null) {
+        throw new IllegalArgumentException("Interval cannot be null.");
+      }
       if (interval.left >= interval.right) {
         throw new IllegalArgumentException("left side must be less than right side.");
-      }
+      }      
+      iterateThrough.add(interval);
     }
     // Constant Operations:
     if (intervals.size() == 0) {
