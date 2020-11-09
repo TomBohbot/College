@@ -133,10 +133,10 @@ public class MergeAnInterval {
     if (hasMerged == false) {
       calendar.add(newInterval);
     }
-    // Sorting the return variable: O(nlogn)
-    LinkedList <Interval> sortedCalendar = new LinkedList <Interval> (calendar);
-    Collections.sort(sortedCalendar);
-    LinkedHashSet finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
-    return finalSortedCalendar;
+    // Sorting the return variable: O(nlogn) Sorting is unnessary per Piazza post Question 90, so muting out following code. 
+    // LinkedList <Interval> sortedCalendar = new LinkedList <Interval> (calendar);
+    // Collections.sort(sortedCalendar);
+    // LinkedHashSet finalSortedCalendar = new LinkedHashSet <Interval> (sortedCalendar);
+    return calendar;
   }
 }
