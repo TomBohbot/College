@@ -46,8 +46,8 @@ public class IntegerLRUCache {
      * @param initialCapacity the initial capacity
      */
     public IntegerLRUCache(final int capacity) {
-        if (capacity <= 0) {
-            throw new IllegalArgumentException("Capacity must be greater than zero");
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Capacity cannot be negative.");
         }
         this.mapToNode = new HashMap <Integer , Node>();;
         this.map = new HashMap <Integer , Integer>();
@@ -68,6 +68,7 @@ public class IntegerLRUCache {
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null.");
         }
+        if (capacity == 0) { return null; }
         if (map.get(key) == null) {
             return null;
         }
@@ -99,6 +100,7 @@ public class IntegerLRUCache {
      */
     public Integer put (final Integer key, final Integer value) {
         if (key == null || value == null) { throw new IllegalArgumentException ("Paramaters cannot be null."); }
+        if (capacity == 0) { return null; }
         // if the key already exists:
         if (map.get(key) != null) {
             get(key); 
@@ -131,6 +133,7 @@ public class IntegerLRUCache {
      */
     public Integer remove(Object key) {
         if (key == null) { throw new IllegalArgumentException("key cannot be null."); }
+        if (capacity == 0) { return null; }
         if (map.get(key) == null) { return null; }
         Integer removedObj = map.remove(key);
         //now must remove from LRU:

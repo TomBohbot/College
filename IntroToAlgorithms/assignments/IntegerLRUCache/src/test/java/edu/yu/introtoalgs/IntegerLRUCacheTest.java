@@ -27,12 +27,7 @@ public class IntegerLRUCacheTest {
     }    
 
     @Test (expected = IllegalArgumentException.class)
-	public void zeroIsCapacity () {
-        IntegerLRUCache cache = new IntegerLRUCache(0);
-    }    
-
-    @Test (expected = IllegalArgumentException.class)
-	public void ptuNullKey () {
+	public void putNullKey () {
         IntegerLRUCache cache = new IntegerLRUCache(5);
         cache.put(null , 1);
     }
@@ -196,4 +191,13 @@ public class IntegerLRUCacheTest {
         assertEquals((Integer) null , cache.put(4 , 40) );
         assertEquals((Integer) 40 , cache.get(4));
     }
+
+    @Test 
+	public void zeroIsCapacity () {
+        IntegerLRUCache cache = new IntegerLRUCache(0);
+        assertEquals((Integer) null , cache.put(1 , 10) );
+        assertEquals((Integer) null , cache.put(1 , 100) );
+        assertEquals((Integer) null , cache.get(1));
+        assertEquals((Integer) null , cache.remove( (Integer) 1) );
+    }    
 }
