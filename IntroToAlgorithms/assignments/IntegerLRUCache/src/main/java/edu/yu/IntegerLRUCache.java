@@ -17,10 +17,9 @@ import java.util.HashSet;
  * "least-recently-used" policy.
  *
  */
-
 public class IntegerLRUCache {
 
-    private static class Node {
+    private class Node {
         private Node next;
         private Node prev;
         private Integer key;
@@ -32,32 +31,7 @@ public class IntegerLRUCache {
         private Integer getKey () {
             return this.key;
         }
-
-        private void setNext(Node next) {
-            this.next = next;
-        }
-
-        private Node getNext() {
-            return this.next;
-        }
-
-        private void setPrevious(Node prev) {
-            this.prev = prev;
-        }
-
-        private Node getPrevious() {
-            return this.prev;
-        }
     }
-
-
-    // private int lruInt;
-    // private int capacity;
-    // private int counter;
-    // private int numberedObjInMap;
-    // private HashMap <Integer , Integer > map;
-    // private HashMap <Integer , Integer > lruTracker;
-    // private HashMap <Integer , Integer > keyToLruTracker = new HashMap <Integer , Integer >();;
 
     private HashMap <Integer , Node> mapToNode;
     private int capacity;
@@ -79,6 +53,32 @@ public class IntegerLRUCache {
         this.capacity = capacity;
     }
 
+    private void heapHeadNode (Node node) {
+        head = head.next;
+        head.prev = null;
+        node.prev = tail;
+        tail.next = node;
+        tail = node;
+    }
+
+    private void adjustHeapOrder (Node node) {
+        Node previousNode = node.prev; 
+        Node nextNode = node.next;
+        previousNode.next = nextNode;
+        nextNode.prev = previousNode;
+    }
+
+    private void appendNode (Node node) {
+        node.prev = tail;
+        tail.next = node;
+        tail = node;
+    }
+
+    private void removeHead (Node node) {
+        head = head.next;
+        head.prev = null;
+    }
+
     /** Returns the cached value associated with the specified key, null if not
      * cached previously
      *
@@ -96,21 +96,13 @@ public class IntegerLRUCache {
         // maintain correct linkedlist order:
         Node node = mapToNode.get(key);
         if (head == node) {
-            head = head.next;
-            head.prev = null;
-            node.prev = tail;
-            tail.next = node;
-            tail = node;
-            return map.get(key);
+            heapHeadNode(node);
         }
-        Node previousNode = node.prev; 
-        Node nextNode = node.next;
-        previousNode.next = nextNode;
-        nextNode.prev = previousNode;
-        // append current node to end of list:
-        node.prev = tail;
-        tail.next = node;
-        tail = node;
+        else if (tail == node) { }
+        else{
+            adjustHeapOrder(node);
+            appendNode(node);
+        }
         return map.get(key);
     }
 
@@ -128,9 +120,7 @@ public class IntegerLRUCache {
      * @throws IllegalArgumentException if either the key or value is null
      */
     public Integer put (final Integer key, final Integer value) {
-        if (key == null || value == null) {
-            throw new IllegalArgumentException ("Paramaters cannot be null.");
-        }
+        if (key == null || value == null) { throw new IllegalArgumentException ("Paramaters cannot be null."); }
         // if the key already exists:
         if (map.get(key) != null) {
             get(key); 
@@ -145,9 +135,7 @@ public class IntegerLRUCache {
             tail = node;
         }
         else {
-            node.prev = tail;
-            tail.next = node;
-            tail = node;
+            appendNode(node);
         }
         mapToNode.put(key , node);
         map.put(key , value);
@@ -164,28 +152,20 @@ public class IntegerLRUCache {
      * @throws IllegalArgumentException if the key is null
      */
     public Integer remove(Object key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null.");
-        }
-        if (map.remove(key) == null) {
-            return null;
-        }
+        if (key == null) { throw new IllegalArgumentException("key cannot be null."); }
+        if (map.remove(key) == null) { return null; }
         Integer removedObj = map.remove(key);
         //now must remove from LRU:
         Node node = mapToNode.get(key);
         if (head == node) {
-            head = head.next;
-            head.prev = null;
+            removeHead(node);
         }
         else if (tail == node) {
             tail = tail.prev;
             tail.next = null;
         }
         else {
-            Node prevNode = node.prev;
-            Node nextNode = node.next;
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+            adjustHeapOrder(node);
         }
         mapToNode.remove(node);
         counter --;
@@ -193,10 +173,8 @@ public class IntegerLRUCache {
     }
 
     private void fullCapacity() {
-        Node lru = head;
-        Integer removeKey = lru.key;
-        head = head.next;
-        head.prev = null;
+        Integer removeKey = head.key;
+        removeHead(head);
         map.remove(removeKey);
         counter --;
     }
