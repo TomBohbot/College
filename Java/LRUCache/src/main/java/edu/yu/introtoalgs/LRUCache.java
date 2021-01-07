@@ -16,7 +16,7 @@ import java.util.HashMap;
  * "least-recently-used" policy.
  *
  */
-public class IntegerLRUCache {
+public class LRUCache {
 
     private class Node {
         private Node next;
