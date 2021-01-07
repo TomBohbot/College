@@ -5,7 +5,7 @@
  */
 import java.util.*;
 
-public class GraphsAndMazes {
+public class GreedyMazeAlgorithm {
 
   /** A immutable coordinate in 2D space.
    *
