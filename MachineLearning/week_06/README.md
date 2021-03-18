@@ -1,0 +1,12 @@
+ # Tom Bohbot's week 6 homework assignments
+- Assignment 1a: Iris_Decision_Tree.ipynb and iris_decision_tree.py and decision_tree.png
+  - Create decision tree using sklearn and save in a png file names decision_tree.
+- Assignment 1b: Voting_Ensemble.ipynb and voting_ensemble.py
+  - Take your best Log. Regression code, knn code, and decision tree and create a voting ensemble classifier
+- Assignment 1c: Iris_Random_Forest.ipynb and voting_ensemble.py
+  - Create a random forest classifier.
+  - To accurately compare to ensembler and dec_tree and look at the ensempler .pynb file and dec_tree .pynb file for most accurate response.
+- Assignment 1d: Iris_Dataset_AdaBoost_And_XGBoost.ipynb and iris_dataset_adaboost_and_xgboost.py
+  - Create a gradient boosted classifier using AdaBoost
+- Optional code for clarity: IrisKnn.ipynb and irisknn.py
+  - The ensmbler asked for a new knn algorithm which I pushed to git in its own file for more code readability
