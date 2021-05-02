@@ -1,4 +1,4 @@
-# HackYU2021
+# HackYU2021 - 1st Place 
 2021 YU Hackathon
 - Speech to Text Recognition
   - Translates speech to a transcript of any language.
