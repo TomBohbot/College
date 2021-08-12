@@ -124,3 +124,5 @@ y = log(c(13.7,15.9,18.5,21.3,23.5,27.2,32.7,36.0,38.6,43.7))
     lowerPredInteral  = b0 + b1*predXStar - qt(predAlpha/2 , df)*S*innerPartOfFormulaPredInterval
     print(paste(newPerCI,"Prediction Interval using x* : [",upperPredInteral,",",lowerPredInteral,"]"))
     
+    
+    
