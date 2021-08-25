@@ -1,9 +1,0 @@
-Grade for assignment [BohbotTom]: 10/10
-Pulled files on Wed Sep 25 09:12:00 EDT 2019
-Latest commit of student files ....
-Latest commit of src/main/java/edu/yu/intro/VerifyRandom.java was on: Tue Sep 24 18:46:55 2019
-Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
-Picked up JAVA_TOOL_OPTIONS: -Xms4096m -Xmx15G -XX:MaxMetaspaceSize=1G
-Average simulated probability:                                    0.028 
-Number of simulations:                                            10000 
-Difference (as ratio) with respect to predicted probability:      0.010 

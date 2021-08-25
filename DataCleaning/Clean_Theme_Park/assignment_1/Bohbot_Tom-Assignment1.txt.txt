@@ -1,0 +1,15 @@
+@author Tom Bohbot
+
+Description of Commands:
+1) I began by making a new column that filtered out all the numbers from the column using regex and replace method.
+2) I then filtered out the strings from my original column to create an ID column.
+3) I transformed the ID column to number to unify the data as type number and not string.
+4) I took advantage of the empty cells in the ID column to know which cells in other column were attractions vs. area or category name.
+5) I duplicated the column with attractions, park area, and category names. 
+6) I transformed column with attraction, category name, and park area to delete cells that were blank in the attraction ID using an if statement in GREL which resulted in a column with only attractions. 
+7) I inverted the GREL statement to delete attractions in my column with category names and park areas to result in a column with only category names and park areas.
+8) I noticed a pattern for Category Name to Attraction and used the drop down feature to take advantage of the pattern and correctly place each attraction in a category.
+9) I then removed all park areas from the column I altered in 8 to have a column with only park areas.
+10) I then used if statements and manual writing to identify park areas as there was no evident pattern and no response to Eli's question on Piazza.
+11) I then used the all drop down to find any empty rows and delete them from the dataset.
+12) I finished and had an identical dataset to yours after manually correcting some typos.

@@ -1,0 +1,425 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "Column 1",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "copy",
+    "columnInsertIndex": 1,
+    "description": "Create column copy at index 1 based on column Column 1 using expression grel:value"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "copy",
+    "expression": "grel:value.replace(/\\d+/, \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy using expression grel:value.replace(/\\d+/, \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Column 1",
+    "expression": "grel:value.replace(/\\D+/, \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Column 1 using expression grel:value.replace(/\\D+/, \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Column 1",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Column 1 using expression value.toNumber()"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Column 1",
+    "newColumnName": "Attraction ID",
+    "description": "Rename column Column 1 to Attraction ID"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "copy",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "copy2",
+    "columnInsertIndex": 2,
+    "description": "Create column copy2 at index 2 based on column copy using expression grel:value"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Attraction ID",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [],
+        "fromBlank": true,
+        "fromError": false,
+        "to": "blank"
+      }
+    ],
+    "description": "Mass edit cells in column Attraction ID"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "copy2",
+    "expression": "grel:if(cells['Attraction ID'].value == 'blank', value , '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy2 using expression grel:if(cells['Attraction ID'].value == 'blank', value , '')"
+  },
+  {
+    "op": "core/fill-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "copy2",
+    "description": "Fill down cells in column copy2"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "copy2",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "copy3",
+    "columnInsertIndex": 3,
+    "description": "Create column copy3 at index 3 based on column copy2 using expression grel:value"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "copy",
+    "newColumnName": "Attraction",
+    "description": "Rename column copy to Attraction"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "copy2",
+    "newColumnName": "Category",
+    "description": "Rename column copy2 to Category"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Category",
+    "expression": "grel:if(cells['Attraction ID'].value == 'blank', '' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Category using expression grel:if(cells['Attraction ID'].value == 'blank', '' , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Attraction",
+    "expression": "grel:if(cells['Attraction ID'].value == 'blank', '' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Attraction using expression grel:if(cells['Attraction ID'].value == 'blank', '' , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Attraction ID",
+    "expression": "grel:if(cells['Attraction'].value == ' ', 'blank' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Attraction ID using expression grel:if(cells['Attraction'].value == ' ', 'blank' , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Category",
+    "expression": "grel:if(cells['Attraction ID'].value == 'blank', '' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Category using expression grel:if(cells['Attraction ID'].value == 'blank', '' , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value >= 1, if(cells['Attraction ID'].value <= 9, 'Tundra Land', '') , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value >= 1, if(cells['Attraction ID'].value <= 9, 'Tundra Land', '') , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value >= 10, if(cells['Attraction ID'].value <= 19, 'Kiddie Land', '') , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value >= 10, if(cells['Attraction ID'].value <= 19, 'Kiddie Land', '') , value)"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "Category",
+    "index": 3,
+    "description": "Move column Category to position 3"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value == 35,'Wet Land' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value == 35,'Wet Land' , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value >= 37, if(cells['Attraction ID'].value <= 38, 'Entry Corridor', '') , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value >= 37, if(cells['Attraction ID'].value <= 38, 'Entry Corridor', '') , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Attraction",
+    "expression": "value.toTitlecase()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Attraction using expression value.toTitlecase()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value >= 58, if(cells['Attraction ID'].value <= 59, 'Tundra Land', '') , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value >= 58, if(cells['Attraction ID'].value <= 59, 'Tundra Land', '') , value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "copy3",
+    "expression": "grel:if(cells['Attraction ID'].value == 'blank', '' , value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column copy3 using expression grel:if(cells['Attraction ID'].value == 'blank', '' , value)"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Attraction ID",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "blank"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Attraction ID"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Attraction",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          " "
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": ""
+      }
+    ],
+    "description": "Mass edit cells in column Attraction"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Blank Rows",
+          "expression": "(filter(row.columnNames,cn,isNonBlank(cells[cn].value)).length()==0).toString()",
+          "columnName": "",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "true",
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "Attraction",
+    "index": 0,
+    "description": "Move column Attraction to position 0"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "copy3",
+    "newColumnName": "Park Area",
+    "description": "Rename column copy3 to Park Area"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Category",
+    "newColumnName": "Category Names",
+    "description": "Rename column Category to Category Names"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Attraction",
+    "expression": "value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Attraction using expression value.trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Park Area",
+    "expression": "value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Park Area using expression value.trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Category Names",
+    "expression": "value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Category Names using expression value.trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Attraction ID",
+    "expression": "value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Attraction ID using expression value.trim()"
+  }
+]
