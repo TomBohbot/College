@@ -1,0 +1,6 @@
+Average Max Depth for 2 sized board: 1.81
+Average Number of States for 2 sized board: 5.48
+
+Average Max Depth for 3 sized board: 6.23
+Average Number of States for 3 sized board: 1488.91
+
