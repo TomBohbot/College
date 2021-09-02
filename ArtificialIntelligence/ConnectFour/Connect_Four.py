@@ -38,8 +38,8 @@ def connect_four():
             # position = mp.human_next_move(board, curr_player)
             position = ai.next_move(board, curr_player)
         if curr_player == other_player:
-            position = mp.human_next_move(board, curr_player)
-            # position = mp.random_next_move(board, curr_player)
+            # position = mp.human_next_move(board, curr_player)
+            position = mp.random_next_move(board, curr_player)
             # position = ai.next_move(board, curr_player)
         if rules.won_game(board, position, curr_player):
             game_in_progress = False

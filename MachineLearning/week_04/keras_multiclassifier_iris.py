@@ -12,10 +12,10 @@ import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.optimizers import Adam
-from keras.regularizers import l2
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.regularizers import l2
 
 # load the iris dataset: 
 iris_data = load_iris()
