@@ -15,8 +15,7 @@ def exploraty_data_analysis(df):
     df.plot(x ='Sepal Length (CM)', y='Sepal Width (CM)', c='Species', kind = 'scatter', colormap='jet', title='Comparing Sepal Length to Sepal Width \n Setosa(Blue) Vesicolor(Green) Virginica(Red) \n We can see that comparing these two features will yield better than average results in classifying setosas vs. others as they are nearly linearly seperable.')
     df.plot(x ='Petal Length (CM)', y='Petal Width (CM)', c='Species', kind = 'scatter', colormap='jet', title='Comparing Petal Length to Petal Width \n Setosa(Blue) Vesicolor(Green) Virginica(Red) \n We can see that comparing these two features will yield strong results in classifying setosas vs. others as they are linearly seperable.')
     plt.show()
-    return 1
-
+    
 def covert_type_to_int(iris_type):
     if iris_type == 'setosa':
         return 0
