@@ -5,10 +5,13 @@ from sklearn.preprocessing import OneHotEncoder
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
+from keras.callbacks import TensorBoard
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import Parse_Csv as parser
+import datetime
+from time import time
 
 def exploraty_data_analysis(df):
     print(df.head(10))
@@ -52,11 +55,16 @@ model.add(Dense(2, activation='softmax', name='output'))
 # Adam optimizer with learning rate of 0.001
 optimizer = Adam(lr=0.001)
 model.compile(optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Set up tensorboard:
+tensorboard_callback = TensorBoard(log_dir="logs/{}".format(time() ))
+
+# Print summary:
 print('Neural Network Model Summary: ')
 print(model.summary())
 
 # Train the model
-model.fit(train_x, train_y, verbose=2, batch_size=5, epochs=25)
+model.fit(train_x, train_y, verbose=2, batch_size=5, epochs=25, callbacks=[tensorboard_callback])
 
 # Test on unseen data
 results = model.evaluate(test_x, test_y)
