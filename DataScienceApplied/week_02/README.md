@@ -14,7 +14,12 @@ Success here is to build a model that is as accurate as possible while being abl
 # What Are Some Trade-Offs to Discuss:
 Initially I wanted to optimize for accuracy as I find this very important in any model. However, since the data is imbalanced as noted above, I believe it is important to optimize for precision and recall even if accuracy dips a bit as it is important to be able to correctly identify the people that want to leave their job as it may is a minority and less common. Another notable trade-off is how much data is in the model. Since the model has many more people that want to stay in their job I decided to make the data set larger to produce a more balanced dataset. Although it increases the size of the data set it can lead to higher precision as it allows the machine learning model to see more people that want to leave their job and in turn can learn more fromt them to be more accurate.
 
-# How to Run The Model:
+# How to Run The Python Files:
+To observe the Exploratory Data Analysis (EDA) you can open the .ipynb file called week_02_eda.ipynb 
+
+To run the models:
 ```bash
 python Models.py
 ```
+
+The other files are helper files to Models.py to better modularize the project and have reusable code for future projects.
