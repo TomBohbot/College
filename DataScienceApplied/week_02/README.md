@@ -1,4 +1,4 @@
-DSA Homework 2 -- HR Analytics Job Change of Data Scientists:
+# DSA Homework 2 -- HR Analytics Job Change of Data Scientists:
 
 The purpose of this assignment is to determine the likelyhood that a data scientist will leave their current job. For this assignment we can imagine that we were hired by a company that is actively recruiting for data scientists. This project will give useful information to recruiters so that they can better determine if they should attempt to poach a person from company X to their company. The recruiter will have information that may seem irrelevant about a person and we will make machine learning models to find patterns between that many people they provide and the information provided about them.
 
