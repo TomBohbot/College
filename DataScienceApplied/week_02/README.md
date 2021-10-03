@@ -29,7 +29,28 @@ The other files are helper files to Models.py to better modularize the project a
 The two machine learning models used in this repo are logistic regression and a random forest model. The metrics of these models can be found below:
 
 ```bash
-Logistic Regression Metrics:
+Logistic Regression Metrics Before Balancing Data:
+              precision    recall  f1-score   support
+
+         0.0       0.78      0.95      0.85      2829
+         1.0       0.62      0.24      0.35      1003
+
+    accuracy                           0.76      3832
+   macro avg       0.70      0.59      0.60      3832
+weighted avg       0.74      0.76      0.72      3832
+
+Random Foreset Metrics Before Balancing Data:
+              precision    recall  f1-score   support
+
+         0.0       0.86      0.94      0.90      2829
+         1.0       0.76      0.57      0.65      1003
+
+    accuracy                           0.84      3832
+   macro avg       0.81      0.75      0.77      3832
+weighted avg       0.83      0.84      0.83      3832
+
+
+Logistic Regression Metrics After Balancing Data:
               precision    recall  f1-score   support
 
          0.0       0.72      0.71      0.71      2868
@@ -39,7 +60,7 @@ Logistic Regression Metrics:
    macro avg       0.72      0.72      0.72      5753
 weighted avg       0.72      0.72      0.72      5753
 
-Random Foreset Metrics:
+Random Foreset Metrics After Balancing Data:
               precision    recall  f1-score   support
 
          0.0       0.87      0.87      0.87      2868
