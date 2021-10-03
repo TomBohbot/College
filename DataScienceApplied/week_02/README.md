@@ -19,14 +19,17 @@ To observe the Exploratory Data Analysis (EDA) you can open the .ipynb file call
 
 To run the models:
 ```bash
-python Models.py
+python scripts/Models.py
 ```
 
 The other files are helper files to Models.py to better modularize the project and have reusable code for future projects.
 
 # Analysis:
 
-The two machine learning models used in this repo are logistic regression and a random forest model. The metrics of these models can be found below:
+The two machine learning models used in this repo are logistic regression and a random forest model. When beginning the project much of the data was missing so I dedicated a python file to clean the data set called CleanData.py. This file is not reusable for other projects as it is case specific to the columns and to how they should imputed. To fill the missing values an imputer technique called Multiple Imputation by Chained Equations (MICE) was utilized as this is better then a simple mean imputer. After imputing the data set and analyzing the importance of each feature I decided to only remove the enrollee_id as it is not standard to  Following cleaning the data, that data set was still imbalanced. The models were run on both a balanced and imbalanced data set which can be seen below.
+have unique indentifiers in a machine learning model. After testing the other features I ultimately decided to use all the other features in both machine learning models which resulted in good metrics.
+
+Please see the metrics of each model before and after balancing the data set directlty below:
 
 ```bash
 Logistic Regression Metrics Before Balancing Data:
@@ -70,3 +73,5 @@ Random Foreset Metrics After Balancing Data:
    macro avg       0.87      0.87      0.87      5753
 weighted avg       0.87      0.87      0.87      5753
 ```
+
+
