@@ -17,6 +17,8 @@ Initially I wanted to optimize for accuracy as I find this very important in any
 # How to Run The Python Files:
 To observe the Exploratory Data Analysis (EDA) you can open the .ipynb file called week_02_eda.ipynb 
 
+To observe the differences between the logistic regression and random forest please see the Compare_Models.csv which outputs the occurences of when the models differed in prediction and which model was correct.
+
 To run the models:
 ```bash
 python Models.py

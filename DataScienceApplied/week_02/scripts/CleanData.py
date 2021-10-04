@@ -38,7 +38,7 @@ def map_strings_to_ints(df):
     df['last_new_job'].replace(last_new_job, inplace=True)
     df['training_hours'] = df['training_hours']
 
-def fill_nan_with_mean(df):
+def mice_imputer(df):
     mice = IterativeImputer()
     return pd.DataFrame(mice.fit_transform(df), columns= ['city', 'city_development_index', 'gender', 'relevent_experience', 'enrolled_university', 'education_level', 'major_discipline', 'experience', 'company_size', 'company_type', 'last_new_job', 'training_hours', 'target'])
 
@@ -57,10 +57,14 @@ def convert_to_proper_type(df):
     df['training_hours'] = df['training_hours'].astype(int)
 
 def get_clean_dataframe():
+    """
+    Invokes the other functions in this file. This functions 
+    should be treated as the only public function in this file.
+    """
     df = get_csv()
     remove_redundant_columns(df)
     map_strings_to_ints(df)
-    imputed_df = fill_nan_with_mean(df)
+    imputed_df = mice_imputer(df)
     convert_to_proper_type(imputed_df)
     # missing_values = imputed_df.isnull().sum()
     return imputed_df
