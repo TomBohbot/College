@@ -43,6 +43,11 @@ def mice_imputer(df):
     return pd.DataFrame(mice.fit_transform(df), columns= ['city', 'city_development_index', 'gender', 'relevent_experience', 'enrolled_university', 'education_level', 'major_discipline', 'experience', 'company_size', 'company_type', 'last_new_job', 'training_hours', 'target'])
 
 def convert_to_proper_type(df):
+    """
+    Each column in this data frame should only be of a specific type. 
+    This void function converts and values in a column from str
+    to the correct type.
+    """
     df['city'] = df['city'].astype(int)
     df['city_development_index'] = df['city_development_index'].astype(float)
     df['gender'] = df['gender'].round(decimals = 0).astype(int)
@@ -60,6 +65,7 @@ def get_clean_dataframe():
     """
     Invokes the other functions in this file. This functions 
     should be treated as the only public function in this file.
+    Returns a cleaned and imputed aug_train.csv pandas data frame.
     """
     df = get_csv()
     remove_redundant_columns(df)
