@@ -1,4 +1,4 @@
-Average cost for 2x2 sized board: 3.37
+Average cost for 2x2 sized board: 3.45
 
-Average cost for 3x3 sized board: 523.97
+Average cost for 3x3 sized board: 1367.21
 
