@@ -30,7 +30,7 @@ def main():
     df = get_users_data()
     data = clean_users_data(df).to_numpy()
 
-    # Get Random Forest Model:
+    # Train Random Forest Model:
     df = clean_data.get_clean_dataframe()
     train_x, test_x, train_y, test_y = get_training_data.get_train_test_split(df, imbalanced=True)
     rf_model, random_forest_probs = models.random_forest(train_x, test_x, train_y, test_y)
@@ -38,7 +38,7 @@ def main():
     # Predict Values From Excel:
     probabilities = rf_model.predict_proba(data)
 
-    # Transform Predictions Array To Be Understandable By Recruiters:
+    # Transform Predictions Array To Be Understandable By Recruiters. Be more selective and increase precision by raising threshold:
     transformed_preds = ['Should Approach' if elem[1] >= 0.6 else 'Should Not Approach' for elem in probabilities]
 
     # Return Predictions To Excel:

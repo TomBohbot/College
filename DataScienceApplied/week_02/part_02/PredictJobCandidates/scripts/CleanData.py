@@ -6,7 +6,7 @@ import pandas as pd
 from fancyimpute import IterativeImputer
 
 def get_csv():
-    url  = 'https://raw.githubusercontent.com/tbohbot/TomsPublicCode/master/DataScienceApplied/week_02/data/aug_train.csv'
+    url  = 'https://raw.githubusercontent.com/tbohbot/TomsPublicCode/master/DataScienceApplied/week_02/part_01/data/aug_train.csv'
     df = pd.read_csv(url)
     return df
 
