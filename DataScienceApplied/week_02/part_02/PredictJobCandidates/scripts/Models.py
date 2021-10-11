@@ -3,6 +3,7 @@
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
 import numpy as np
 from pprint import pprint
 
@@ -24,4 +25,4 @@ def random_forest(train_x, test_x, train_y, test_y):
     random_forest = RandomForestClassifier()
     random_forest.fit(train_x, train_y)
     probabilities = random_forest.predict_proba(test_x)
-    return (random_forest, probabilities)
+    return (random_forest, probabilities, classification_report(test_y, random_forest.predict(test_x)) )

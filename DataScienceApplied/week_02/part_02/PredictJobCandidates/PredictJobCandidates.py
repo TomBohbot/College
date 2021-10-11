@@ -35,15 +35,28 @@ def main():
 
     # Try to load already trained model, if it doesnt exist then create it (the creation can be done without the excel button since step 5 must only use an existing model): 
     try:
+        # Load previously trained model:
         rf_model = pickle.load(open('/Users/tombohbot/TomsGit/TomsPublicCode/DataScienceApplied/week_02/part_02/PredictJobCandidates/random_forest_model.txt', 'rb'))
+
+        # output to excel if previous model was used:
         work_sheet.range('Q2').options(transpose=True).value = "Reused previous model"
     except:
         # Train Random Forest Model:
         df = clean_data.get_clean_dataframe()
         train_x, test_x, train_y, test_y = get_training_data.get_train_test_split(df, imbalanced=True)
-        rf_model, random_forest_probs = models.random_forest(train_x, test_x, train_y, test_y)
-        pickled_model = 'random_forest_model.txt'
-        pickle.dump(rf_model, open(pickled_model, 'wb') )
+        rf_model, random_forest_probs, metrics_report = models.random_forest(train_x, test_x, train_y, test_y)
+
+        # save the metrics report as a file:
+        metrics_file_name = 'metrics_report.txt'
+        f = open("metrics_file_name.txt", "w")
+        f.write(metrics_report)
+        f.close()
+
+        # save the model to be reused in future:
+        pickled_model_file_name = 'random_forest_model.txt'
+        pickle.dump(rf_model, open(pickled_model_file_name, 'wb') )
+
+        # output to excel if new model was used:
         work_sheet.range('Q2').options(transpose=True).value = "Had to retrain model"
 
     # Predict Values From Excel:
