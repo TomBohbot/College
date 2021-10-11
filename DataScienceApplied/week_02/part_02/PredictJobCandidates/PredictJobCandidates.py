@@ -4,6 +4,8 @@ import pandas as pd
 import scripts.CleanData as clean_data
 import scripts.GetData as get_training_data
 import scripts.Models as models
+import pickle
+import os
 
 def get_users_data():
     """
@@ -29,11 +31,20 @@ def main():
     # Clean and get users data:
     df = get_users_data()
     data = clean_users_data(df).to_numpy()
+    work_sheet = xw.Book('PredictJobCandidates.xlsm').sheets('Sheet1')
 
-    # Train Random Forest Model:
-    df = clean_data.get_clean_dataframe()
-    train_x, test_x, train_y, test_y = get_training_data.get_train_test_split(df, imbalanced=True)
-    rf_model, random_forest_probs = models.random_forest(train_x, test_x, train_y, test_y)
+    # Try to load already trained model, if it doesnt exist then create it (the creation can be done without the excel button since step 5 must only use an existing model): 
+    try:
+        rf_model = pickle.load(open('/Users/tombohbot/TomsGit/TomsPublicCode/DataScienceApplied/week_02/part_02/PredictJobCandidates/random_forest_model.txt', 'rb'))
+        work_sheet.range('Q2').options(transpose=True).value = "Reused previous model"
+    except:
+        # Train Random Forest Model:
+        df = clean_data.get_clean_dataframe()
+        train_x, test_x, train_y, test_y = get_training_data.get_train_test_split(df, imbalanced=True)
+        rf_model, random_forest_probs = models.random_forest(train_x, test_x, train_y, test_y)
+        pickled_model = 'random_forest_model.txt'
+        pickle.dump(rf_model, open(pickled_model, 'wb') )
+        work_sheet.range('Q2').options(transpose=True).value = "Had to retrain model"
 
     # Predict Values From Excel:
     probabilities = rf_model.predict_proba(data)
@@ -42,8 +53,8 @@ def main():
     transformed_preds = ['Should Approach' if elem[1] >= 0.6 else 'Should Not Approach' for elem in probabilities]
 
     # Return Predictions To Excel:
-    work_sheet = xw.Book('PredictJobCandidates.xlsm').sheets('Sheet1')
     work_sheet.range('O2').options(transpose=True).value = transformed_preds
+
 
 if __name__ == "__main__":
     xw.Book("PredictJobCandidates.xlsm").set_mock_caller()
