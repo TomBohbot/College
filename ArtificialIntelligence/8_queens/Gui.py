@@ -1,6 +1,7 @@
 import pygame
 import time
 import numpy as np
+import BoardSize
 
 def init_gui_params():
     """
@@ -11,9 +12,9 @@ def init_gui_params():
     Output: The screen object needed to display the board.
     """
     pygame.init()
-    n_rows = 10
-    n_cols = 8
-    pixels = 100
+    n_rows = BoardSize.size()+2
+    n_cols = BoardSize.size()
+    pixels = 200
     width = n_cols * pixels
     height = n_rows * pixels
     size = (width, height)
@@ -32,8 +33,8 @@ def display_board(non_gui_board):
     screen = init_gui_params()
     screen.fill((255, 255, 255))
     # draw board:
-    for c in range (8):
-        for r in range(1,10):
+    for c in range (BoardSize.size()):
+        for r in range(1,BoardSize.size()+2):
             if c % 2 == 0:
                 if r%2 == 0:
                     pygame.draw.rect(screen, (0,163,108), (c*100, r*100+100, 100, 100))
@@ -45,26 +46,13 @@ def display_board(non_gui_board):
                 else:
                     pygame.draw.rect(screen, (0,163,108), (c*100, r*100+100, 100, 100))
     # draw queens:
-    for c in range (8):
-        for r in range(8):
+    for c in range (BoardSize.size()):
+        for r in range(BoardSize.size()):
             if non_gui_board[r][c] != 0:
                 player_color = (50,130,255) if non_gui_board[r][c] == 1 else (255,255,0)
-                pygame.draw.circle(screen, player_color,(c*100+50, 7*100-(r-2)*100+50), 40)
+                pygame.draw.circle(screen, player_color,(c*100+50, (BoardSize.size()-1)*100-(r-2)*100+50), 40)
     pygame.display.update()
     screen = init_gui_params()
-    # # draw board:
-    # for c in range (7):
-    #     for r in range(1,8):
-    #         pygame.draw.rect(screen, (0,0,255), (c*100, r*100+100, 100, 100))
-    #         pygame.draw.circle(screen, (0,0,0), (c*100+50, r*100+50), 40)
-    # # draw tokens:
-    # for c in range (7):
-    #     for r in range(6):
-    #         if non_gui_board[r][c] != 0:
-    #             player_color = (255,0,0) if non_gui_board[r][c] == 1 else (255,255,0)
-    #             player_color = (0,255,0) if non_gui_board[r][c] == 3 else player_color
-    #             pygame.draw.circle(screen, player_color,(c*100+50, 7*100-r*100+50), 40)
-    # pygame.display.update()
 
 def create_message(text):
     """
@@ -79,13 +67,3 @@ def create_message(text):
     message = font.render(text, False, (255,0,0) )
     screen.blit(message, (0,0) )
     pygame.display.update()
-
-board = np.zeros((8,8))
-for i in range(8):
-    for j in range(8):
-        if i == j:
-            board[i][j] = 1 
-
-
-while True:
-    display_board(board)
