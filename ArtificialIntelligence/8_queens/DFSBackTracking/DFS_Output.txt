@@ -1,0 +1,2 @@
+The average number of iterations in DFS are 982.0.
+The average number of moves in DFS are 982.0.
