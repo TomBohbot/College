@@ -11,8 +11,9 @@ from sklearn.metrics import classification_report
 import os
 
 def get_data():
-    train_txn = pd.read_csv('data/train_transaction.csv')
+    train_txn = pd.read_csv('data/train_transaction.csv.zip',  compression='zip')
     train_id = pd.read_csv('data/train_identity.csv')
+
 
     # the shape is still the same as using kaggle api:
     print(train_txn.shape)
