@@ -85,7 +85,19 @@ def british_museum(size):
     return (board, num_iterations, num_moves)
 
 
-board, num_iterations, num_moves = british_museum(size=8)
-print(board)
-print(f"Number of iterations: {num_iterations}")
-print(f"Number of moves {num_moves}")
+def evaluate_british_museum():
+    board, num_iterations, num_moves = british_museum(size=8)
+    return board, num_iterations, num_moves
+
+def main():
+    sample_size = 100
+    total_moves = 0
+    total_iters = 0
+    for i in range(sample_size):
+        board, num_moves, num_iterations = evaluate_british_museum()
+        total_moves += num_moves
+        total_iters += num_iterations
+    print(f"The average number of iterations in DFS are {total_iters/sample_size}.\nThe average number of moves in DFS are {total_moves/sample_size}.")
+    # print(board) # if you want to see the last board generated. Intentionally commented out
+
+main()

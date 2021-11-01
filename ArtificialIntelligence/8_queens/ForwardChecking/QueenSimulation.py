@@ -35,14 +35,14 @@ def main():
             y = MoveQueen.find_y(board=board, x=x)
             MoveQueen.backtrace(x=x, y=y, board=board)
             Gui.display_board(board)
+            num_moves += 1
+            num_iterations += 1
         else:
             y = MoveQueen.next_available_row(board=board, x=x)
             MoveQueen.drop_queen(x=x, y=y, board=board)
             Gui.display_board(board)
             x += 1
             num_moves += 1
-            num_moves += 1
-            num_iterations += 1
     Gui.create_message("SUCESS!")
     time.sleep(5)
     print(board)

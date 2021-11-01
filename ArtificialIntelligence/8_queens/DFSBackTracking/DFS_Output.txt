@@ -1,2 +1,4 @@
+No looping 100 times as it will have the same result every time - per class discussion.
+
 The average number of iterations in DFS are 982.0.
 The average number of moves in DFS are 982.0.

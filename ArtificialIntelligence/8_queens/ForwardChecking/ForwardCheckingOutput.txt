@@ -1,5 +1,5 @@
-pygame 2.0.1 (SDL 2.0.14, Python 3.9.1)
-Hello from the pygame community. https://www.pygame.org/contribute.html
+No looping 100 times as it will have the same result every time - per class discussion.
+
 [[2. 2. 2. 1. 2. 2. 2. 2.]
  [2. 2. 2. 2. 2. 1. 2. 2.]
  [2. 2. 2. 2. 2. 2. 2. 1.]
@@ -8,5 +8,5 @@ Hello from the pygame community. https://www.pygame.org/contribute.html
  [1. 2. 2. 2. 2. 2. 2. 2.]
  [0. 2. 1. 2. 2. 2. 2. 2.]
  [0. 2. 2. 2. 1. 2. 2. 2.]]
-The average number of iterations in DFS are 104.
-The average number of moves in DFS are 208.
+The average number of iterations in DFS are 96.
+The average number of moves in DFS are 200.
