@@ -1,0 +1,2 @@
+DeviceInfo, ProductCD, CardCompany, CardType, Amount
+Mobile, C, american express, credit, 1
