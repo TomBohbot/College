@@ -41,6 +41,12 @@ def open_spot_in_col(board, col):
             return r
     return -1
 
+def full_board(board):
+    for i in range(6):
+        if valid_location(board, i) == True:
+            return False
+    return True
+
 def first_valid_column(board):
     """
     This function returns the first available column in the board.

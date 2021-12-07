@@ -32,7 +32,7 @@ def connect_four():
     game_in_progress = True
     curr_player = player_one
     winner = None
-    while game_in_progress:
+    while game_in_progress and mp.full_board(board) == False:
         gui.display_board(board)
         if curr_player == ai_player:
             # position = mp.human_next_move(board, curr_player)
