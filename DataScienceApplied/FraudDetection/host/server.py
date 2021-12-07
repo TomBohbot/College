@@ -25,7 +25,7 @@ def predict():
 
     default = []
     for i in range(433):
-        default.append(25)
+        default.append(10)
 
     # Get the data from the POST request.
     device_info = request.form["device_info"]

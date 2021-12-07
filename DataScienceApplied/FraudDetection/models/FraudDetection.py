@@ -1,10 +1,7 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pylab as plt
-from cycler import cycler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, accuracy_score
-from fancyimpute import IterativeImputer
 from xgboost import XGBClassifier
 import pickle
 from sklearn.metrics import classification_report
@@ -100,6 +97,14 @@ def xgboost():
     X = df.drop('isFraud', axis=1)
     y = df['isFraud']
     train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=0.2, stratify=df['isFraud'])
+
+    print(type(test_x) )
+    print(test_x)
+    print(len(test_x) )
+    print(test_x.columns)
+
+    # print(type(test_x) )
+    # print(test_y)
 
     # Load previously trained model:
     try:

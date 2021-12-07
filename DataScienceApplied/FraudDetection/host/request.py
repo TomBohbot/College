@@ -1,7 +1,7 @@
 import requests
 import numpy as np
 
-url = 'http://localhost:5000/api'
+url = 'http://localhost:5000/'
 
 input_arr = []
 with open('input.txt') as f:
