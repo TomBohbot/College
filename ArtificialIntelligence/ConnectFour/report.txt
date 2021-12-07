@@ -1,0 +1,18 @@
+The Connect 4 AI model uses heuristics.
+
+The heuristics that was used was a point system in which every potential move is worth a certain amount of points.
+
+The point system worked in that moves that were likely to win a game were worth a certain amount of points which had a 
+relationship with the odds of success. For example putting two tokens together would be worth 5 points, 3 tokens together 50 points,
+and 4 in a row would be worth 500 (the highest) as that gurantees success.
+
+A similary point system was used for blocking the adversary. It was very similar to the point system above, except the points were worth 
+slightly less as a player should prefer to form their own connect 4 instead of just blocking their adversary as that would just lead to ties
+in best average case.
+
+I also implemented a heuristic that places a weight on how central the potential token is on the board as the more central one is, the greater
+potential they have for a Connect 4 from a mathematical perspecitve.
+
+I used a GUI using pygame to illustrate the game instead of displaying a 2d matrix in the terminal as it is easier to understand.
+
+I implemented a function to run the algorithm 100 times and take the average number of wins produced by the AI player which ranged between 99% - 100% per iteration.
