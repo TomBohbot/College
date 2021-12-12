@@ -20,8 +20,8 @@ def predict():
     text = request.form["tweet"]
     # Create DataFrame:
     data = {'text': [text]}
-    df = pd.DataFrame(data)  
-    prediction = str(round(predict_tweet(df=df)[0]*100, 2))
+    df = pd.DataFrame(data)
+    prediction = str(round(predict_tweet(text=text)*100, 2))
     return jsonify(f"There is a {prediction} percent chance that your tweet is about a natural disaster:")
 
 

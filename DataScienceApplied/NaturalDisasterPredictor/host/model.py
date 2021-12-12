@@ -18,6 +18,26 @@ from keras import backend as K
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.optimizers import Adam
 from xgboost import XGBRegressor
+from numpy import loadtxt
+from keras.models import load_model
+
+
+def recall_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
+
+def precision_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
+
+def f1_m(y_true, y_pred):
+    precision = precision_m(y_true, y_pred)
+    recall = recall_m(y_true, y_pred)
+    return 2*((precision*recall)/(precision+recall+K.epsilon()))
 
 def get_data():
     return  pd.read_csv('train.csv')
@@ -40,11 +60,12 @@ def transform_data(df):
     return df
 
 def get_corpus(df):
-  corpus=[]
-  for text in tqdm(df['text']):
-    words=[word for word in word_tokenize(text)]
-    corpus.append(words)
-  return corpus   
+    corpus=[]
+    for text in tqdm(df['text']):
+        words=[word for word in word_tokenize(text)]
+        corpus.append(words)
+    pickle.dump(corpus, open('corpus.txt', 'wb') )  
+    return corpus   
 
 def get_pad(corpus):
   tokenizer = Tokenizer()
@@ -65,6 +86,7 @@ def get_embeddings():
       vectors = np.asarray(words[1:],'float32')
       embeddings[words[0]] = vectors
   glove_file.close()
+  pickle.dump(embeddings, open('embeddings.txt', 'wb') )  
   return embeddings
 
 def get_embedding_object(tokenizer, embeddings):
@@ -83,23 +105,6 @@ def get_embedding_object(tokenizer, embeddings):
     trainable=False
     )
 
-def recall_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())
-    return recall
-
-def precision_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    return precision
-
-def f1_m(y_true, y_pred):
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
-    return 2*((precision*recall)/(precision+recall+K.epsilon()))
-
 def keras_model(df, embedding, pad):
     # Form model:
     model=Sequential()
@@ -111,15 +116,15 @@ def keras_model(df, embedding, pad):
     model.compile(
         loss='binary_crossentropy',
         optimizer=Adam(learning_rate=1e-5),
-        metrics=['accuracy', f1_m]
+        metrics=['accuracy']
     )
     # Train/Test Split:
-    train = pad[:df.shape[0]]
-    test = pad[df.shape[0]:]
-    print(train)
+    train = pad[:df.shape[0]-1]
+    test = pad[df.shape[0]-1]
+    target_vals = df['target'][:-1].values
     X_train, X_test, y_train, y_test = train_test_split(
         train, 
-        df['target'].values, 
+        target_vals,
         test_size=0.15
     )
     # Fit Model:
@@ -135,14 +140,17 @@ def keras_model(df, embedding, pad):
         verbose=2
     )
     # Save Model:
-    model.save('keras_model')
+    model.save('keras_model.h5')
+    # return model
+    # pickle.dump(model, open('keras_model.txt', 'wb') )  
+    return model.predict(test)[0][0]
 
 def xg_boost_model(df, pad):
     train = pad[:df.shape[0]]
-    test = pad[df.shape[0]:]
+    target_vals = df['target']
     X_train, X_test, y_train, y_test = train_test_split(
         train, 
-        df['target'].values, 
+        target_vals, 
         test_size=0.15
     )
     model = XGBRegressor()
@@ -151,20 +159,12 @@ def xg_boost_model(df, pad):
     pickle.dump(model, open('xgb_model.txt', 'wb') )
     return model
 
-def predict_tweet(df=None):
-    model_df = get_data()
-    model_df = transform_data(df=model_df)
+def predict_tweet(text):
+    df = get_data()
+    df.loc[len(df.index)] = ["1", "None", "None", text, -1]
     df = transform_data(df=df)
-    corpus = get_corpus(df=model_df)
+    corpus = get_corpus(df)
     pad, tokenizer = get_pad(corpus=corpus)
-    embeddings_dict = get_embeddings()
-    embedding = get_embedding_object(tokenizer=tokenizer, embeddings=embeddings_dict)
-    try: 
-        path = str(os.path.join(os.path.dirname(os.path.abspath(__file__) ), 'xgb_model.txt'))
-        model = pickle.load(open(path, 'rb'))
-        # new_model = tf.keras.models.load_model('saved_model/my_model')
-    except:
-        print("Must Generate New Model:")
-        model = xg_boost_model(df=model_df, pad=pad)
-        # model = keras_model(df=model_df, embedding=embedding, pad=pad)
-    return model.predict(pad[:df.shape[0]])
+    model = load_model('keras_model.h5')
+    pred = model.predict(pad[:df.shape[0]])
+    return pred[df.shape[0]-1][0]
