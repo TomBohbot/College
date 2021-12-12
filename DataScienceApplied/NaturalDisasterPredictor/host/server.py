@@ -6,9 +6,6 @@ from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-# Load the model
-model = pickle.load(open('xgb_model.txt','rb'))
-
 @app.route('/')
 def index():
   return render_template('index.html')
