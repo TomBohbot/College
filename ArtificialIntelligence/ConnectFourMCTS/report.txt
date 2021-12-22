@@ -1,7 +1,14 @@
-For this version of Conenct 4 I used a Monte Carlo technique to build a model.
+For this version of Conenct 4 I used a Monte Carlo Search Tree Technique to play.
 
-Before choosing a next move I would make a copy of the board and simulate the game 100 times for each possible move.
-After the 100 simulations for each move, I counted how many times each move won, and decided that the move with the most wins
-would be my actual next move. I repeated this process every time it was the Monte Carlo Agent's turn to play.
+I searched up a few different approaches to the algorithm and played with a different number of iterations to train my model.
 
-After simulating this process 100 times I was able to beat the random agent near perfection.
+I trained my model playing against a random agent.
+
+When training on just 8 iterations I foudn that I was able to beat a random agent 80 percent of the time.
+
+When upticking the number of iterations of 100 I was able to beat a random agent 92 percent of the time. 
+
+I also found that it became much smarter. Previously it would always choose the left most column and if the opponent 
+blocked then it would choose the right most column.
+After training just 100 times it was able to learn better moves, like be more central and try to make different types of winning moves.
+

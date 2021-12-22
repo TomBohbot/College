@@ -9,7 +9,7 @@ class Node:
         self.children = children
         self.move = move
         self.n_samples = 0
-        self.n_games_won = 0
+        self.n_games_won = 0 
 
 total_samples = 0
 
@@ -45,6 +45,7 @@ def simulation(board, player_one):
     return False
 
 def back_propagation(node, won_game):
+    global total_samples
     # If the game was won then must uptick 
     val = 0
     if won_game == True:
@@ -57,7 +58,7 @@ def back_propagation(node, won_game):
             break
         node.n_samples += 1
         node.n_games_won += val
-        node = node.parent
+        node = node.parent 
     
 def expansion(node, board, player):
     for i in range(7):
@@ -70,9 +71,9 @@ def search(node, orig_board, player):
         # Check if the root is a leaf node:
         if len(node.children) == 0:
             # If the node has been sampled zero times then jump to simulation:
+            # Clone board:
+            board = orig_board.copy()
             if node.n_samples == 0:
-                # Clone board:
-                board = orig_board.copy()
                 # Make a random move on cloned board:
                 col = node.move
                 mp.next_move(board=board, player=player, col=col)
@@ -82,31 +83,30 @@ def search(node, orig_board, player):
                 back_propagation(node=node, won_game=won_game)
             # If it has been visited then do expansion:
             else:
-                expansion(node=node)
-                # Clone board:
-                board = orig_board.copy()
+                # Expansion:
+                expansion(node=node, board=board, player=player)
                 # Make a random move on cloned board:
                 mp.next_move(board=board, player=player, col=node.children[0].move)
-                # Simulate Game
+                # Simulate Game    
                 won_game = simulation(board=board, player_one=player)
                 # Call back propagation to uptick number of samples and won games:
                 back_propagation(node=node, won_game=won_game)
             break
-        # Find the largest ucb value between children nodes:
-        max_ucb_score = -1
-        node_to_explore = None
-        for child_node in node.children:
-            curr_ucb_score = ucb(child_node)   
-            if curr_ucb_score > max_ucb_score:
-                max_ucb_score = curr_ucb_score
-                node_to_explore = child_node
-        # Set the current node to the node with highest ucb score:
-        node = node_to_explore
-        break
+        else:
+            # Find the largest ucb value between children nodes:
+            max_ucb_score = -1
+            node_to_explore = node.children[0]
+            for child_node in node.children:
+                curr_ucb_score = ucb(child_node)   
+                if curr_ucb_score > max_ucb_score:
+                    max_ucb_score = curr_ucb_score
+                    node_to_explore = child_node
+            # Set the current node to the node with highest ucb score:
+            node = node_to_explore
 
 def mcst(board, player):
     # Set a number of iterations to run the search:
-    n_iterations = 100000
+    n_iterations = 8
     # Create a root node
     root_node = Node()
     # Give the root node children whose move are available:
