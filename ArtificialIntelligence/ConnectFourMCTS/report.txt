@@ -1,0 +1,7 @@
+For this version of Conenct 4 I used a Monte Carlo technique to build a model.
+
+Before choosing a next move I would make a copy of the board and simulate the game 100 times for each possible move.
+After the 100 simulations for each move, I counted how many times each move won, and decided that the move with the most wins
+would be my actual next move. I repeated this process every time it was the Monte Carlo Agent's turn to play.
+
+After simulating this process 100 times I was able to beat the random agent near perfection.
